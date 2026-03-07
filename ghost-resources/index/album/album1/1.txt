@@ -1,0 +1,61 @@
+<section class="section2">
+            <div class="section2-title">New Album Release</div>
+            <div class="section2-name">《没语季节》</div>
+            <div class="section2-box">
+                <div class="box-left">
+                    <div class="album-cover"></div>
+                    <div class="album-main"></div>
+                </div>
+                <div class="box-right">
+                    <div class="album-songs">
+                        <div>01&nbsp;&nbsp;&nbsp;没语季节</div>
+                        <audio src="./ghost-resources/index/album/album1/01album-songs.mp3" controls reload="metadata"
+                            class="custom-audio"></audio>
+                    </div>
+                    <div class="album-songs">
+                        <div>02&nbsp;&nbsp;&nbsp;盲选</div>
+                        <audio src="./ghost-resources/index/album/album1/02album-songs.mp3" controls reload="metadata"
+                            class="custom-audio"></audio>
+                    </div>
+                    <div class="album-songs">
+                        <div>03&nbsp;&nbsp;&nbsp;没了我你依然拥有太阳</div>
+                        <audio src="./ghost-resources/index/album/album1/03album-songs.mp3" controls reload="metadata"
+                            class="custom-audio"></audio>
+                    </div>
+                    <div class="album-songs-info">
+                        <a href="https://y.qq.com/n/ryqq_v2/mv/004HWo3V1h9Da6" target="_blank">You can click here to
+                            view videos related to the album.</a>
+                    </div>
+                </div>
+            </div>
+            <div class="album-intro" id="albumIntro">
+                <div class="intro-text intro-en active" id="introEn">
+                    <p>Clouds drift in the sky, yet originate from falling rain and flowing rivers. Following the
+                        guidance of dreams, wandering with the wind, blossoming all the way, blooming in a broader and
+                        more brilliant universe.</p>
+                    <p>A cloud, passing through ten destinations, is a journey worth singing about. This album marks a
+                        significant transformation for "Yun" — from "singer" to "musician," from "producer" to
+                        "executive producer." Every step was personally undertaken, a testament to her beloved music
+                        career and a reflection of her inner journey.</p>
+                    <p>She, amidst the damp and gloomy plum rains, in the fog of lies, in silent gazes, after memories
+                        turn to bubbles one by one, in the midst of storms, after the clamor fades to gentle breezes and
+                        clear skies, on unknown journeys, in the poet's tone, in the tempered future, on the boundless
+                        wilderness — always like a cloud, passing through time and the world.</p>
+                    <p>Once she takes flight, she will never disperse.</p>
+                    <p>Descending, ascending, drifting, surging.</p>
+                    <p>Her voice is clear and true, never forgetting her original aspirations.</p>
+                    <p>Let us look forward to the surprises this "cloud" will bring us in the future.</p>
+                </div>
+                <div class="intro-text intro-zh" id="introZh">
+                    <p>雲，飘在天空，却始于降落的雨与奔流的河。循理想指引，跟随风流浪，一路生花，盛开在更旷远的灿烂宇宙。</p>
+                    <p>一朵雲，经过十首目的地，是值得被歌唱的成长。这张专辑是“雲”的一次重要蜕变，从“歌手”到“音乐人”，从“制作人”到“出品人”，每一个环节都亲力亲为，是为热爱的音乐事业交出的答卷，也是心路历程的写照。
+                    </p>
+                    <p>她，在潮湿阴郁的梅雨中，在迷雾般的谎言里，在沉默的对视中，在回忆一一成为泡影后，在疾风骤雨间，在喧嚣退去的风轻天晴后，在未可知的旅途中，在诗人的口吻里，在淬炼的未来里，在无垠的旷野上，始终如雲，路过时间与世界。
+                    </p>
+                    <p>她，一经飞起，便不会散去。</p>
+                    <p>或降落，或升腾，或漂流，或翻涌。</p>
+                    <p>歌声嘹原，不忘初心。</p>
+                    <p>让我们一起期待这朵“云”，带给我们更惊喜的未来。</p>
+                </div>
+            </div>
+        </section>
