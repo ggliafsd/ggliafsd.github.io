@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghost-music</title>
+
+    <!-- 导入css 文件 -->
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+</head>
+
+<body>
+    <!-- 视频加载遮罩层 -->
+    <div class="video-loading-overlay">
+        <div class="loading-spinner">Loading...</div>
+    </div>
+
+    <!-- 入场视频页 -->
+    <div class="intro-video">
+        <video src="./ghost-resources/index/video/intro-video.mp4" autoplay muted loop class="video"
+            disablePictureInPicture></video>
+        <button id="intro-video-button">Welcome to Ghost music website-></button>
+    </div>
+
+
+    <!-- 导航栏 -->
+    <header class="navbar">
+        <div class="navbar-container">
+            <div class="navbar-whole">
+
+                <div class="nav-item">
+                    <a href="#" class="nav-link">HOME</a>
+                    <div class="submenu">
+                        <a href="#">HOME 1</a>
+                        <a href="#">HOME 2</a>
+                        <a href="#">HOME 3</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">MUSIC</a>
+                    <div class="submenu">
+                        <a href="#">MUSIC 1</a>
+                        <a href="#">MUSIC 2</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">EVENTS</a>
+                    <div class="submenu">
+                        <a href="#">EVENT 1</a>
+                        <a href="#">EVENT 2</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">VIDEOS</a>
+                    <div class="submenu">
+                        <a href="#">VIDEO 1</a>
+                    </div>
+                </div>
+                <!-- logo 保持原样 -->
+                <div class="nav-center">
+                    <video src="./ghost-resources/index/video/nav-center.mp4" autoplay muted loop
+                        id="ghost-huang-logo"></video>
+                </div>
+                <!-- 右侧链接同样包装 -->
+                <div class="nav-item">
+                    <a href="#" class="nav-link">GALLERY</a>
+                    <div class="submenu">
+                        <a href="#">GALLERY 1</a>
+                        <a href="#">GALLERY 2</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">SHOP</a>
+                    <div class="submenu">
+                        <a href="#">SHOP 1</a>
+                        <a href="#">SHOP 2</a>
+                        <a href="#">SHOP 3</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">BLOG</a>
+                    <div class="submenu">
+                        <a href="#">BLOG 1</a>
+                    </div>
+                </div>
+                <div class="nav-item">
+                    <a href="#" class="nav-link">CONTACT</a>
+                    <div class="submenu">
+                        <a href="#">CONTACT 1</a>
+                        <a href="#">CONTACT 2</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 右侧图标菜单：搜索、用户、汉堡（小屏显示汉堡） -->
+            <div class="icon-menu">
+                <a href="#" class="icon-link-search"><i class="fas fa-search"></i></a>
+                <a href="#" class="icon-link-login"><i class="fas fa-user"></i></a>
+                <a href="#" id="menu-toggle" class="icon-link"><i class="fas fa-bars"></i></a>
+            </div>
+        </div>
+
+        <div class="mobile-menu" id="mobile-menu">
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link">HOME</a>
+                <div class="mobile-submenu">
+                    <a href="#">HOME 1</a>
+                    <a href="#">HOME 2</a>
+                    <a href="#">HOME 3</a>
+                </div>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link">MUSIC</a>
+                <div class="mobile-submenu">
+                    <a href="#">MUSIC 1</a>
+                    <a href="#">MUSIC 2</a>
+                </div>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link">EVENTS</a>
+                <div class="mobile-submenu">
+                    <a href="#">EVENT 1</a>
+                    <a href="#">EVENT 2</a>
+                </div>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link">VIDEOS</a>
+                <div class="mobile-submenu">
+                    <a href="#">VIDEO 1</a>
+                </div>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link">GALLERY</a>
+                <div class="mobile-submenu">
+                    <a href="#">GALLERY 1</a>
+                    <a href="#">GALLERY 2</a>
+                </div>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link">SHOP</a>
+                <div class="mobile-submenu">
+                    <a href="#">SHOP 1</a>
+                    <a href="#">SHOP 2</a>
+                    <a href="#">SHOP 3</a>
+                </div>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link">BLOG</a>
+                <div class="mobile-submenu">
+                    <a href="#">BLOG 1</a>
+                </div>
+            </div>
+            <div class="mobile-nav-item">
+                <a href="#" class="mobile-nav-link">CONTACT</a>
+                <div class="mobile-submenu">
+                    <a href="#">CONTACT 1</a>
+                    <a href="#">CONTACT 2</a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <main class="main-content">
+        <!-- 打补丁，不允许滑动x方向上 -->
+        <script>
+            // 禁止水平滚动
+            window.addEventListener('scroll', function () {
+                if (window.pageXOffset !== 0) {
+                    window.scrollTo(0, window.pageYOffset);
+                }
+            });
+        </script>
+        <!-- 流星雨部分 -->
+        <canvas id="meteor-canvas"
+            style="position:fixed; top:0; left:0; width:100%; height:100%; pointer-events:none; z-index:-1;"></canvas>
+
+        <!-- Falling into our sea of stars -->
+        <section class="section0">
+            <div class="section0-title">Falling into our sea of stars</div>
+        </section>
+
+        <!-- 介绍文字部分 -->
+        <section class="section1">
+            <div class="section1-content">
+                以后,你只管向前冲!<br>做你自己喜欢的事，你远比自己想象得更坚强！更伟大！<br>记住你们今天的热血了吗！！<br>今天你们能照亮渺小的我，撑起了我的宇宙无敌号！<br>未来也能自己发光
+                对不对！！<br>不管未来发生什么<br>我们永远都不会再害怕！我爱你们！<br>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;——黄霄云
+            </div>
+        </section>
+
+        <!-- #########################主要内容区域section########################## -->
+        <section class="section2">
+            <div class="section2-title">New Album Release</div>
+            <div class="section2-name">《没语季节》</div>
+            <div class="section2-box">
+                <div class="box-left">
+                    <div class="album-cover"></div>
+                    <div class="album-main"></div>
+                </div>
+                <div class="box-right">
+                    <div class="album-songs">
+                        <div>01&nbsp;&nbsp;&nbsp;没语季节</div>
+                        <audio src="./ghost-resources/index/album/album1/01album-songs.mp3" controls reload="metadata"
+                            class="custom-audio"></audio>
+                    </div>
+                    <div class="album-songs">
+                        <div>02&nbsp;&nbsp;&nbsp;盲选</div>
+                        <audio src="./ghost-resources/index/album/album1/02album-songs.mp3" controls reload="metadata"
+                            class="custom-audio"></audio>
+                    </div>
+                    <div class="album-songs">
+                        <div>03&nbsp;&nbsp;&nbsp;没了我你依然拥有太阳</div>
+                        <audio src="./ghost-resources/index/album/album1/03album-songs.mp3" controls reload="metadata"
+                            class="custom-audio"></audio>
+                    </div>
+                    <div class="album-songs-info">
+                        <a href="https://y.qq.com/n/ryqq_v2/mv/004HWo3V1h9Da6" target="_blank">You can click here to
+                            view videos related to the album.</a>
+                    </div>
+                </div>
+            </div>
+            <div class="album-intro" id="albumIntro">
+                <div class="intro-text intro-en active" id="introEn">
+                    <p>Clouds drift in the sky, yet originate from falling rain and flowing rivers. Following the
+                        guidance of dreams, wandering with the wind, blossoming all the way, blooming in a broader and
+                        more brilliant universe.</p>
+                    <p>A cloud, passing through ten destinations, is a journey worth singing about. This album marks a
+                        significant transformation for "Yun" — from "singer" to "musician," from "producer" to
+                        "executive producer." Every step was personally undertaken, a testament to her beloved music
+                        career and a reflection of her inner journey.</p>
+                    <p>She, amidst the damp and gloomy plum rains, in the fog of lies, in silent gazes, after memories
+                        turn to bubbles one by one, in the midst of storms, after the clamor fades to gentle breezes and
+                        clear skies, on unknown journeys, in the poet's tone, in the tempered future, on the boundless
+                        wilderness — always like a cloud, passing through time and the world.</p>
+                    <p>Once she takes flight, she will never disperse.</p>
+                    <p>Descending, ascending, drifting, surging.</p>
+                    <p>Her voice is clear and true, never forgetting her original aspirations.</p>
+                    <p>Let us look forward to the surprises this "cloud" will bring us in the future.</p>
+                </div>
+                <div class="intro-text intro-zh" id="introZh">
+                    <p>雲，飘在天空，却始于降落的雨与奔流的河。循理想指引，跟随风流浪，一路生花，盛开在更旷远的灿烂宇宙。</p>
+                    <p>一朵雲，经过十首目的地，是值得被歌唱的成长。这张专辑是“雲”的一次重要蜕变，从“歌手”到“音乐人”，从“制作人”到“出品人”，每一个环节都亲力亲为，是为热爱的音乐事业交出的答卷，也是心路历程的写照。
+                    </p>
+                    <p>她，在潮湿阴郁的梅雨中，在迷雾般的谎言里，在沉默的对视中，在回忆一一成为泡影后，在疾风骤雨间，在喧嚣退去的风轻天晴后，在未可知的旅途中，在诗人的口吻里，在淬炼的未来里，在无垠的旷野上，始终如雲，路过时间与世界。
+                    </p>
+                    <p>她，一经飞起，便不会散去。</p>
+                    <p>或降落，或升腾，或漂流，或翻涌。</p>
+                    <p>歌声嘹原，不忘初心。</p>
+                    <p>让我们一起期待这朵“云”，带给我们更惊喜的未来。</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section3">
+            <div class="section3-box">
+                <div class="section3-title">Personal Tour Concert</div>
+                <div class="section3-name">个人巡回演唱会</div>
+
+                <ul class="section3-list">
+                    <li>
+                        <a href="" class="section3-items">
+                            <span class="name">19</span>
+                            <span>
+                                <p>DEC</p>
+                                <p>2024</p>
+                            </span>
+                        </a>
+                        <span class="section3-otherinfo">
+                            <p>Universe Invincible Concert</p>
+                            <p>//</p>
+                            <p>inshanghai</p>
+                        </span>
+                        <button class="section3-button">
+                            Live performance
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section4">
+            <!-- 边框层（与四周保留 20px 间距，四个角交叉） -->
+            <div class="section4-border-frame">
+                <span class="border-top"></span>
+                <span class="border-bottom"></span>
+                <span class="border-left"></span>
+                <span class="border-right"></span>
+            </div>
+
+            <div class="section4-container">
+                <div class="section4-title">Photo Gallery</div>
+                <div class="section4-name">照片墙</div>
+                <div class="photo-wall">
+                    <!-- 照片项 -->
+                    <div class="photo-item photo-item--2-3"
+                        style="background-image: url('./ghost-resources/index/photo/section4-1.jpg');"></div>
+                    <div class="photo-item photo-item--1-1"
+                        style="background-image: url('./ghost-resources/index/photo/section4-3.jpg');"></div>
+                    <div class="photo-item photo-item--3-2"
+                        style="background-image: url('./ghost-resources/index/photo/section4-2.jpg');"></div>
+                    <div class="photo-item photo-item--1-1"
+                        style="background-image: url('./ghost-resources/index/photo/section4-4.jpg');"></div>
+                    <div class="photo-item photo-item--2-3"
+                        style="background-image: url('./ghost-resources/index/photo/section4-5.jpg');"></div>
+                    <div class="photo-item photo-item--2-2"
+                        style="background-image: url('./ghost-resources/index/photo/section4-6.jpg');"></div>
+                    <div class="photo-item photo-item--2-2"
+                        style="background-image: url('./ghost-resources/index/photo/section4-8.jpg');"></div>
+                    <div class="photo-item photo-item--1-1"
+                        style="background-image: url('./ghost-resources/index/photo/section4-9.jpg');"></div>
+                    <div class="photo-item photo-item--1-1"
+                        style="background-image: url('./ghost-resources/index/photo/section4-10.jpg');"></div>
+
+                    <div class="photo-item photo-item--3-2"
+                        style="background-image: url('./ghost-resources/index/photo/section4-11.jpg');"></div>
+                    <div class="photo-item photo-item--1-1"
+                        style="background-image: url('./ghost-resources/index/photo/section4-12.jpg');"></div>
+                    <div class="photo-item photo-item--2-1"
+                        style="background-image: url('./ghost-resources/index/photo/section4-13.jpg');"></div>
+                    <div class="photo-item photo-item--2-1"
+                        style="background-image: url('./ghost-resources/index/photo/section4-15.jpg');"></div>
+                    <div class="photo-item photo-item--1-1"
+                        style="background-image: url('./ghost-resources/index/photo/section4-14.jpg');"></div>
+                    <div class="photo-item photo-item--2-2"
+                        style="background-image: url('./ghost-resources/index/photo/section4-16.jpg');"></div>
+                    <div class="photo-item photo-item--2-2"
+                        style="background-image: url('./ghost-resources/index/photo/section4-17.jpg');"></div>
+                    <div class="photo-item photo-item--2-3"
+                        style="background-image: url('./ghost-resources/index/photo/section4-18.jpg');"></div>
+                    <div class="photo-item photo-item--1-1"
+                        style="background-image: url('./ghost-resources/index/photo/section4-19.jpg');"></div>
+                    <div class="photo-item photo-item--2-1"
+                        style="background-image: url('./ghost-resources/index/photo/section4-20.jpg');"></div>
+                    <div class="photo-item photo-item--1-1"
+                        style="background-image: url('./ghost-resources/index/photo/section4-21.jpg');"></div>                            
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer>
+
+    </footer>
+
+    <!-- 入场动画特效 -->
+    <script src="./scripts/index/rcdh.js"></script>
+
+    <!-- 流星雨特效 -->
+    <script src="./scripts/index/lxy.js"></script>
+
+    <!-- 移动端导航栏切换 -->
+    <script src="./scripts/index/ydddhqh.js"></script>
+
+    <!-- section1部分内容淡入淡出 -->
+    <script>
+        (function () {
+            const section1Content = document.querySelector('.section1-content');
+            if (!section1Content) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        // 进入视口时添加 visible 类，触发淡入
+                        entry.target.classList.add('visible');
+                    } else {
+                        // 离开视口时移除 visible 类，触发淡出
+                        entry.target.classList.remove('visible');
+                    }
+                });
+            }, {
+                threshold: 0.4   // 当 30% 的元素可见时触发进入，低于 30% 时触发离开
+            });
+
+            observer.observe(section1Content);
+        })();
+    </script>
+
+    <!-- section2部分音频播放声音减少一半 -->
+    <script>
+        (function () {
+            // 获取页面上所有的 audio 元素
+            const audios = document.querySelectorAll('.custom-audio');
+
+            // 使用 HTML5 Audio API: volume 范围 0.0 ~ 1.0
+            function setHalfVolume(audioElement) {
+                if (audioElement) {
+                    audioElement.volume = 0.5;
+                }
+            }
+
+            function pauseOthers(currentAudio) {
+                audios.forEach(audio => {
+                    if (audio !== currentAudio) {
+                        audio.pause();
+                        audio.currentTime = 0;
+                    }
+                });
+            }
+
+            audios.forEach(audio => {
+                setHalfVolume(audio);
+                audio.addEventListener('loadedmetadata', function () {
+                    // 只有当前音量不是0.5的时候再强制 (避免频繁触发)
+                    if (Math.abs(audio.volume - 0.5) > 0.01) {
+                        audio.volume = 0.5;
+                    }
+                });
+
+                // 3. 某些浏览器可能会在 canplay 时重新校准, 再设一次保证
+                audio.addEventListener('canplay', function () {
+                    if (Math.abs(audio.volume - 0.5) > 0.01) {
+                        audio.volume = 0.5;
+                    }
+                });
+
+                audio.addEventListener('play', function () {
+                    pauseOthers(audio);
+                });
+            });
+        })();
+    </script>
+
+    <!-- section2部分的日后运维，实时更新最新的专辑信息 -->
+    <!-- <script src="./scripts/index/section2-yvnwei.js"></script> -->
+
+    <!-- 左右侧内容滑入动画 -->
+    <script>
+        (function () {
+            // 获取左右两个盒子
+            const leftBox = document.querySelector('.box-left');
+            const rightBox = document.querySelector('.box-right');
+            if (!leftBox || !rightBox) return;
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('box-visible');
+                    } else {
+                        entry.target.classList.remove('box-visible');
+                    }
+                });
+            }, {
+                threshold: 0.3
+            });
+
+            // 开始观察
+            observer.observe(leftBox);
+            observer.observe(rightBox);
+        })();
+    </script>
+
+    <!-- 中英文切换 -->
+    <script>
+        (function () {
+            const albumIntro = document.getElementById('albumIntro');
+            if (!albumIntro) return;
+
+            const enText = albumIntro.querySelector('.intro-en');
+            const zhText = albumIntro.querySelector('.intro-zh');
+
+            let autoTimer = null; // 用于存储自动切换的定时器
+
+            // 清除已有的定时器
+            function clearTimer() {
+                if (autoTimer) {
+                    clearTimeout(autoTimer);
+                    autoTimer = null;
+                }
+            }
+
+            // 切换到中文（如果当前不是中文）
+            function switchToChinese() {
+                if (!zhText.classList.contains('active')) {
+                    zhText.classList.add('active');
+                    enText.classList.remove('active');
+                }
+            }
+
+            // 切换到英文（如果当前不是英文）
+            function switchToEnglish() {
+                if (!enText.classList.contains('active')) {
+                    enText.classList.add('active');
+                    zhText.classList.remove('active');
+                }
+            }
+
+            // 鼠标进入：2秒后切换到中文
+            albumIntro.addEventListener('mouseenter', function () {
+                clearTimer(); // 清除之前的定时器（可能是离开的或初始的）
+                autoTimer = setTimeout(() => {
+                    switchToChinese();
+                    autoTimer = null;
+                }, 2000);
+            });
+
+            // 鼠标离开：2秒后切换到英文
+            albumIntro.addEventListener('mouseleave', function () {
+                clearTimer(); // 清除之前的定时器（可能是进入的）
+                autoTimer = setTimeout(() => {
+                    switchToEnglish();
+                    autoTimer = null;
+                }, 2000);
+            });
+
+            // 点击切换：立即切换，并取消所有待执行的自动切换
+            albumIntro.addEventListener('click', function () {
+                clearTimer();
+                if (enText.classList.contains('active')) {
+                    switchToChinese();
+                } else {
+                    switchToEnglish();
+                }
+            });
+        })();
+    </script>
+
+    <!-- 演唱会部分数据js批量导入，累死我了 -->
+    <script>
+        (function () {
+            // ---------- 演唱会数据数组（按需修改） ----------
+            const concerts = [
+                {
+                    day: "31",
+                    month: "JAN",
+                    year: "2026",
+                    concert: "Universe Invincible Concert",
+                    location: "shenzhen",
+                    buttonText: "Live performance",
+                    link: "https://www.bilibili.com/video/BV14Dc5zBE8h/"   // 替换为真实链接
+                },
+                {
+                    day: "20",
+                    month: "DEC",
+                    year: "2025",
+                    concert: "Universe Invincible Concert",
+                    location: "tianjin",
+                    buttonText: "Live performance",
+                    link: "https://www.bilibili.com/video/BV1MmiAByEJh/"
+                },
+                {
+                    day: "23",
+                    month: "AUG",
+                    year: "2025",
+                    concert: "Universe Invincible Concert",
+                    location: "ningbo",
+                    buttonText: "Live performance",
+                    link: "https://www.bilibili.com/video/BV1pca3zPECZ/?spm_id_from=333.1387.upload.video_card.click&vd_source=47f96c172cbb3b3f428698faafd995bc"
+                },
+                {
+                    day: "26",
+                    month: "JUL",
+                    year: "2025",
+                    concert: "Universe Invincible Concert",
+                    location: "shanghai",
+                    buttonText: "Live performance",
+                    link: "https://www.bilibili.com/video/BV1L48qzsESK/?spm_id_from=333.1387.upload.video_card.click&vd_source=47f96c172cbb3b3f428698faafd995bc"
+                },
+                {
+                    day: "24",
+                    month: "MAY",
+                    year: "2025",
+                    concert: "Universe Invincible Concert",
+                    location: "chengdu",
+                    buttonText: "Live performance",
+                    link: "https://www.bilibili.com/video/BV1dUjkzqEUj/?spm_id_from=333.337.search-card.all.click&vd_source=47f96c172cbb3b3f428698faafd995bc"
+                },
+                {
+                    day: "22",
+                    month: "MAR",
+                    year: "2025",
+                    concert: "Universe Invincible Concert",
+                    location: "guangzhou",
+                    buttonText: "Live performance",
+                    link: "https://www.bilibili.com/video/BV1g2oiYqEiM/?spm_id_from=333.1387.upload.video_card.click&vd_source=47f96c172cbb3b3f428698faafd995bc"
+                },
+                {
+                    day: "01",
+                    month: "NOV",
+                    year: "2024",
+                    concert: "Universe Invincible Concert",
+                    location: "beijing",
+                    buttonText: "Live performance",
+                    link: "https://www.bilibili.com/video/BV1RmDvYsEWL/?spm_id_from=333.1387.upload.video_card.click&vd_source=47f96c172cbb3b3f428698faafd995bc"
+                },
+                {
+                    day: "19",
+                    month: "AUG",
+                    year: "2023",
+                    concert: "The Opening Concert",
+                    location: "guangzhou",
+                    buttonText: "Live performance",
+                    link: "https://www.bilibili.com/video/BV1Wr4y1R7FU/?spm_id_from=333.999.0.0"
+                }
+                // 可以继续添加更多对象
+            ];
+
+            // 获取 ul 容器（假设它是唯一的 .section3-list）
+            const ul = document.querySelector('.section3-list');
+            if (!ul) return;
+
+            // 清空 ul（如果你希望保留示例 li，可以注释掉下一行）
+            ul.innerHTML = '';
+
+            // 循环生成 li
+            concerts.forEach(item => {
+                // 创建 li 元素
+                const li = document.createElement('li');
+
+                // 创建 a 标签（左侧日期部分）
+                const a = document.createElement('a');
+                a.href = item.link;                // 设置跳转链接
+                a.target = '_blank';
+                a.className = 'section3-items';
+
+                // 日期数字 span
+                const nameSpan = document.createElement('span');
+                nameSpan.className = 'name';
+                nameSpan.textContent = item.day;
+                a.appendChild(nameSpan);
+
+                // 月份和年份的容器 span
+                const monthYearSpan = document.createElement('span');
+                const monthP = document.createElement('p');
+                monthP.textContent = item.month;
+                const yearP = document.createElement('p');
+                yearP.textContent = item.year;
+                monthYearSpan.appendChild(monthP);
+                monthYearSpan.appendChild(yearP);
+                a.appendChild(monthYearSpan);
+
+                li.appendChild(a);
+
+                // 中间信息区域
+                const infoSpan = document.createElement('span');
+                infoSpan.className = 'section3-otherinfo';
+
+                const concertP = document.createElement('p');
+                concertP.textContent = item.concert;
+                const separatorP = document.createElement('p');
+                separatorP.textContent = '//';       // 固定分隔符
+                const locationP = document.createElement('p');
+                locationP.textContent = item.location;
+
+                infoSpan.appendChild(concertP);
+                infoSpan.appendChild(separatorP);
+                infoSpan.appendChild(locationP);
+                li.appendChild(infoSpan);
+
+                // 按钮
+                const button = document.createElement('button');
+                button.className = 'section3-button';
+                button.textContent = item.buttonText;
+                // 让按钮点击也跳转到同一链接（如果不需要，可以移除下面两行）
+                button.onclick = function (e) {
+                    e.stopPropagation();  // 防止触发 li 的点击事件
+                    window.open(item.link, '_blank');
+                };
+                li.appendChild(button);
+
+                // 可选：为整个 li 添加点击跳转（点击空白区域也会跳转）
+                li.addEventListener('click', function (e) {
+                    // 如果点击的目标是 a 或 button，它们自己会处理，这里不重复跳转
+                    if (e.target.closest('a') || e.target.closest('button')) return;
+                    window.open(item.link, '_blank'); // 仅在点击空白区域时执行
+                });
+
+                ul.appendChild(li);
+            });
+        })();
+    </script>
+
+    <!-- 照片墙 点击出现文字 -->
+    <script>
+        (function () {
+            // ---------- 可配置参数 ----------
+            const MESSAGE_POOL = [
+                "✨ 星光璀璨", "🎵 音乐永恒", "💜 最美的瞬间", "🌟 勇敢的心",
+                "🌙 夜空中最亮的星", "⚡ 宇宙无敌", "🔥 热血沸腾", "💧 没语季节",
+                "🌈 彩虹之下", "🌸 一路生花", "🎤 演唱会后台", "📸 粉丝的视角",
+                "💫 遇见你真好", "🎶 旋律响起", "👏 永远的现场"
+            ];
+            const DISPLAY_DURATION = 1500;        // 显示时间（毫秒）
+            const MAX_MSG_PER_IMAGE = 3;           // 每张图片同时最多显示的消息数
+
+            // ---------- 存储每张图片当前显示的消息数量 ----------
+            const imageMsgCount = new WeakMap();    // 使用 WeakMap 避免内存泄漏
+
+            // 获取所有照片项
+            const photoItems = document.querySelectorAll('.photo-item');
+            if (!photoItems.length) return;
+
+            photoItems.forEach(img => {
+                img.addEventListener('click', function (e) {
+                    e.stopPropagation();  // 防止冒泡干扰
+
+                    // 检查该图片当前显示的消息数量是否已达上限
+                    let currentCount = imageMsgCount.get(img) || 0;
+                    if (currentCount >= MAX_MSG_PER_IMAGE) {
+                        // 超过限制，忽略本次点击（可自行决定是否改为移除最早的一条，这里选择忽略）
+                        return;
+                    }
+
+                    // 更新计数
+                    imageMsgCount.set(img, currentCount + 1);
+
+                    // 获取点击坐标
+                    const x = e.clientX;
+                    const y = e.clientY;
+
+                    // 创建消息元素
+                    const msg = document.createElement('div');
+                    msg.className = 'click-message';
+                    // 随机文案
+                    const randomIndex = Math.floor(Math.random() * MESSAGE_POOL.length);
+                    msg.textContent = MESSAGE_POOL[randomIndex];
+
+                    // 设置位置
+                    msg.style.left = x + 'px';
+                    msg.style.top = y + 'px';
+
+                    // 添加到 body
+                    document.body.appendChild(msg);
+
+                    // 强制重绘，使过渡生效
+                    msg.offsetHeight; // 触发 reflow
+
+                    // 显示（添加类名触发动画）
+                    msg.classList.add('show');
+
+                    // 定时器：到期后移除元素，并减少计数
+                    const timer = setTimeout(() => {
+                        if (msg.parentNode) {
+                            msg.remove();
+                        }
+                        // 减少该图片的消息计数
+                        const newCount = (imageMsgCount.get(img) || 1) - 1;
+                        if (newCount <= 0) {
+                            imageMsgCount.delete(img);
+                        } else {
+                            imageMsgCount.set(img, newCount);
+                        }
+                    }, DISPLAY_DURATION);
+
+                    // 可选：如果用户在消失前再次点击同一图片，不会干扰之前的消息
+                    // 但为了极端情况清理，可将 timer 关联到 msg 上，但不需要额外操作
+                });
+            });
+        })();
+    </script>
+
+</body>
+
+</html>
