@@ -79,7 +79,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    font-family:  "PingFang SC", "Microsoft YaHei", sans-serif, "main", "Oswald", "Oswald-1","section6-evaluation", "section1-content-font", "section2-name-font";
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif, "main", "Oswald", "Oswald-1", "section6-evaluation", "section1-content-font", "section2-name-font";
 }
 
 a {
@@ -131,11 +131,11 @@ body::-webkit-scrollbar-thumb {
     height: 100vh;
     background-color: #000;
     /* 黑色背景 */
-z-index: 1001;
-/* 在视频层下方，但在其他内容上方 */
-display: flex;
-justify-content: center;
-align-items: center;
+    z-index: 1001;
+    /* 在视频层下方，但在其他内容上方 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 
@@ -1611,12 +1611,15 @@ align-items: center;
     background-color: #000;
     border-radius: 12px;
     box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 0 2px rgba(33, 84, 152, 0.3);
-    transition: box-shadow 0.3s, opacity 0.8s ease;  /* 增加透明度过渡 */
-    opacity: 0;  /* 初始隐藏 */
+    transition: box-shadow 0.3s, opacity 0.8s ease;
+    /* 增加透明度过渡 */
+    opacity: 0;
+    /* 初始隐藏 */
 }
 
 .section5 .video video.video-visible {
-    opacity: 1;  /* 显示视频 */
+    opacity: 1;
+    /* 显示视频 */
 }
 
 .section5 .video video:hover {
@@ -1649,6 +1652,7 @@ align-items: center;
         height: 70vh;
     }
 }
+
 /* ----------------------------------section5 down------------------------------------- */
 /* ----------------------------------section6 up------------------------------------- */
 .section6-container {
@@ -1682,21 +1686,24 @@ align-items: center;
     font-family: 'section2-name-font', Courier, monospace;
     margin-bottom: 50px;
 }
-.section6-photo{
+
+.section6-photo {
     aspect-ratio: 1/1;
-    width: 13vh; 
-    max-width: 100%; 
+    width: 13vh;
+    max-width: 100%;
     text-align: center;
-    margin: 0 auto; 
+    margin: 0 auto;
     margin-bottom: 50px;
 }
-.section6-photo img{ 
-    filter:grayscale(100%);
+
+.section6-photo img {
+    filter: grayscale(100%);
     border-radius: 50%;
     width: 100%;
     aspect-ratio: 1/1;
 }
-.section6-bigbox{ 
+
+.section6-bigbox {
 
     display: flex;
     flex-direction: row;
@@ -1708,13 +1715,15 @@ align-items: center;
     text-align: center;
     margin: 0 auto;
 }
-.left-yinhao, .right-yinhao{
+
+.left-yinhao,
+.right-yinhao {
     font-size: 80px;
     color: #ffffff;
     font-family: 'section2-name-font', Courier, monospace;
 }
 
-.section6-evaluations{
+.section6-evaluations {
     font-size: 18px;
     color: #ffffff;
     font-family: 'section6-evaluation', Courier, monospace;
@@ -1724,20 +1733,24 @@ align-items: center;
 /* ---------- 左右滑动轮播样式 ---------- */
 .section6-container {
     position: relative;
-    overflow: hidden;         /* 隐藏超出部分 */
-    padding-bottom: 40px;     /* 为指示器留空间（根据您的布局微调） */
+    overflow: hidden;
+    /* 隐藏超出部分 */
+    padding-bottom: 40px;
+    /* 为指示器留空间（根据您的布局微调） */
 }
 
 /* 轮播轨道 */
 .carousel-track {
     display: flex;
-    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1); /* 平滑缓动 */
+    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
+    /* 平滑缓动 */
     will-change: transform;
 }
 
 /* 轮播项（完全复制原样式） */
 .carousel-item {
-    flex: 0 0 100%;           /* 每项占满整个容器宽度 */
+    flex: 0 0 100%;
+    /* 每项占满整个容器宽度 */
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1748,7 +1761,8 @@ align-items: center;
 /* 指示器容器 */
 .carousel-dots {
     position: absolute;
-    bottom: 30px;             /* 根据需要调整 */
+    bottom: 30px;
+    /* 根据需要调整 */
     left: 0;
     width: 100%;
     display: flex;
@@ -1765,7 +1779,7 @@ align-items: center;
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 0 5px rgba(0,0,0,0.3);
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
 }
 
 .carousel-dot:hover {
@@ -1781,10 +1795,10 @@ align-items: center;
 /* 小屏幕适配 */
 @media screen and (max-width: 1600px) {
     .section6-container {
-        height: auto;           
-        min-height: 70vh;      
-        overflow: visible;     
-        padding-bottom: 50px;   
+        height: auto;
+        min-height: 70vh;
+        overflow: visible;
+        padding-bottom: 50px;
     }
 
     .carousel-track {
@@ -1796,11 +1810,11 @@ align-items: center;
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        min-height: 300px;    
+        min-height: 300px;
     }
 
     .carousel-dots {
-        bottom: 30px;       
+        bottom: 30px;
     }
 }
 
@@ -1808,6 +1822,7 @@ align-items: center;
     .section6-container {
         padding-bottom: 40px;
     }
+
     .carousel-item {
         min-height: 250px;
     }
