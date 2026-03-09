@@ -1636,3 +1636,17 @@ align-items: center;
         height: 70vh;
     }
 }
+/* ----------------------------------section5 down------------------------------------- */
+/* ----------------------------------section6 up------------------------------------- */
+.section6-container {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    
+    background-image: url('./ghost-resources/index/photo/section6-bg.webp');
+    background-size: cover;
+    background-position: center;
+}
