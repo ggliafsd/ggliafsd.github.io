@@ -339,24 +339,40 @@
             </div>
         </section>
 
-         <section class="section5" id="featured-section">
+        <section class="section5" id="featured-section">
             <div class="section5-container">
                 <div class="section5-title">Featured Video</div>
                 <div class="section5-name">黄霄云的舞台</div>
             </div>
             <!-- 视频容器：内部包含照片覆盖层(photo-cover) 和 视频播放器(video) -->
             <div class="video">
-                <!-- 照片覆盖层：背景图与原来相同，从中间铺开 -->
                 <div class="photo-cover" id="photoCover"></div>
-                <!-- 视频播放器：放置于正中心，controls启用，暂时用intro-video占位，请替换为真实视频 -->
-                <video src="./ghost-resources/index/video/section5-video.mp4" 
-                       controls
-                       preload="metadata"
-                       poster="./ghost-resources/index/photo/section5-cover.jpg"
-                       aria-label="Featured video player">
+                <video
+                    src="https://ghostmusic-1359607622.cos.ap-chongqing.myqcloud.com/ghost-music-web/section5-video.mp4"
+                    controls preload="metadata" poster="./ghost-resources/index/photo/section5-cover.jpg"
+                    aria-label="Featured video player">
                     Your browser does not support the video tag.
                 </video>
             </div>
+        </section>
+
+        <section class="section6-container">
+            <div class="section6-title">Evaluations</div>
+            <div class="section6-name">歌手朋友</div>
+            <div class="section6-photo">
+                <img src="./ghost-resources/index/photo/section6-photo1.jpeg" alt="歌手朋友">
+            </div>
+            <div class="section6-bigbox">
+                <div class="left-yinhao">“</div>
+                <div class="section6-evaluations">
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
+                    <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut</p>
+                </div>
+                <div class="right-yinhao">”</div>
+
+            </div>
+
         </section>
 
     </main>
@@ -798,60 +814,242 @@
         })();
     </script>
 
+    <!-- 视频动画特效 -->
     <script>
-    (function() {
-        'use strict';
-        const section5 = document.getElementById('featured-section');
-        if (!section5) return;
+        (function () {
+            'use strict';
+            const section5 = document.getElementById('featured-section');
+            if (!section5) return;
 
-        const photoCover = document.getElementById('photoCover');
-        const video = section5.querySelector('.video video');  // 获取视频元素
-        if (!photoCover || !video) return;
+            const photoCover = document.getElementById('photoCover');
+            const video = section5.querySelector('.video video');  // 获取视频元素
+            if (!photoCover || !video) return;
 
-        // 进入视口：开始照片展开，并隐藏视频
-        function enterSection() {
-            video.classList.remove('video-visible');
-            photoCover.classList.add('expanded');
-        }
+            // 进入视口：开始照片展开，并隐藏视频
+            function enterSection() {
+                video.classList.remove('video-visible');
+                photoCover.classList.add('expanded');
+            }
 
-        // 离开视口：重置照片和视频状态
-        function leaveSection() {
-            photoCover.classList.remove('expanded');
-            video.classList.remove('video-visible');
-        }
+            // 离开视口：重置照片和视频状态
+            function leaveSection() {
+                photoCover.classList.remove('expanded');
+                video.classList.remove('video-visible');
+            }
 
-        // 照片展开动画结束后，显示视频
-        function onExpandEnd(e) {
-            // 确保是 transform 属性变化且照片确实处于展开状态
-            if (e.propertyName === 'transform' && photoCover.classList.contains('expanded')) {
+            // 照片展开动画结束后，显示视频
+            function onExpandEnd(e) {
+                // 确保是 transform 属性变化且照片确实处于展开状态
+                if (e.propertyName === 'transform' && photoCover.classList.contains('expanded')) {
+                    video.classList.add('video-visible');
+                }
+            }
+            photoCover.addEventListener('transitionend', onExpandEnd);
+
+            // 使用 IntersectionObserver 监测进入/离开
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        enterSection();
+                    } else {
+                        leaveSection();
+                    }
+                });
+            }, {
+                threshold: 0.3,   // 30% 可见时触发
+                // rootMargin: '0px' 可根据需要调整
+            });
+
+            observer.observe(section5);
+
+            // 降级处理：不支持 IntersectionObserver 时直接显示
+            if (typeof window.IntersectionObserver === 'undefined') {
+                photoCover.classList.add('expanded');
                 video.classList.add('video-visible');
             }
-        }
-        photoCover.addEventListener('transitionend', onExpandEnd);
+        })();
+    </script>
 
-        // 使用 IntersectionObserver 监测进入/离开
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    enterSection();
-                } else {
-                    leaveSection();
+    <script>
+        (function () {
+            // ---------- 轮播数据 ----------
+            const slides = [
+                {
+                    img: './ghost-resources/index/photo/section6-photo1.jpeg',
+                    paragraphs: [
+                        'Her voice sparkles like the stars, and every high note strikes straight at the heart.',
+                        'From The Voice to now, witnessed her growth, always supporting!',
+                        "I played the entire album of 'No Language Season' on repeat countless times; it's so infectious."
+                    ]
+                },
+                {
+                    img: './ghost-resources/index/photo/section6-photo2.jpg',
+                    paragraphs: [
+                        'The live performance is even more stable than the recording studio; they really are a walking CD.',
+                        'I went to the Invincible Universe Concert, it was explosive!',
+                        'Bread Sister continues to charge, the evil star always accompanies.'
+                    ]
+                },
+                {
+                    img: './ghost-resources/index/photo/section6-photo3.webp',
+                    paragraphs: [
+                        'Both singing skills and emotions are flawless, with a promising future ahead.',
+                        'Every time I listen to her songs, I feel full of strength. Thank you, Xiaoyun.',
+                        'Looking forward to the next album, I will always be there.'
+                    ]
+                }
+                // 可继续添加
+            ];
+
+            const container = document.querySelector('.section6-container');
+            if (!container) return;
+
+            // 保存原有内容（作为第一项模板）
+            const originalPhoto = container.querySelector('.section6-photo');
+            const originalBigbox = container.querySelector('.section6-bigbox');
+            if (!originalPhoto || !originalBigbox) return;
+
+            // 清空容器（但保留原有元素，我们将它们移入轮播轨道）
+            const originalChildren = Array.from(container.children).filter(
+                el => !el.classList.contains('section6-title') && !el.classList.contains('section6-name')
+            );
+            originalChildren.forEach(el => el.remove());
+
+            // 重新添加标题和名字（确保它们还在）
+            const title = container.querySelector('.section6-title');
+            const name = container.querySelector('.section6-name');
+            // 如果上面移除了，需要重新添加；但实际上面过滤了标题类，所以标题还在，无需操作。
+
+            // 创建轮播轨道
+            const track = document.createElement('div');
+            track.className = 'carousel-track';
+
+            // 根据数据生成轮播项
+            slides.forEach((slide, index) => {
+                // 克隆原始结构（深度克隆，保留类名和内部结构）
+                const photoClone = originalPhoto.cloneNode(true);
+                const bigboxClone = originalBigbox.cloneNode(true);
+
+                // 更新内容
+                const img = photoClone.querySelector('img');
+                if (img) img.src = slide.img;
+
+                const evalDiv = bigboxClone.querySelector('.section6-evaluations');
+                if (evalDiv) {
+                    evalDiv.innerHTML = slide.paragraphs.map(p => `<p>${p}</p>`).join('');
+                }
+
+                // 创建轮播项容器
+                const item = document.createElement('div');
+                item.className = 'carousel-item';
+                item.appendChild(photoClone);
+                item.appendChild(bigboxClone);
+                track.appendChild(item);
+            });
+
+            container.appendChild(track);
+
+            // 创建指示器容器
+            const dotsContainer = document.createElement('div');
+            dotsContainer.className = 'carousel-dots';
+            slides.forEach((_, idx) => {
+                const dot = document.createElement('span');
+                dot.className = `carousel-dot ${idx === 0 ? 'active' : ''}`;
+                dot.dataset.index = idx;
+                dotsContainer.appendChild(dot);
+            });
+            container.appendChild(dotsContainer);
+
+            // 轮播逻辑
+            let currentIndex = 0;
+            let timer = null;
+            const itemWidth = 100; // 百分比
+
+            function goToSlide(index) {
+                if (index < 0) index = slides.length - 1;
+                if (index >= slides.length) index = 0;
+                if (index === currentIndex) return;
+
+                // 移动轨道
+                track.style.transform = `translateX(-${index * itemWidth}%)`;
+
+                // 更新指示点
+                const dots = dotsContainer.querySelectorAll('.carousel-dot');
+                dots.forEach((dot, i) => {
+                    dot.classList.toggle('active', i === index);
+                });
+
+                currentIndex = index;
+            }
+
+            function nextSlide() {
+                goToSlide(currentIndex + 1);
+            }
+
+            function prevSlide() {
+                goToSlide(currentIndex - 1);
+            }
+
+            // 自动轮播
+            function startAutoPlay() {
+                if (timer) clearInterval(timer);
+                timer = setInterval(nextSlide, 3000); // 3秒
+            }
+
+            function stopAutoPlay() {
+                if (timer) {
+                    clearInterval(timer);
+                    timer = null;
+                }
+            }
+
+            // 指示器点击
+            dotsContainer.addEventListener('click', (e) => {
+                const dot = e.target.closest('.carousel-dot');
+                if (!dot) return;
+                const index = parseInt(dot.dataset.index, 10);
+                if (!isNaN(index) && index !== currentIndex) {
+                    stopAutoPlay();
+                    goToSlide(index);
+                    startAutoPlay();
                 }
             });
-        }, {
-            threshold: 0.3,   // 30% 可见时触发
-            // rootMargin: '0px' 可根据需要调整
-        });
 
-        observer.observe(section5);
+            // 触摸滑动（左右划）
+            let touchStartX = 0;
+            track.addEventListener('touchstart', (e) => {
+                touchStartX = e.changedTouches[0].screenX;
+                stopAutoPlay();
+            }, { passive: true });
 
-        // 降级处理：不支持 IntersectionObserver 时直接显示
-        if (typeof window.IntersectionObserver === 'undefined') {
-            photoCover.classList.add('expanded');
-            video.classList.add('video-visible');
-        }
-    })();
-</script>
+            track.addEventListener('touchend', (e) => {
+                const touchEndX = e.changedTouches[0].screenX;
+                const diff = touchEndX - touchStartX;
+                if (Math.abs(diff) > 50) {
+                    if (diff > 0) {
+                        prevSlide(); // 右滑显示上一张
+                    } else {
+                        nextSlide(); // 左滑显示下一张
+                    }
+                }
+                startAutoPlay();
+            });
+
+            // 鼠标悬停暂停（可选）
+            container.addEventListener('mouseenter', stopAutoPlay);
+            container.addEventListener('mouseleave', startAutoPlay);
+
+            // 预加载图片
+            slides.forEach(slide => {
+                const img = new Image();
+                img.src = slide.img;
+            });
+
+            // 启动自动轮播
+            startAutoPlay();
+        })();
+    </script>
+
 
 </body>
 
