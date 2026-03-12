@@ -2235,22 +2235,26 @@ align-items: center;
     border-radius: 40px;
     font-size: 15px;
     font-weight: 500;
-    transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    
+    /* 优化过渡 */
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+
 }
 
 .cta a:hover {
-    transform: translateX(10px);
+    transform: translateX(5px) scale(1.03);
     color: #ad69af;
 }
 
-
 .cta a i {
-    font-size: 12px;
-    transition: inherit;
+    transition: transform 1s ease;
+}
+
+.cta a:hover i {
+    transform: translateX(10px);
 }
 
 /* 悬停时文字恢复亮色 */
-
 .col:hover .news_content .day_num>div p,
 .col:hover .news_content .day_num>p,
 .col:hover .news_content .n_c p,
