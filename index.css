@@ -1851,7 +1851,7 @@ body::-webkit-scrollbar-thumb {
     font-weight: 100;
     color: #ffffff;
     font-family: 'section2-name-font', Courier, monospace;
-    margin-bottom: 50px;
+    margin-bottom: 100px;
 }
 
 .section7-wrapper { 
@@ -1890,16 +1890,16 @@ body::-webkit-scrollbar-thumb {
 
 /* 卡片图片区域 */
 .news-card-image {
-    height: 180px;
+    height: 400px;
     background-size: cover;
     background-position: center;
-    background-color: #333;          /* 图片加载前的背景 */
+    background-color: #333;         
     position: relative;
     transition: transform 0.5s ease;
 }
 
 .news-card:hover .news-card-image {
-    transform: scale(1.02);
+    transform: scale(1.1);
 }
 
 /* 可选的日期徽章（放在图片上） */
