@@ -375,6 +375,14 @@
 
         </section>
 
+        <section class="section7-container">
+            <div class="section7-title">Latest News</div>
+            <div class="section7-name">最新趣闻</div>
+            <div class="section7-wrapper" id="news-wrapper">
+
+            </div>
+        </section>
+
     </main>
 
     <footer>
@@ -1050,6 +1058,129 @@
         })();
     </script>
 
+
+<script>
+    (function() {
+        // ---------- 新闻数据（按需修改） ----------
+        const newsData = [
+            {
+                title: '黄霄云2026巡回演唱会加场',
+                date: '2026.03.10',
+                summary: '应粉丝强烈要求，深圳站加开一场，3月15日大麦网开启预售。',
+                image: './ghost-resources/index/photo/section4-1.jpg',  // 暂时使用照片墙图片
+                link: 'https://example.com/news1',
+                badge: '新'
+            },
+            {
+                title: '新专辑《没语季节》销量突破白金',
+                date: '2026.02.28',
+                summary: '专辑发行两个月，销量突破10万张，感谢每一位魔星的支持。',
+                image: './ghost-resources/index/photo/section4-2.jpg',
+                link: 'https://example.com/news2',
+                badge: '热'
+            },
+            {
+                title: '黄霄云参加央视元宵晚会',
+                date: '2026.02.24',
+                summary: '演唱经典歌曲《星辰大海》，收视率夺冠，舞台效果震撼。',
+                image: './ghost-resources/index/photo/section4-3.jpg',
+                link: 'https://example.com/news3',
+                badge: ''
+            },
+            {
+                title: '《宇宙无敌号》演唱会官宣',
+                date: '2026.02.14',
+                summary: '新一轮巡演即将开启，首站北京，后续场次陆续公布。',
+                image: './ghost-resources/index/photo/section4-4.jpg',
+                link: 'https://example.com/news4',
+                badge: '官宣'
+            },
+            {
+                title: '黄霄云担任音乐综艺导师',
+                date: '2026.02.01',
+                summary: '全新音乐节目《天籁之声》官宣导师阵容，霄云将分享歌唱技巧。',
+                image: './ghost-resources/index/photo/section4-5.jpg',
+                link: 'https://example.com/news5',
+                badge: ''
+            },
+            {
+                title: '杂志封面大片发布',
+                date: '2026.01.20',
+                summary: '时尚芭莎三月刊封面人物，展现多面魅力，内页专访曝光。',
+                image: './ghost-resources/index/photo/section4-6.jpg',
+                link: 'https://example.com/news6',
+                badge: '封面'
+            }
+        ];
+
+        const wrapper = document.getElementById('news-wrapper');
+        if (!wrapper) return;
+
+        // 清空占位内容（如果有）
+        wrapper.innerHTML = '';
+
+        // 循环生成卡片
+        newsData.forEach(item => {
+            // 卡片容器
+            const card = document.createElement('div');
+            card.className = 'news-card';
+
+            // 图片区域（背景图）
+            const imageDiv = document.createElement('div');
+            imageDiv.className = 'news-card-image';
+            imageDiv.style.backgroundImage = `url('${item.image}')`;
+
+            // 如果有徽章，加上
+            if (item.badge) {
+                const badge = document.createElement('span');
+                badge.className = 'news-card-badge';
+                badge.textContent = item.badge;
+                imageDiv.appendChild(badge);
+            }
+
+            // 内容区域
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'news-card-content';
+
+            // 标题（带链接）
+            const title = document.createElement('h3');
+            title.className = 'news-card-title';
+            const titleLink = document.createElement('a');
+            titleLink.href = item.link;
+            titleLink.target = '_blank';  // 新标签打开
+            titleLink.textContent = item.title;
+            title.appendChild(titleLink);
+
+            // 日期（加个小图标）
+            const date = document.createElement('div');
+            date.className = 'news-card-date';
+            date.innerHTML = `<i class="far fa-calendar-alt"></i> ${item.date}`;
+
+            // 摘要
+            const summary = document.createElement('p');
+            summary.className = 'news-card-summary';
+            summary.textContent = item.summary;
+
+            // 阅读链接
+            const link = document.createElement('a');
+            link.href = item.link;
+            link.target = '_blank';
+            link.className = 'news-card-link';
+            link.innerHTML = '阅读更多 <i class="fas fa-arrow-right"></i>';
+
+            // 组装卡片
+            contentDiv.appendChild(title);
+            contentDiv.appendChild(date);
+            contentDiv.appendChild(summary);
+            contentDiv.appendChild(link);
+
+            card.appendChild(imageDiv);
+            card.appendChild(contentDiv);
+
+            wrapper.appendChild(card);
+        });
+    })();
+</script>
 
 </body>
 

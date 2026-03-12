@@ -123,7 +123,7 @@ body::-webkit-scrollbar-thumb {
 
 
 /* 视频加载遮罩层 */
-.video-loading-overlay {
+/* .video-loading-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -136,13 +136,13 @@ body::-webkit-scrollbar-thumb {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
 
 /* 当视频加载完成时隐藏遮罩 */
-.video-loaded .video-loading-overlay {
+/* .video-loaded .video-loading-overlay {
     display: none;
-}
+} */
 
 /* ----------------------------------入场视频页面top------------------------------------- */
 
@@ -1602,7 +1602,7 @@ body::-webkit-scrollbar-thumb {
 /* 视频播放器 — 绝对居中，位于照片上方 */
 .section5 .video video {
     position: relative;
-    z-index: 10000;
+    z-index: 100;
     max-width: 85%;
     max-height: 85%;
     width: auto;
@@ -1661,7 +1661,6 @@ body::-webkit-scrollbar-thumb {
     height: 80vh;
     display: flex;
     flex-direction: column;
-    margin-bottom: 20vh;
 
     background-image: url('./ghost-resources/index/photo/section6-bg.webp');
     background-size: cover;
@@ -1826,4 +1825,193 @@ body::-webkit-scrollbar-thumb {
     .carousel-item {
         min-height: 250px;
     }
+}
+
+/* ----------------------------------section7 up------------------------------------- */
+.section7-container { 
+    height: 100vh;
+    width: 100%;
+    background-color: #000000;
+    text-align: center;
+    min-height: 100vh;        /* 改为最小高度，让内容撑开 */
+    height: auto;
+    padding-bottom: 60px;      /* 底部留白 */
+}
+
+.section7-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+    margin-top: 15vh;
+}
+
+.section7-name {
+    font-size: 20px;
+    font-weight: 100;
+    color: #ffffff;
+    font-family: 'section2-name-font', Courier, monospace;
+    margin-bottom: 50px;
+}
+
+.section7-wrapper { 
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+.section7-wrapper div{
+    background-color: #ffffff;
+    
+}
+
+
+/* 新闻卡片 */
+.news-card {
+    background: #1a1a1a;
+    border-radius: 16px;
+    overflow: hidden;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    text-align: left;
+}
+
+.news-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 30px rgba(98, 41, 98, 0.5);
+    border-color: rgba(173, 105, 175, 0.3);
+}
+
+/* 卡片图片区域 */
+.news-card-image {
+    height: 180px;
+    background-size: cover;
+    background-position: center;
+    background-color: #333;          /* 图片加载前的背景 */
+    position: relative;
+    transition: transform 0.5s ease;
+}
+
+.news-card:hover .news-card-image {
+    transform: scale(1.02);
+}
+
+/* 可选的日期徽章（放在图片上） */
+.news-card-badge {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    color: #fff;
+    padding: 4px 10px;
+    border-radius: 30px;
+    font-size: 12px;
+    font-family: 'section2-name-font', sans-serif;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 卡片内容 */
+.news-card-content {
+    padding: 20px 18px 18px;
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.news-card-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.news-card-title a {
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.news-card-title a:hover {
+    color: #ad69af;
+}
+
+.news-card-date {
+    font-size: 13px;
+    color: #aaa;
+    margin-bottom: 12px;
+    font-family: 'section2-name-font', sans-serif;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.news-card-date i {
+    font-size: 12px;
+    color: #ad69af;
+}
+
+.news-card-summary {
+    font-size: 14px;
+    color: #ccc;
+    line-height: 1.6;
+    margin-bottom: 18px;
+    flex: 1;
+}
+
+.news-card-link {
+    align-self: flex-start;
+    color: #ad69af;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 500;
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    border-bottom: 1px solid transparent;
+    transition: border-color 0.2s;
+    font-family: 'section2-name-font', sans-serif;
+}
+
+.news-card-link:hover {
+    border-bottom-color: #ad69af;
+}
+
+.news-card-link i {
+    font-size: 12px;
+    transition: transform 0.2s;
+}
+
+.news-card-link:hover i {
+    transform: translateX(4px);
+}
+
+/* 响应式 */
+@media screen and (max-width: 900px) {
+    .section7-wrapper {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .section7-wrapper {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+
+    .news-card-image {
+        height: 160px;
+    }
+}
+
+/* 移除之前测试用的白色背景（如果你没手动删除那行样式，这里强制覆盖） */
+.section7-wrapper div {
+    background-color: transparent !important;
 }
