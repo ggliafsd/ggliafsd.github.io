@@ -376,12 +376,11 @@
         </section>
 
         <section class="section7-container">
-            <div class="section7-title">Latest News</div>
-            <div class="section7-name">新闻中心</div>
-            <div class="section7-wrapper" id="news-wrapper">
-
-            </div>
-        </section>
+    <div class="section7-title">Latest News</div>
+    <div class="section7-name">新闻中心</div>
+    <!-- 替换原来的 .section7-wrapper 为 .row，id 改为 news-row -->
+    <div class="row" id="news-row"></div>
+</section>  
 
     </main>
 
@@ -1061,7 +1060,7 @@
 
 <script>
     (function() {
-        // ---------- 新闻数据（按需修改） ----------
+        // ---------- 新闻数据（按需保留或修改） ----------
         const newsData = [
             {
                 title: '黄霄雲献唱逐玉插曲《前路》',
@@ -1075,7 +1074,7 @@
                 title: '黄霄云新歌《爱如蝉翼》',
                 date: '2026.03.05',
                 summary: '期待惊喜不能太聪明，贪恋浪漫不能太清醒…',
-                image: './ghost-resources/index/photo/section7-2.jpg',  // 暂时使用照片墙图片
+                image: './ghost-resources/index/photo/section7-2.jpg',
                 link: 'https://weibo.com/5043186742/QuEjxF1LU',
                 badge: '新歌'
             },
@@ -1113,71 +1112,99 @@
             }
         ];
 
-        const wrapper = document.getElementById('news-wrapper');
-        if (!wrapper) return;
+        // 月份缩写映射
+        const monthAbbr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-        // 清空占位内容（如果有）
-        wrapper.innerHTML = '';
-
-        // 循环生成卡片
-        newsData.forEach(item => {
-            // 卡片容器
-            const card = document.createElement('div');
-            card.className = 'news-card';
-
-            // 图片区域（背景图）
-            const imageDiv = document.createElement('div');
-            imageDiv.className = 'news-card-image';
-            imageDiv.style.backgroundImage = `url('${item.image}')`;
-
-            // 如果有徽章，加上
-            if (item.badge) {
-                const badge = document.createElement('span');
-                badge.className = 'news-card-badge';
-                badge.textContent = item.badge;
-                imageDiv.appendChild(badge);
+        // 解析 "2026.03.10" 格式的日期
+        function parseDate(dateStr) {
+            const parts = dateStr.split('.');
+            if (parts.length === 3) {
+                const year = parts[0];
+                const month = monthAbbr[parseInt(parts[1], 10) - 1] || 'Jan';
+                const day = parseInt(parts[2], 10).toString(); // 去掉前导零
+                return { day, month, year };
             }
+            return { day: '19', month: 'Dec', year: '2024' }; // 降级
+        }
 
-            // 内容区域
-            const contentDiv = document.createElement('div');
-            contentDiv.className = 'news-card-content';
+        const row = document.getElementById('news-row');
+        if (!row) return;
+        row.innerHTML = ''; // 清空
 
-            // 标题（带链接）
-            const title = document.createElement('h3');
-            title.className = 'news-card-title';
-            const titleLink = document.createElement('a');
-            titleLink.href = item.link;
-            titleLink.target = '_blank';  // 新标签打开
-            titleLink.textContent = item.title;
-            title.appendChild(titleLink);
+        newsData.forEach((item, index) => {
+            const { day, month, year } = parseDate(item.date);
 
-            // 日期（加个小图标）
-            const date = document.createElement('div');
-            date.className = 'news-card-date';
-            date.innerHTML = `<i class="far fa-calendar-alt"></i> ${item.date}`;
+            // 创建 col 容器
+            const col = document.createElement('div');
+            col.className = 'col';   // 基础类名
+
+            // 背景图
+            const bg = document.createElement('div');
+            bg.className = 'bg_image';
+            bg.style.backgroundImage = `url('${item.image}')`;
+
+            // 遮罩层
+            const overly = document.createElement('div');
+            overly.className = 'overly';
+
+            // 内容区（根据不同索引添加额外样式类，可选）
+            const content = document.createElement('div');
+            content.className = `news_content news_content_${(index % 3) + 1}`;
+
+            // 标题
+            const h2 = document.createElement('h2');
+            h2.textContent = item.title;
+
+            // 日期区块
+            const dayNum = document.createElement('div');
+            dayNum.className = 'day_num';
+
+            const daySpan = document.createElement('span');
+            daySpan.textContent = day;
+
+            const monthYearDiv = document.createElement('div');
+            const monthP = document.createElement('p');
+            monthP.textContent = month;
+            const yearP = document.createElement('p');
+            yearP.textContent = year;
+            monthYearDiv.appendChild(monthP);
+            monthYearDiv.appendChild(yearP);
+
+            const authorP = document.createElement('p');
+            authorP.textContent = 'by Ghost';   // 固定作者
+
+            dayNum.appendChild(daySpan);
+            dayNum.appendChild(monthYearDiv);
+            dayNum.appendChild(authorP);
 
             // 摘要
-            const summary = document.createElement('p');
-            summary.className = 'news-card-summary';
-            summary.textContent = item.summary;
+            const n_c = document.createElement('div');
+            n_c.className = 'n_c';
+            const summaryP = document.createElement('p');
+            summaryP.textContent = item.summary;
+            n_c.appendChild(summaryP);
 
-            // 阅读链接
-            const link = document.createElement('a');
-            link.href = item.link;
-            link.target = '_blank';
-            link.className = 'news-card-link';
-            link.innerHTML = '阅读更多 <i class="fas fa-arrow-right"></i>';
+            // 阅读更多链接
+            const cta = document.createElement('div');
+            cta.className = 'cta';
+            const a = document.createElement('a');
+            a.href = item.link;
+            a.target = '_blank';
+            a.innerHTML = 'Read More <i class="fas fa-arrow-right"></i>';
+            cta.appendChild(a);
 
-            // 组装卡片
-            contentDiv.appendChild(title);
-            contentDiv.appendChild(date);
-            contentDiv.appendChild(summary);
-            contentDiv.appendChild(link);
+            // 组装 content
+            content.appendChild(h2);
+            content.appendChild(dayNum);
+            content.appendChild(n_c);
+            content.appendChild(cta);
 
-            card.appendChild(imageDiv);
-            card.appendChild(contentDiv);
+            // 组装 col
+            col.appendChild(bg);
+            col.appendChild(overly);
+            col.appendChild(content);
 
-            wrapper.appendChild(card);
+            row.appendChild(col);
         });
     })();
 </script>
