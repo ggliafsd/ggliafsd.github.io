@@ -375,6 +375,14 @@
 
         </section>
 
+        <section class="section7-container">
+            <div class="section7-title">Latest News</div>
+            <div class="section7-name">新闻中心</div>
+            <div class="section7-wrapper" id="news-wrapper">
+
+            </div>
+        </section>
+
     </main>
 
     <footer>
@@ -1050,6 +1058,129 @@
         })();
     </script>
 
+
+<script>
+    (function() {
+        // ---------- 新闻数据（按需修改） ----------
+        const newsData = [
+            {
+                title: '黄霄雲献唱逐玉插曲《前路》',
+                date: '2026.03.10',
+                summary: '由黄霄雲演唱插曲《前路》正式上线',
+                image: './ghost-resources/index/photo/section7-1.jpg',
+                link: 'https://weibo.com/5043186742/Qvpv73QxL',
+                badge: '新歌'
+            },
+            {
+                title: '黄霄云新歌《爱如蝉翼》',
+                date: '2026.03.05',
+                summary: '期待惊喜不能太聪明，贪恋浪漫不能太清醒…',
+                image: './ghost-resources/index/photo/section7-2.jpg',  // 暂时使用照片墙图片
+                link: 'https://weibo.com/5043186742/QuEjxF1LU',
+                badge: '新歌'
+            },
+            {
+                title: '声生不息华流季第十二期vlog 来了！',
+                date: '2026.11.30',
+                summary: '专辑发行两个月，销量突破10万张，感谢每一位魔星的支持。',
+                image: './ghost-resources/index/photo/section7-3.jpg',
+                link: 'https://weibo.com/5043186742/Qti2ZEE9u',
+                badge: '热'
+            },
+            {
+                title: '黄霄云参加辽宁春晚',
+                date: '2026.02.24',
+                summary: '和孙楠一起唱响这首《万家灯火共团圆》，一起相聚温暖新春！',
+                image: './ghost-resources/index/photo/section7-4.jpg',
+                link: 'https://weibo.com/5043186742/Qs4rGm8g8',
+                badge: ''
+            },
+            {
+                title: '面包来看米兰冬奥会了！',
+                date: '2026.02.15',
+                summary: '面包心中的冰上飞人！@高亭宇 真的很厉害！很帅！',
+                image: './ghost-resources/index/photo/section7-5.jpg',
+                link: 'https://weibo.com/5043186742/QrS2xuzXI',
+                badge: ''
+            },
+            {
+                title: '黄霄云来做客KPL了！',
+                date: '2026.02.07',
+                summary: '两个战队都超级厉害！果然不到最后一刻永远不知道谁是赢家！！',
+                image: './ghost-resources/index/photo/section7-6.jpg',
+                link: 'https://weibo.com/5043186742/QqJUX2wdt',
+                badge: ''
+            }
+        ];
+
+        const wrapper = document.getElementById('news-wrapper');
+        if (!wrapper) return;
+
+        // 清空占位内容（如果有）
+        wrapper.innerHTML = '';
+
+        // 循环生成卡片
+        newsData.forEach(item => {
+            // 卡片容器
+            const card = document.createElement('div');
+            card.className = 'news-card';
+
+            // 图片区域（背景图）
+            const imageDiv = document.createElement('div');
+            imageDiv.className = 'news-card-image';
+            imageDiv.style.backgroundImage = `url('${item.image}')`;
+
+            // 如果有徽章，加上
+            if (item.badge) {
+                const badge = document.createElement('span');
+                badge.className = 'news-card-badge';
+                badge.textContent = item.badge;
+                imageDiv.appendChild(badge);
+            }
+
+            // 内容区域
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'news-card-content';
+
+            // 标题（带链接）
+            const title = document.createElement('h3');
+            title.className = 'news-card-title';
+            const titleLink = document.createElement('a');
+            titleLink.href = item.link;
+            titleLink.target = '_blank';  // 新标签打开
+            titleLink.textContent = item.title;
+            title.appendChild(titleLink);
+
+            // 日期（加个小图标）
+            const date = document.createElement('div');
+            date.className = 'news-card-date';
+            date.innerHTML = `<i class="far fa-calendar-alt"></i> ${item.date}`;
+
+            // 摘要
+            const summary = document.createElement('p');
+            summary.className = 'news-card-summary';
+            summary.textContent = item.summary;
+
+            // 阅读链接
+            const link = document.createElement('a');
+            link.href = item.link;
+            link.target = '_blank';
+            link.className = 'news-card-link';
+            link.innerHTML = '阅读更多 <i class="fas fa-arrow-right"></i>';
+
+            // 组装卡片
+            contentDiv.appendChild(title);
+            contentDiv.appendChild(date);
+            contentDiv.appendChild(summary);
+            contentDiv.appendChild(link);
+
+            card.appendChild(imageDiv);
+            card.appendChild(contentDiv);
+
+            wrapper.appendChild(card);
+        });
+    })();
+</script>
 
 </body>
 
