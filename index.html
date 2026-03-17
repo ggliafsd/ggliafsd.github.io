@@ -376,12 +376,11 @@
         </section>
 
         <section class="section7-container">
-            <div class="section7-title">Latest News</div>
-            <div class="section7-name">新闻中心</div>
-            <div class="section7-wrapper" id="news-wrapper">
-
-            </div>
-        </section>
+    <div class="section7-title">Latest News</div>
+    <div class="section7-name">新闻中心</div>
+    <!-- 替换原来的 .section7-wrapper 为 .row，id 改为 news-row -->
+    <div class="row" id="news-row"></div>
+</section>  
 
     </main>
 
@@ -878,190 +877,190 @@
         })();
     </script>
 
-    <script>
-        (function () {
-            // ---------- 轮播数据 ----------
-            const slides = [
-                {
-                    img: './ghost-resources/index/photo/section6-photo1.jpeg',
-                    paragraphs: [
-                        'Her voice sparkles like the stars, and every high note strikes straight at the heart.',
-                        'From The Voice to now, witnessed her growth, always supporting!',
-                        "I played the entire album of 'No Language Season' on repeat countless times; it's so infectious."
-                    ]
-                },
-                {
-                    img: './ghost-resources/index/photo/section6-photo2.jpg',
-                    paragraphs: [
-                        'The live performance is even more stable than the recording studio; they really are a walking CD.',
-                        'I went to the Invincible Universe Concert, it was explosive!',
-                        'Bread Sister continues to charge, the evil star always accompanies.'
-                    ]
-                },
-                {
-                    img: './ghost-resources/index/photo/section6-photo3.webp',
-                    paragraphs: [
-                        'Both singing skills and emotions are flawless, with a promising future ahead.',
-                        'Every time I listen to her songs, I feel full of strength. Thank you, Xiaoyun.',
-                        'Looking forward to the next album, I will always be there.'
-                    ]
-                }
-                // 可继续添加
-            ];
+    <!-- 歌手朋友轮播效果 -->
+<script>
+(function() {
+    // ---------- 轮播数据（保持原有内容） ----------
+    const slides = [
+        {
+            img: './ghost-resources/index/photo/section6-photo1.jpeg',
+            paragraphs: [
+                'Her voice sparkles like the stars, and every high note strikes straight at the heart.',
+                'From The Voice to now, witnessed her growth, always supporting!',
+                "I played the entire album of 'No Language Season' on repeat countless times; it's so infectious."
+            ]
+        },
+        {
+            img: './ghost-resources/index/photo/section6-photo2.jpg',
+            paragraphs: [
+                'The live performance is even more stable than the recording studio; they really are a walking CD.',
+                'I went to the Invincible Universe Concert, it was explosive!',
+                'Bread Sister continues to charge, the evil star always accompanies.'
+            ]
+        },
+        {
+            img: './ghost-resources/index/photo/section6-photo3.webp',
+            paragraphs: [
+                'Both singing skills and emotions are flawless, with a promising future ahead.',
+                'Every time I listen to her songs, I feel full of strength. Thank you, Xiaoyun.',
+                'Looking forward to the next album, I will always be there.'
+            ]
+        }
+    ];
 
-            const container = document.querySelector('.section6-container');
-            if (!container) return;
+    const container = document.querySelector('.section6-container');
+    if (!container) return;
 
-            // 保存原有内容（作为第一项模板）
-            const originalPhoto = container.querySelector('.section6-photo');
-            const originalBigbox = container.querySelector('.section6-bigbox');
-            if (!originalPhoto || !originalBigbox) return;
+    // 获取原始模板（用于克隆结构）
+    const originalPhoto = container.querySelector('.section6-photo');
+    const originalBigbox = container.querySelector('.section6-bigbox');
+    if (!originalPhoto || !originalBigbox) return;
 
-            // 清空容器（但保留原有元素，我们将它们移入轮播轨道）
-            const originalChildren = Array.from(container.children).filter(
-                el => !el.classList.contains('section6-title') && !el.classList.contains('section6-name')
-            );
-            originalChildren.forEach(el => el.remove());
+    // 移除原有内容（保留标题和名字）
+    const originalChildren = Array.from(container.children).filter(
+        el => !el.classList.contains('section6-title') && !el.classList.contains('section6-name')
+    );
+    originalChildren.forEach(el => el.remove());
 
-            // 重新添加标题和名字（确保它们还在）
-            const title = container.querySelector('.section6-title');
-            const name = container.querySelector('.section6-name');
-            // 如果上面移除了，需要重新添加；但实际上面过滤了标题类，所以标题还在，无需操作。
+    // ---------- 创建轮播轨道（Grid堆叠容器） ----------
+    const track = document.createElement('div');
+    track.className = 'carousel-track';
 
-            // 创建轮播轨道
-            const track = document.createElement('div');
-            track.className = 'carousel-track';
+    slides.forEach((slide, index) => {
+        // 克隆照片和文字区域
+        const photoClone = originalPhoto.cloneNode(true);
+        const bigboxClone = originalBigbox.cloneNode(true);
 
-            // 根据数据生成轮播项
-            slides.forEach((slide, index) => {
-                // 克隆原始结构（深度克隆，保留类名和内部结构）
-                const photoClone = originalPhoto.cloneNode(true);
-                const bigboxClone = originalBigbox.cloneNode(true);
+        // 更新照片
+        const img = photoClone.querySelector('img');
+        if (img) img.src = slide.img;
 
-                // 更新内容
-                const img = photoClone.querySelector('img');
-                if (img) img.src = slide.img;
+        // 更新评论文本
+        const evalDiv = bigboxClone.querySelector('.section6-evaluations');
+        if (evalDiv) {
+            evalDiv.innerHTML = slide.paragraphs.map(p => `<p>${p}</p>`).join('');
+        }
 
-                const evalDiv = bigboxClone.querySelector('.section6-evaluations');
-                if (evalDiv) {
-                    evalDiv.innerHTML = slide.paragraphs.map(p => `<p>${p}</p>`).join('');
-                }
+        // 创建轮播项容器
+        const item = document.createElement('div');
+        item.className = 'carousel-item';
+        if (index === 0) item.classList.add('active'); // 默认第一项显示
+        item.appendChild(photoClone);
+        item.appendChild(bigboxClone);
+        track.appendChild(item);
+    });
 
-                // 创建轮播项容器
-                const item = document.createElement('div');
-                item.className = 'carousel-item';
-                item.appendChild(photoClone);
-                item.appendChild(bigboxClone);
-                track.appendChild(item);
-            });
+    container.appendChild(track);
 
-            container.appendChild(track);
+    // ---------- 创建指示器 ----------
+    const dotsContainer = document.createElement('div');
+    dotsContainer.className = 'carousel-dots';
+    slides.forEach((_, idx) => {
+        const dot = document.createElement('span');
+        dot.className = `carousel-dot ${idx === 0 ? 'active' : ''}`;
+        dot.dataset.index = idx;
+        dotsContainer.appendChild(dot);
+    });
+    container.appendChild(dotsContainer);
 
-            // 创建指示器容器
-            const dotsContainer = document.createElement('div');
-            dotsContainer.className = 'carousel-dots';
-            slides.forEach((_, idx) => {
-                const dot = document.createElement('span');
-                dot.className = `carousel-dot ${idx === 0 ? 'active' : ''}`;
-                dot.dataset.index = idx;
-                dotsContainer.appendChild(dot);
-            });
-            container.appendChild(dotsContainer);
+    // ---------- 轮播控制 ----------
+    let currentIndex = 0;
+    let autoTimer = null;
+    const items = track.querySelectorAll('.carousel-item');
+    const dots = dotsContainer.querySelectorAll('.carousel-dot');
 
-            // 轮播逻辑
-            let currentIndex = 0;
-            let timer = null;
-            const itemWidth = 100; // 百分比
+    // 切换到指定索引
+    function goToSlide(index) {
+        if (index < 0) index = slides.length - 1;
+        if (index >= slides.length) index = 0;
+        if (index === currentIndex) return;
 
-            function goToSlide(index) {
-                if (index < 0) index = slides.length - 1;
-                if (index >= slides.length) index = 0;
-                if (index === currentIndex) return;
+        // 更新项状态
+        items.forEach((item, i) => {
+            item.classList.toggle('active', i === index);
+        });
+        // 更新指示点
+        dots.forEach((dot, i) => {
+            dot.classList.toggle('active', i === index);
+        });
 
-                // 移动轨道
-                track.style.transform = `translateX(-${index * itemWidth}%)`;
+        currentIndex = index;
+    }
 
-                // 更新指示点
-                const dots = dotsContainer.querySelectorAll('.carousel-dot');
-                dots.forEach((dot, i) => {
-                    dot.classList.toggle('active', i === index);
-                });
+    // 下一项
+    function nextSlide() {
+        goToSlide(currentIndex + 1);
+    }
 
-                currentIndex = index;
-            }
+    // 上一项
+    function prevSlide() {
+        goToSlide(currentIndex - 1);
+    }
 
-            function nextSlide() {
-                goToSlide(currentIndex + 1);
-            }
+    // 自动轮播
+    function startAutoPlay() {
+        if (autoTimer) clearInterval(autoTimer);
+        autoTimer = setInterval(nextSlide, 3000); // 3秒
+    }
 
-            function prevSlide() {
-                goToSlide(currentIndex - 1);
-            }
+    function stopAutoPlay() {
+        if (autoTimer) {
+            clearInterval(autoTimer);
+            autoTimer = null;
+        }
+    }
 
-            // 自动轮播
-            function startAutoPlay() {
-                if (timer) clearInterval(timer);
-                timer = setInterval(nextSlide, 3000); // 3秒
-            }
-
-            function stopAutoPlay() {
-                if (timer) {
-                    clearInterval(timer);
-                    timer = null;
-                }
-            }
-
-            // 指示器点击
-            dotsContainer.addEventListener('click', (e) => {
-                const dot = e.target.closest('.carousel-dot');
-                if (!dot) return;
-                const index = parseInt(dot.dataset.index, 10);
-                if (!isNaN(index) && index !== currentIndex) {
-                    stopAutoPlay();
-                    goToSlide(index);
-                    startAutoPlay();
-                }
-            });
-
-            // 触摸滑动（左右划）
-            let touchStartX = 0;
-            track.addEventListener('touchstart', (e) => {
-                touchStartX = e.changedTouches[0].screenX;
-                stopAutoPlay();
-            }, { passive: true });
-
-            track.addEventListener('touchend', (e) => {
-                const touchEndX = e.changedTouches[0].screenX;
-                const diff = touchEndX - touchStartX;
-                if (Math.abs(diff) > 50) {
-                    if (diff > 0) {
-                        prevSlide(); // 右滑显示上一张
-                    } else {
-                        nextSlide(); // 左滑显示下一张
-                    }
-                }
-                startAutoPlay();
-            });
-
-            // 鼠标悬停暂停（可选）
-            container.addEventListener('mouseenter', stopAutoPlay);
-            container.addEventListener('mouseleave', startAutoPlay);
-
-            // 预加载图片
-            slides.forEach(slide => {
-                const img = new Image();
-                img.src = slide.img;
-            });
-
-            // 启动自动轮播
+    // 指示器点击
+    dotsContainer.addEventListener('click', (e) => {
+        const dot = e.target.closest('.carousel-dot');
+        if (!dot) return;
+        const index = parseInt(dot.dataset.index, 10);
+        if (!isNaN(index) && index !== currentIndex) {
+            stopAutoPlay();
+            goToSlide(index);
             startAutoPlay();
-        })();
-    </script>
+        }
+    });
 
+    // 触摸滑动（左右划切换索引，无动画）
+    let touchStartX = 0;
+    container.addEventListener('touchstart', (e) => {
+        touchStartX = e.changedTouches[0].screenX;
+        stopAutoPlay();
+    }, { passive: true });
 
+    container.addEventListener('touchend', (e) => {
+        const touchEndX = e.changedTouches[0].screenX;
+        const diff = touchEndX - touchStartX;
+        if (Math.abs(diff) > 50) { // 滑动阈值
+            if (diff > 0) {
+                prevSlide(); // 右滑显示上一张
+            } else {
+                nextSlide(); // 左滑显示下一张
+            }
+        }
+        startAutoPlay();
+    });
+
+    // 鼠标悬停暂停
+    container.addEventListener('mouseenter', stopAutoPlay);
+    container.addEventListener('mouseleave', startAutoPlay);
+
+    // 预加载图片
+    slides.forEach(slide => {
+        const img = new Image();
+        img.src = slide.img;
+    });
+
+    // 启动自动轮播
+    startAutoPlay();
+})();
+</script>
+
+<!-- 新闻数据部分 -->
 <script>
     (function() {
-        // ---------- 新闻数据（按需修改） ----------
+        // ---------- 新闻数据（按需保留或修改） ----------
         const newsData = [
             {
                 title: '黄霄雲献唱逐玉插曲《前路》',
@@ -1075,7 +1074,7 @@
                 title: '黄霄云新歌《爱如蝉翼》',
                 date: '2026.03.05',
                 summary: '期待惊喜不能太聪明，贪恋浪漫不能太清醒…',
-                image: './ghost-resources/index/photo/section7-2.jpg',  // 暂时使用照片墙图片
+                image: './ghost-resources/index/photo/section7-2.jpg',
                 link: 'https://weibo.com/5043186742/QuEjxF1LU',
                 badge: '新歌'
             },
@@ -1113,71 +1112,99 @@
             }
         ];
 
-        const wrapper = document.getElementById('news-wrapper');
-        if (!wrapper) return;
+        // 月份缩写映射
+        const monthAbbr = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
 
-        // 清空占位内容（如果有）
-        wrapper.innerHTML = '';
-
-        // 循环生成卡片
-        newsData.forEach(item => {
-            // 卡片容器
-            const card = document.createElement('div');
-            card.className = 'news-card';
-
-            // 图片区域（背景图）
-            const imageDiv = document.createElement('div');
-            imageDiv.className = 'news-card-image';
-            imageDiv.style.backgroundImage = `url('${item.image}')`;
-
-            // 如果有徽章，加上
-            if (item.badge) {
-                const badge = document.createElement('span');
-                badge.className = 'news-card-badge';
-                badge.textContent = item.badge;
-                imageDiv.appendChild(badge);
+        // 解析 "2026.03.10" 格式的日期
+        function parseDate(dateStr) {
+            const parts = dateStr.split('.');
+            if (parts.length === 3) {
+                const year = parts[0];
+                const month = monthAbbr[parseInt(parts[1], 10) - 1] || 'Jan';
+                const day = parseInt(parts[2], 10).toString(); // 去掉前导零
+                return { day, month, year };
             }
+            return { day: '19', month: 'Dec', year: '2024' }; // 降级
+        }
 
-            // 内容区域
-            const contentDiv = document.createElement('div');
-            contentDiv.className = 'news-card-content';
+        const row = document.getElementById('news-row');
+        if (!row) return;
+        row.innerHTML = ''; // 清空
 
-            // 标题（带链接）
-            const title = document.createElement('h3');
-            title.className = 'news-card-title';
-            const titleLink = document.createElement('a');
-            titleLink.href = item.link;
-            titleLink.target = '_blank';  // 新标签打开
-            titleLink.textContent = item.title;
-            title.appendChild(titleLink);
+        newsData.forEach((item, index) => {
+            const { day, month, year } = parseDate(item.date);
 
-            // 日期（加个小图标）
-            const date = document.createElement('div');
-            date.className = 'news-card-date';
-            date.innerHTML = `<i class="far fa-calendar-alt"></i> ${item.date}`;
+            // 创建 col 容器
+            const col = document.createElement('div');
+            col.className = 'col';   // 基础类名
+
+            // 背景图
+            const bg = document.createElement('div');
+            bg.className = 'bg_image';
+            bg.style.backgroundImage = `url('${item.image}')`;
+
+            // 遮罩层
+            const overly = document.createElement('div');
+            overly.className = 'overly';
+
+            // 内容区（根据不同索引添加额外样式类，可选）
+            const content = document.createElement('div');
+            content.className = `news_content news_content_${(index % 3) + 1}`;
+
+            // 标题
+            const h2 = document.createElement('h2');
+            h2.textContent = item.title;
+
+            // 日期区块
+            const dayNum = document.createElement('div');
+            dayNum.className = 'day_num';
+
+            const daySpan = document.createElement('span');
+            daySpan.textContent = day;
+
+            const monthYearDiv = document.createElement('div');
+            const monthP = document.createElement('p');
+            monthP.textContent = month;
+            const yearP = document.createElement('p');
+            yearP.textContent = year;
+            monthYearDiv.appendChild(monthP);
+            monthYearDiv.appendChild(yearP);
+
+            const authorP = document.createElement('p');
+            authorP.textContent = 'by Ghost';   // 固定作者
+
+            dayNum.appendChild(daySpan);
+            dayNum.appendChild(monthYearDiv);
+            dayNum.appendChild(authorP);
 
             // 摘要
-            const summary = document.createElement('p');
-            summary.className = 'news-card-summary';
-            summary.textContent = item.summary;
+            const n_c = document.createElement('div');
+            n_c.className = 'n_c';
+            const summaryP = document.createElement('p');
+            summaryP.textContent = item.summary;
+            n_c.appendChild(summaryP);
 
-            // 阅读链接
-            const link = document.createElement('a');
-            link.href = item.link;
-            link.target = '_blank';
-            link.className = 'news-card-link';
-            link.innerHTML = '阅读更多 <i class="fas fa-arrow-right"></i>';
+            // 阅读更多链接
+            const cta = document.createElement('div');
+            cta.className = 'cta';
+            const a = document.createElement('a');
+            a.href = item.link;
+            a.target = '_blank';
+            a.innerHTML = 'Read More <i class="fas fa-arrow-right"></i>';
+            cta.appendChild(a);
 
-            // 组装卡片
-            contentDiv.appendChild(title);
-            contentDiv.appendChild(date);
-            contentDiv.appendChild(summary);
-            contentDiv.appendChild(link);
+            // 组装 content
+            content.appendChild(h2);
+            content.appendChild(dayNum);
+            content.appendChild(n_c);
+            content.appendChild(cta);
 
-            card.appendChild(imageDiv);
-            card.appendChild(contentDiv);
+            // 组装 col
+            col.appendChild(bg);
+            col.appendChild(overly);
+            col.appendChild(content);
 
-            wrapper.appendChild(card);
+            row.appendChild(col);
         });
     })();
 </script>

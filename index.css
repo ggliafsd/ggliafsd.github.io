@@ -123,22 +123,20 @@ body::-webkit-scrollbar-thumb {
 
 
 /* 视频加载遮罩层 */
-/* .video-loading-overlay {
+ /* .video-loading-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
     background-color: #000;
-    /* 黑色背景 */
     z-index: 1001;
-    /* 在视频层下方，但在其他内容上方 */
     display: flex;
     justify-content: center;
     align-items: center;
 } */
 
-
+*/
 /* 当视频加载完成时隐藏遮罩 */
 /* .video-loaded .video-loading-overlay {
     display: none;
@@ -1661,6 +1659,7 @@ body::-webkit-scrollbar-thumb {
     height: 80vh;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 
     background-image: url('./ghost-resources/index/photo/section6-bg.webp');
     background-size: cover;
@@ -1730,45 +1729,49 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* ---------- 左右滑动轮播样式 ---------- */
+/* ---------------------------------- 重构 section6 轮播（Z轴堆叠） ---------------------------------- */
 .section6-container {
     position: relative;
-    overflow: hidden;
-    /* 隐藏超出部分 */
-    padding-bottom: 40px;
-    /* 为指示器留空间（根据您的布局微调） */
+    overflow: hidden;           /* 隐藏溢出，保持干净 */
+    /* 原有其他样式（背景、高度等）保持不变 */
 }
 
-/* 轮播轨道 */
 .carousel-track {
-    display: flex;
-    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
-    /* 平滑缓动 */
-    will-change: transform;
+    display: grid;
+    grid-template-columns: 1fr; /* 单列，所有项堆叠在同一单元格 */
+    grid-template-rows: auto;    /* 高度由内容撑开 */
+    transition: none;            /* 取消横向移动的过渡 */
 }
 
-/* 轮播项（完全复制原样式） */
 .carousel-item {
-    flex: 0 0 100%;
-    /* 每项占满整个容器宽度 */
+    grid-area: 1/1/1/1;          /* 所有项重叠 */
+    opacity: 0;
+    visibility: hidden;          /* 完全隐藏不可见元素（配合过渡） */
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+    pointer-events: none;        /* 防止隐藏项误触 */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-sizing: border-box;
+    width: 100%;                 /* 确保宽度占满容器 */
 }
 
-/* 指示器容器 */
+.carousel-item.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;        /* 当前项可交互 */
+}
+
+/* 指示器样式保持不变（可微调间距） */
 .carousel-dots {
     position: absolute;
     bottom: 30px;
-    /* 根据需要调整 */
     left: 0;
     width: 100%;
     display: flex;
     justify-content: center;
     gap: 12px;
     z-index: 20;
-    pointer-events: auto;
 }
 
 .carousel-dot {
@@ -1778,12 +1781,6 @@ body::-webkit-scrollbar-thumb {
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-
-.carousel-dot:hover {
-    transform: scale(1.2);
-    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .carousel-dot.active {
@@ -1796,7 +1793,7 @@ body::-webkit-scrollbar-thumb {
     .section6-container {
         height: auto;
         min-height: 70vh;
-        overflow: visible;
+        overflow-x:hidden;
         padding-bottom: 50px;
     }
 
@@ -1820,6 +1817,7 @@ body::-webkit-scrollbar-thumb {
 @media screen and (max-width: 480px) {
     .section6-container {
         padding-bottom: 40px;
+        overflow-x: hidden;
     }
 
     .carousel-item {
@@ -1828,14 +1826,16 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* ----------------------------------section7 up------------------------------------- */
-.section7-container { 
+.section7-container {
     height: 100vh;
     width: 100%;
     background-color: #000000;
     text-align: center;
-    min-height: 100vh;        /* 改为最小高度，让内容撑开 */
+    min-height: 100vh;
+    /* 改为最小高度，让内容撑开 */
     height: auto;
-    padding-bottom: 60px;      /* 底部留白 */
+    padding-bottom: 60px;
+    /* 底部留白 */
 }
 
 .section7-title {
@@ -1854,164 +1854,441 @@ body::-webkit-scrollbar-thumb {
     margin-bottom: 100px;
 }
 
-.section7-wrapper { 
+.section7-wrapper {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 25px;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
+.section7-wrapper div {
+    background-color: #ffffff;
+
+}
+
+.section7-container .row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
     max-width: 1300px;
     margin: 0 auto;
     padding: 0 20px 40px;
 }
-.section7-wrapper div{
-    background-color: #ffffff;
-    
-}
 
-
-/* 新闻卡片 */
-.news-card {
-    background: #1a1a1a;
-    border-radius: 16px;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    display: flex;
-    flex-direction: column;
-    height: 100%;
-    text-align: left;
-}
-
-.news-card:hover {
-    transform: translateY(-8px);
-    box-shadow: 0 20px 30px rgba(98, 41, 98, 0.5);
-    border-color: rgba(173, 105, 175, 0.3);
-}
-
-/* 卡片图片区域 */
-.news-card-image {
+.section7-container .col {
+    position: relative;
     height: 400px;
+    /* 固定高度，可依设计调整 */
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #1a1a1a;
+    /* 兜底背景色 */
+}
+
+.section7-container .col:hover {
+    transform: translateY(-8px);
+}
+
+/* 背景图 */
+.bg_image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
     background-size: cover;
     background-position: center;
-    background-color: #333;         
-    position: relative;
     transition: transform 0.5s ease;
+    z-index: 0;
 }
 
-.news-card:hover .news-card-image {
+.col:hover .bg_image {
     transform: scale(1.1);
 }
 
-/* 可选的日期徽章（放在图片上） */
-.news-card-badge {
+/* 遮罩层：渐变使底部文字更清晰 */
+.overly {
     position: absolute;
-    top: 12px;
-    right: 12px;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(4px);
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.1) 100%);
+    z-index: 1;
+}
+
+/* 文字内容区 */
+.news_content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
     color: #fff;
-    padding: 4px 10px;
-    border-radius: 30px;
-    font-size: 12px;
-    font-family: 'section2-name-font', sans-serif;
-    border: 1px solid rgba(255, 255, 255, 0.2);
+    z-index: 2;
+    text-align: left;
 }
 
-/* 卡片内容 */
-.news-card-content {
-    padding: 20px 18px 18px;
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-}
-
-.news-card-title {
-    font-size: 18px;
+.news_content h2 {
+    font-size: 20px;
     font-weight: 600;
     margin-bottom: 8px;
-    line-height: 1.4;
+    line-height: 1.3;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
 }
 
-.news-card-title a {
-    color: #ffffff;
-    text-decoration: none;
-    transition: color 0.2s;
-}
-
-.news-card-title a:hover {
-    color: #ad69af;
-}
-
-.news-card-date {
-    font-size: 13px;
-    color: #aaa;
-    margin-bottom: 12px;
-    font-family: 'section2-name-font', sans-serif;
+/* 日期行：大数字 + 月/年 + 作者 */
+.day_num {
     display: flex;
     align-items: center;
-    gap: 5px;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
 }
 
-.news-card-date i {
+.day_num span {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    color: #ad69af;
+    /* 主题紫色 */
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.day_num>div {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    margin-right: 10px;
+}
+
+.day_num>div p {
+    margin: 0;
     font-size: 12px;
-    color: #ad69af;
+    text-transform: uppercase;
+    color: #ddd;
 }
 
-.news-card-summary {
-    font-size: 14px;
-    color: #ccc;
-    line-height: 1.6;
-    margin-bottom: 18px;
-    flex: 1;
+.day_num>p {
+    margin: 0;
+    font-size: 12px;
+    color: #aaa;
 }
 
-.news-card-link {
-    align-self: flex-start;
-    color: #ad69af;
-    text-decoration: none;
+/* 摘要 */
+.n_c p {
     font-size: 14px;
-    font-weight: 500;
+    margin: 5px 0 12px;
+    line-height: 1.5;
+    color: #eee;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 阅读更多按钮 */
+.cta a {
     display: inline-flex;
     align-items: center;
     gap: 6px;
-    border-bottom: 1px solid transparent;
-    transition: border-color 0.2s;
-    font-family: 'section2-name-font', sans-serif;
+    padding: 6px 16px;
+    background-color: transparent;
+    font-family: "Oswald-1", Courier, monospace;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.2s;
 }
 
-.news-card-link:hover {
-    border-bottom-color: #ad69af;
+.cta a:hover {
+    transform: translateX(3px);
 }
 
-.news-card-link i {
+.cta a i {
     font-size: 12px;
-    transition: transform 0.2s;
 }
 
-.news-card-link:hover i {
-    transform: translateX(4px);
-}
-
-/* 响应式 */
+/* 响应式适配 */
 @media screen and (max-width: 900px) {
-    .section7-wrapper {
+    .section7-container .row {
         grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
     }
 }
 
 @media screen and (max-width: 600px) {
-    .section7-wrapper {
+    .section7-container .row {
         grid-template-columns: 1fr;
-        gap: 20px;
     }
 
-    .news-card-image {
-        height: 160px;
+    .section7-container .col {
+        height: 300px;
+    }
+
+    .day_num span {
+        font-size: 30px;
     }
 }
 
-/* 移除之前测试用的白色背景（如果你没手动删除那行样式，这里强制覆盖） */
+/* ----------------------------------section7 up------------------------------------- */
+.section7-container {
+    height: 100vh;
+    width: 100%;
+    background-color: #000000;
+    text-align: center;
+    min-height: 100vh;
+    /* 改为最小高度，让内容撑开 */
+    height: auto;
+    padding-bottom: 60px;
+    /* 底部留白 */
+}
+
+.section7-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+    margin-top: 15vh;
+}
+
+.section7-name {
+    font-size: 20px;
+    font-weight: 100;
+    color: #ffffff;
+    font-family: 'section2-name-font', Courier, monospace;
+    margin-bottom: 100px;
+}
+
+.section7-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
 .section7-wrapper div {
-    background-color: transparent !important;
+    background-color: #ffffff;
+
+}
+
+.section7-container .row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
+.section7-container .col {
+    position: relative;
+    height: 400px;
+    /* 固定高度，可依设计调整 */
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #1a1a1a;
+    /* 兜底背景色 */
+}
+
+.section7-container .col:hover {
+    transform: translateY(-8px);
+}
+
+/* 背景图 */
+.bg_image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease, filter 0.8s ease;
+    /* 增加 filter 过渡 */
+    z-index: 0;
+    filter: grayscale(1);
+    /* 默认灰度 */
+}
+
+.col:hover .bg_image {
+    filter: grayscale(0);
+    /* 悬停恢复原色 */
+    transform: scale(1.1);
+}
+
+/* 遮罩层：渐变使底部文字更清晰 */
+.overly {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.1) 100%);
+    z-index: 1;
+}
+
+/* 文字内容区 */
+.news_content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    color: #fff;
+    z-index: 2;
+    text-align: left;
+}
+
+/* 默认状态下文字颜色变灰，并添加颜色过渡 */
+.news_content h2,
+.news_content .day_num span,
+.news_content .day_num>div p,
+.news_content .day_num>p,
+.news_content .n_c p,
+.news_content .cta a {
+    transition: color 0.3s ease;
+}
+
+.news_content h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    /* 默认灰色 */
+}
+
+/* 日期行：大数字 + 月/年 + 作者 */
+.day_num {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.day_num span {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    color: #aaa;
+    /* 默认灰色 */
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.day_num>div {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    margin-right: 10px;
+}
+
+.day_num>div p {
+    margin: 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #aaa;
+    /* 默认灰色 */
+}
+
+.day_num>p {
+    margin: 0;
+    font-size: 12px;
+    color: #aaa;
+    /* 默认灰色 */
+}
+
+/* 摘要 */
+.n_c p {
+    font-size: 14px;
+    margin: 5px 0 12px;
+    line-height: 1.5;
+    color: #aaa;
+    /* 默认灰色 */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 阅读更多按钮 */
+.cta a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    background-color: transparent;
+    font-family: "Oswald-1", Courier, monospace;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    
+    /* 优化过渡 */
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+
+}
+
+.cta a:hover {
+    transform: translateX(5px) scale(1.03);
+    color: #ad69af;
+}
+
+.cta a i {
+    transition: transform 1s ease;
+}
+
+.cta a:hover i {
+    transform: translateX(10px);
+}
+
+/* 悬停时文字恢复亮色 */
+.col:hover .news_content .day_num>div p,
+.col:hover .news_content .day_num>p,
+.col:hover .news_content .n_c p,
+.col:hover .news_content {
+    color: #fff;
+}
+
+.col:hover .news_content h2,
+.col:hover .news_content .day_num span {
+    color: #ffffff;
+    /* 日期数字恢复主题紫色 */
+}
+
+.col:hover .news_content h2,
+.col:hover .news_content .cta a {
+    color: #ad69af;
+}
+
+
+/* 响应式适配 */
+@media screen and (max-width: 900px) {
+    .section7-container .row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .section7-container .row {
+        grid-template-columns: 1fr;
+    }
+
+    .section7-container .col {
+        height: 300px;
+    }
+
+    .day_num span {
+        font-size: 30px;
+    }
 }
