@@ -123,7 +123,7 @@ body::-webkit-scrollbar-thumb {
 
 
 /* 视频加载遮罩层 */
- .video-loading-overlay {
+ /* .video-loading-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -134,13 +134,13 @@ body::-webkit-scrollbar-thumb {
     display: flex;
     justify-content: center;
     align-items: center;
-}
+} */
 
 */
 /* 当视频加载完成时隐藏遮罩 */
-.video-loaded .video-loading-overlay {
+/* .video-loaded .video-loading-overlay {
     display: none;
-}
+} */
 
 /* ----------------------------------入场视频页面top------------------------------------- */
 
@@ -1659,6 +1659,7 @@ body::-webkit-scrollbar-thumb {
     height: 80vh;
     display: flex;
     flex-direction: column;
+    overflow-x: hidden;
 
     background-image: url('./ghost-resources/index/photo/section6-bg.webp');
     background-size: cover;
@@ -1795,7 +1796,7 @@ body::-webkit-scrollbar-thumb {
     .section6-container {
         height: auto;
         min-height: 70vh;
-        overflow: visible;
+        overflow-x:hidden;
         padding-bottom: 50px;
     }
 
