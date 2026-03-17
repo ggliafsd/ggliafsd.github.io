@@ -1828,40 +1828,41 @@ body::-webkit-scrollbar-thumb {
     }
 }
 
+/* 移动端时，每个轮播项默认隐藏，但轨道仍为 flex 以便布局 */
 @media screen and (max-width: 767px) {
-    /* 确保轮播容器隐藏溢出内容 */
-    .section6-container {
-        overflow: hidden !important;
-    }
-
-    /* 强制每个轮播项占满容器宽度 */
     .carousel-item {
-        flex: 0 0 100% !important;
-        max-width: 100% !important;
-        width: 100% !important;
+        display: none; /* 默认隐藏，JS 会显示当前项 */
+        flex-direction: column;
+        align-items: center;
+        width: 100%;
         box-sizing: border-box;
     }
 
-    /* 轨道不换行，宽度自适应 */
+    /* 确保轨道宽度正确 */
     .carousel-track {
+        width: 100%;
         display: flex;
         flex-wrap: nowrap;
-        width: 100%;
     }
 
-    /* 防止内部内容撑开项目宽度 */
+    /* 调整内部内容，避免溢出 */
     .section6-bigbox {
+        flex-direction: column;
+        width: 90%;
         max-width: 100%;
         box-sizing: border-box;
-        padding: 0 10px; /* 适当内边距，避免文字贴边 */
     }
 
-    /* 长内容自动换行 */
+    .left-yinhao,
+    .right-yinhao {
+        font-size: 50px;
+    }
+
     .section6-evaluations {
+        font-size: 16px;
         word-break: break-word;
     }
 }
-
 /* ----------------------------------section7 up------------------------------------- */
 .section7-container {
     height: 100vh;
