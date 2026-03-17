@@ -1,0 +1,2294 @@
+/* 声明自定义字体（修改为你的字体名称和文件路径） */
+@font-face {
+    font-family: 'main';
+    /* 自定义字体名（后续调用用这个） */
+    src: url('./ghost-resources/index/font/AidianSignatureTi-Regular-2.ttf') format('truetype');
+    font-weight: normal;
+    /* 字体粗细（正常/加粗等） */
+    font-style: normal;
+    /* 字体样式（正常/斜体等） */
+    font-display: swap;
+    /* 关键：字体加载中先显示回退字体，加载完成后替换，避免页面闪烁 */
+}
+
+@font-face {
+    font-family: 'Oswald-1';
+    /* 自定义字体名（后续调用用这个） */
+    src: url('./ghost-resources/index/font/Note-Script-SemiBold-2.ttf') format('truetype');
+    font-weight: normal;
+    /* 字体粗细（正常/加粗等） */
+    font-style: normal;
+    /* 字体样式（正常/斜体等） */
+    font-display: swap;
+    /* 关键：字体加载中先显示回退字体，加载完成后替换，避免页面闪烁 */
+}
+
+@font-face {
+    font-family: 'section6-evaluation';
+    /* 自定义字体名（后续调用用这个） */
+    src: url('./ghost-resources/index/font/Open-Sans-2.ttf') format('truetype');
+    font-weight: normal;
+    /* 字体粗细（正常/加粗等） */
+    font-style: normal;
+    /* 字体样式（正常/斜体等） */
+    font-display: swap;
+    /* 关键：字体加载中先显示回退字体，加载完成后替换，避免页面闪烁 */
+}
+
+
+
+@font-face {
+    font-family: 'Oswald';
+    /* 自定义字体名（后续调用用这个） */
+    src: url('./ghost-resources/index/font/Oswald-Stencil-Regular-2.ttf') format('truetype');
+    font-weight: normal;
+    /* 字体粗细（正常/加粗等） */
+    font-style: normal;
+    /* 字体样式（正常/斜体等） */
+    font-display: swap;
+    /* 关键：字体加载中先显示回退字体，加载完成后替换，避免页面闪烁 */
+}
+
+@font-face {
+    font-family: 'section1-content-font';
+    /* 自定义字体名（后续调用用这个） */
+    src: url('./ghost-resources/index/font/AiDianGanFengYingBiXingShu-2.ttf') format('truetype');
+    font-weight: normal;
+    /* 字体粗细（正常/加粗等） */
+    font-style: normal;
+    /* 字体样式（正常/斜体等） */
+    font-display: swap;
+    /* 关键：字体加载中先显示回退字体，加载完成后替换，避免页面闪烁 */
+}
+
+@font-face {
+    font-family: 'section2-name-font';
+    /* 自定义字体名（后续调用用这个） */
+    src: url('./ghost-resources/index/font/SanJiShouJinTiJian-2.ttf') format('truetype');
+    font-weight: normal;
+    /* 字体粗细（正常/加粗等） */
+    font-style: normal;
+    /* 字体样式（正常/斜体等） */
+    font-display: swap;
+    /* 关键：字体加载中先显示回退字体，加载完成后替换，避免页面闪烁 */
+}
+
+
+/* 基础样式重置 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "PingFang SC", "Microsoft YaHei", sans-serif, "main", "Oswald", "Oswald-1", "section6-evaluation", "section1-content-font", "section2-name-font";
+}
+
+a {
+    text-decoration: none;
+}
+
+ul {
+    list-style: none;
+}
+
+
+body {
+    line-height: 1.6;
+    color: #333;
+    /* 设置整个页面的背景图片 */
+    background-image: url('./ghost-resources/index/photo/backgroundimage.jpg');
+    /* 背景图片 */
+    background-attachment: fixed;
+    /* 固定背景，不随内容滚动 */
+    background-size: cover;
+    /* 覆盖整个页面 */
+    background-position: center;
+    /* 居中 */
+    background-repeat: no-repeat;
+    /* 不重复 */
+    overflow-x: auto;
+}
+
+body::-webkit-scrollbar {
+    display: none;
+    /* 完全隐藏滚动条 */
+}
+
+body::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+body::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+
+/* 视频加载遮罩层 */
+ /* .video-loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    background-color: #000;
+    z-index: 1001;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+} */
+
+*/
+/* 当视频加载完成时隐藏遮罩 */
+/* .video-loaded .video-loading-overlay {
+    display: none;
+} */
+
+/* ----------------------------------入场视频页面top------------------------------------- */
+
+/* 入场视频页 */
+.intro-video {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+    /* 确保在最上层 */
+}
+
+.video {
+    object-fit: fill;
+    width: 100vw;
+    height: 100%;
+}
+
+/* 按钮滑入动画 */
+.slide-in-left {
+    animation: slideInLeft 0.8s ease-out forwards;
+}
+
+@keyframes slideInLeft {
+    from {
+        transform: translateX(-100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateX(0);
+        opacity: 1;
+    }
+}
+
+/* 新增：右侧滑出动画 — 让整个intro-video优雅退场 */
+.slide-out-right {
+    animation: slideOutRight 0.7s cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+    /* forwards保持最后一帧状态：translateX(100%)且透明度0，但我们会用display隐藏 */
+}
+
+@keyframes slideOutRight {
+    0% {
+        transform: translateX(0);
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateX(100%);
+        opacity: 0;
+    }
+}
+
+/* 初始隐藏按钮 */
+.intro-video button {
+    display: relative;
+    position: absolute;
+    bottom: 3%;
+    right: 2%;
+    font-style: italic;
+    padding: 12px 30px;
+    font-size: 25px;
+    font-weight: 400;
+    color: #818181;
+    border: none;
+    background-color: transparent;
+    opacity: 0;
+    /* 初始透明 */
+    transform: translateX(-100%);
+    /* 初始位置在左边外 */
+    transition: none;
+    /* 禁用默认过渡 */
+    z-index: 10000;
+    font-family: 'Oswald-1', Courier, monospace;
+}
+
+.intro-video button:hover {
+    color: #ad69af;
+    background-color: transparent;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.623);
+
+}
+
+/* ----------------------------------入场视频页面bottom------------------------------------- */
+
+
+/* ----------------------------------导航栏页面top------------------------------------- */
+.navbar {
+    /* 移除原有背景色，默认透明 */
+    background-color: #000000;
+    box-shadow: none;
+    /* 初始无阴影 */
+    position: fixed;
+    /* 改为fixed，始终固定在顶部 */
+    top: 0;
+    left: 0;
+    right: 0;
+    /* 撑满宽度 */
+    z-index: 1000;
+    padding: 0 20px;
+    backdrop-filter: blur(15px);
+    /* 毛玻璃效果保留 */
+    /* 过渡动画，让背景/阴影变化更丝滑 */
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.navbar-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    display: block;
+    position: relative;
+    justify-content: center;
+    align-items: center;
+    height: 60px;
+
+}
+
+
+.navbar-whole {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 5px auto;
+    text-align: center;
+    background-color: #000000;
+}
+
+.navbar-whole a {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 100px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 350;
+    margin-top: 5px;
+    text-decoration: none;
+}
+
+.navbar-whole a:hover {
+    color: #ad69af;
+}
+
+.navbar-whole div {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-width: 90px;
+    text-align: center;
+    color: #ffffff;
+    font-size: 15px;
+    font-weight: 350;
+}
+
+.navbar-whole div:hover {
+    color: #ad69af;
+}
+
+.nav-center {
+    width: 200px;
+    /* 固定宽度 */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transform: translateY(-3px)
+}
+
+
+
+#ghost-huang-logo {
+    width: 200px;
+    height: 55px;
+}
+
+/* 图标菜单在右侧 */
+.icon-menu {
+    position: absolute;
+    right: 20px;
+    top: 35%;
+    transform: translateY(-30%);
+    display: flex;
+    gap: 20px;
+    z-index: 10;
+}
+
+.icon-link-search,
+.icon-link,
+.icon-link-login {
+    color: #ffffff;
+    font-size: 18px;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+.icon-link-search:hover,
+.icon-link:hover,
+.icon-link-login:hover {
+    color: #ad69af;
+}
+
+/* 导航项容器 */
+.nav-item {
+    position: relative;
+}
+
+/* 子菜单（默认隐藏） */
+.submenu {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%) translateY(20px);
+    min-width: 150px;
+    background-color: rgba(0, 0, 0, 0.9);
+    backdrop-filter: blur(15px);
+    padding: 8px 0;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.5s ease, visibility 0.5s ease, transform 0.5s ease;
+    z-index: 1001;
+    display: flex;
+    flex-direction: column;
+}
+
+/* 鼠标悬停时显示子菜单，同时向上归位 */
+.nav-item:hover .submenu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateX(-50%) translateY(5px);
+    /* 取消垂直偏移，实现从下向上滑动 */
+}
+
+/* 子菜单链接样式 */
+.submenu a {
+    display: block;
+    padding: 8px 20px;
+    color: #fff;
+    font-size: 14px;
+    text-decoration: none;
+    white-space: nowrap;
+    transition: background-color 0.2s;
+}
+
+.submenu a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ad69af;
+}
+
+
+.mobile-nav-item {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.mobile-nav-link {
+    display: block;
+    padding: 12px 30px;
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    font-weight: 350;
+    position: relative;
+}
+
+.mobile-nav-link::after {
+    content: '\f078';
+    /* Font Awesome 向下箭头 */
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: 20px;
+    transition: transform 0.3s;
+}
+
+.mobile-nav-link.active::after {
+    transform: rotate(180deg);
+}
+
+.mobile-submenu {
+    max-height: 0;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.5);
+    transition: max-height 0.3s ease;
+}
+
+.mobile-submenu.show {
+    max-height: 300px;
+    /* 足够容纳所有子项 */
+}
+
+.mobile-submenu a {
+    display: block;
+    padding: 10px 40px;
+    color: #ddd;
+    text-decoration: none;
+    font-size: 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.mobile-submenu a:hover {
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #ad69af;
+}
+
+/* ---------------------------------- 响应式导航栏 ---------------------------------- */
+/* 默认隐藏汉堡菜单按钮 */
+#menu-toggle {
+    display: none;
+}
+
+.mobile-menu {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 60px;
+    right: 0;
+    width: 30%;
+    max-height: 50vh;
+    background-color: rgba(0, 0, 0, 0.95);
+    backdrop-filter: blur(15px);
+    z-index: 999;
+    padding: 10px 0;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    overflow: auto;
+
+    /* 隐藏状态 */
+    opacity: 0;
+    transform: translateX(100%);
+    pointer-events: none;
+    /* 过渡效果 */
+    transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+/* 显示状态 */
+.mobile-menu.show {
+    opacity: 1;
+    transform: translateX(0);
+    pointer-events: auto;
+}
+
+.mobile-menu>a {
+    color: #ffffff;
+    font-size: 12px;
+    font-weight: 350;
+    text-decoration: none;
+    padding: 10px 10px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    transition: color 0.3s;
+}
+
+.mobile-menu a:hover {
+    color: #ad69af;
+    background-color: rgba(255, 255, 255, 0.05);
+}
+
+.mobile-menu a:last-child {
+    border-bottom: none;
+}
+
+/* 小屏响应式（≤1100px） */
+@media screen and (max-width: 1100px) {
+
+    /* 隐藏所有菜单项（.nav-item），但保留 .nav-center（logo） */
+    .navbar-whole .nav-item {
+        display: none;
+    }
+
+    .navbar-whole {
+        justify-content: flex-start !important;
+        background-color: transparent;
+    }
+
+    /* 显示汉堡菜单按钮 */
+    #menu-toggle {
+        display: inline-block;
+    }
+
+    .icon-menu {
+        gap: 15px;
+    }
+
+    /* 确保 logo 左对齐且可见 */
+    .nav-center {
+        margin-right: auto;
+        display: flex;
+        /* 确保显示 */
+    }
+
+    /* 防止子菜单在小屏时意外残留 */
+    .submenu {
+        display: none;
+        /* 父元素已隐藏，此规则可省略但保留无害 */
+    }
+}
+
+/* 大屏时隐藏移动菜单 */
+@media screen and (min-width: 1100px) {
+    .mobile-menu {
+        opacity: 0 !important;
+        transform: translateX(100%) !important;
+        pointer-events: none !important;
+    }
+
+    /* 确保大屏时菜单项显示（默认已显示，无需额外规则） */
+}
+
+/* ----------------------------------导航栏页面bottom------------------------------------- */
+
+
+/* 设置包含所有的section的main-content */
+.main-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    min-height: 100vh;
+    background-color: rgba(188, 0, 0, 0);
+}
+
+/* ----------------------------------section0 top------------------------------------- */
+.section0 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0);
+    backdrop-filter: blur(15px);
+    z-index: 1000;
+}
+
+.section0 {
+    /* 原有样式保持不变 */
+    backdrop-filter: blur(15px);
+    transition: backdrop-filter 1s ease;
+    /* 添加过渡效果，持续1秒 */
+}
+
+.section0.no-blur {
+    backdrop-filter: blur(0);
+    /* 毛玻璃消失，背景变清晰 */
+}
+
+
+.section0-title {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 50vh;
+    margin-bottom: 50vh;
+    font-size: 50px;
+    font-weight: 1000;
+    color: #ffffff;
+    font-family: 'main', Courier, monospace;
+    opacity: 0;
+    transform: translateY(-30px);
+    transition: opacity 0.8s cubic-bezier(0.2, 0.9, 0.3, 1),
+        transform 0.8s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.section0-title.title-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ----------------------------------section1 top------------------------------------- */
+.section1 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    /* 确保垂直居中 */
+    width: 100%;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 1;
+}
+
+.section1-content {
+    max-width: 900px;
+    /* 限制宽度，防止文字过长 */
+    padding: 0 20px;
+    /* 移动端留白 */
+    text-align: center;
+    font-size: 32px;
+    font-weight: 600;
+    line-height: 1.5;
+    /* 增加行高，多行文字更舒适 */
+    color: #ffe6ff;
+    text-shadow: 0 0 10px rgba(241, 178, 243, 0.8),
+        0 0 20px rgba(241, 178, 243, 0.6),
+        0 0 30px rgba(241, 178, 243, 0.4);
+    font-family: 'section1-content-font', Courier, monospace;
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+
+}
+
+/* 当 section1 进入视口时，通过 JS 添加的类 */
+.section1-content.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ----------------------------------section2 top------------------------------------- */
+.section2 {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 150vh;
+    background: linear-gradient(to bottom, black 50%, #622962 100%);
+    z-index: 1;
+}
+
+.section2-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-top: 80px;
+}
+
+.section2-name {
+    font-size: 20px;
+    font-weight: 100;
+    color: #ffffff;
+    margin-top: 10px;
+    font-family: 'section2-name-font', Courier, monospace;
+    margin-bottom: 100px;
+}
+
+.section2-box {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    background-color: transparent;
+}
+
+/* -----------------box左侧区域----------------- */
+.section2-box .box-left {
+    width: 45%;
+    background-color: transparent;
+    position: relative;
+}
+
+.box-left .album-cover {
+    width: 50%;
+    aspect-ratio: 1;
+    background-color: #250909;
+    background-image: url("./ghost-resources/index/album/album1/Albumcover.jpg");
+    background-size: cover;
+    background-position: center;
+    margin-left: 20%;
+    z-index: 1000;
+    position: relative;
+}
+
+.box-left .album-main {
+    position: absolute;
+    top: 0%;
+    left: calc(5% + 43% + 2%);
+    width: 50%;
+    aspect-ratio: 1;
+    background-image: url("./ghost-resources/index/album/album1/AlbumCD.png");
+    background-size: cover;
+    background-position: center;
+    transform: translateX(235px);
+    z-index: 2;
+    animation: rotateAlbum 10s linear infinite;
+}
+
+@keyframes rotateAlbum {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+/* -----------------box右侧区域----------------- */
+.section2-box .box-right {
+    width: 55%;
+    height: 100%;
+    background-color: #000000;
+    z-index: 10;
+}
+
+.box-right .album-songs {
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    align-items: center;
+    width: 100%;
+    background-color: #000000;
+    height: 25%;
+    margin-bottom: 2%;
+    font-size: 20px;
+}
+
+.box-right .album-songs-info {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    width: 100%;
+    color: #ffffff;
+    z-index: 10001;
+}
+
+.album-songs-info a {
+    color: #ffffff;
+    text-decoration: none;
+    margin-top: 3%;
+    font-family: 'main', Courier, monospace;
+    font-size: 20px;
+    transition: transform 0.5s ease;
+}
+
+.album-songs-info a:hover {
+    color: #ffe6ff;
+    transform: scale(1.2) translate(3px, -2px);
+}
+
+.album-songs div {
+    display: flex;
+    font-family: 'section2-name-font', Courier, monospace;
+    font-weight: 1000;
+    color: #ffffff;
+}
+
+.album-songs audio {
+    display: flex;
+    width: 80%;
+    height: 40%;
+    color: white;
+    border: none;
+    outline: none;
+    appearance: none;
+    cursor: pointer;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+}
+
+/* WebKit 内核浏览器控件内部样式调整 */
+.album-songs audio::-webkit-media-controls-panel {
+    background-color: black;
+    /* 控件主面板透明 */
+}
+
+.album-songs audio::-webkit-media-controls-play-button,
+.album-songs audio::-webkit-media-controls-mute-button {
+    filter: invert(1) brightness(2);
+    /* 或者使用背景色调整：background-color: white; 但图标本身是黑色，用 filter 更方便 */
+}
+
+.album-songs audio::-webkit-media-controls-current-time-display {
+    color: white;
+}
+
+.album-songs audio::-webkit-media-controls-time-remaining-display {
+    color: white;
+    margin-right: 10px;
+}
+
+.album-songs audio::-webkit-media-controls-timeline {
+    background-color: rgba(254, 241, 255, 0.203);
+}
+
+.album-songs audio::-webkit-media-controls-volume-slider {
+    background-color: rgba(214, 214, 214, 0.662);
+}
+
+/* --------------左右侧滑入动画----------------- */
+.section2-box .box-left {
+    opacity: 0;
+    transform: translateX(-200px);
+    transition: opacity 1s cubic-bezier(0.2, 0.9, 0.3, 1),
+        transform 1s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+.section2-box .box-right {
+    opacity: 0;
+    transform: translateX(200px);
+    transition: opacity 1s cubic-bezier(0.2, 0.9, 0.3, 1),
+        transform 1s cubic-bezier(0.2, 0.9, 0.3, 1);
+}
+
+/* 当元素进入视口时，通过 JS 添加的类 */
+.section2-box .box-left.box-visible,
+.section2-box .box-right.box-visible {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+
+/* ---------底部文字描述----------- */
+.album-intro {
+    position: relative;
+    /* 为绝对定位子元素提供参考 */
+    width: 100%;
+    margin-top: 3vh;
+    background-color: #ffffff00;
+    height: 65vh;
+    padding: 4vh 9vw;
+    /* 保留原 padding */
+    cursor: pointer;
+    /* 暗示可点击切换 */
+}
+
+.intro-text {
+    position: absolute;
+    top: 5vh;
+    /* 与父容器内边距一致 */
+    left: 9vw;
+    right: 9vw;
+    bottom: 5vh;
+    overflow-y: auto;
+    /* 内容过多时出现滚动条 */
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+    opacity: 0;
+    visibility: hidden;
+    color: #ffffff;
+    /* 深色文字 */
+    font-size: 16px;
+    line-height: 1.6;
+    text-align: justify;
+    /* 两端对齐，更美观 */
+}
+
+.intro-text.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+/* 可选：段落间距 */
+.intro-text p {
+    margin-bottom: 1em;
+}
+
+.intro-text p:last-child {
+    margin-bottom: 0;
+}
+
+.album-intro #introEn p {
+    font-family: 'main', Courier, monospace !important;
+}
+
+.album-intro #introZh p {
+    font-family: 'section2-name-font', Courier, monospace !important;
+}
+
+/* 2. 在小屏幕下调整图片偏移，避免溢出 */
+@media screen and (max-width: 1100px) {
+    .box-left .album-main {
+        transform: translateX(100px);
+        /* 减小偏移量 */
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .section2 {
+        height: auto;
+        /* 移动端取消固定高度，让内容撑开 */
+        min-height: 150vh;
+        /* 但保留最小高度，避免太矮 */
+    }
+
+    .box-left .album-main {
+        transform: translateX(50px);
+        /* 进一步减小偏移 */
+    }
+
+    /* 可选：调整左侧定位，避免溢出 */
+    .box-left .album-cover,
+    .box-left .album-main {
+        max-width: 80%;
+        /* 限制图片最大宽度 */
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .box-left .album-main {
+        transform: translateX(20px);
+        /* 极小屏时几乎取消偏移 */
+    }
+}
+
+/* ----------------------------------section2 bottom------------------------------------- */
+
+
+/* ----------------------------------section3 top------------------------------------- */
+.section3 {
+    background-image: url("./ghost-resources/index/photo/section3-bgi.jpg");
+    background-size: cover;
+    background-repeat: no-repeat;
+    height: 220vh;
+    width: 100%;
+}
+
+.section3-box {
+    width: 100%;
+    height: 100%;
+    background-color: #00000057;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    padding-top: 8vh;
+    overflow: hidden;
+    overflow-y: scroll;
+}
+
+/* 隐藏 Webkit 滚动条 */
+.section3-box::-webkit-scrollbar {
+    display: none;
+    /* 完全隐藏滚动条 */
+}
+
+.section3-box::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.section3-box::-webkit-scrollbar-thumb {
+    background: transparent;
+}
+
+
+.section3-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    z-index: 10;
+}
+
+.section3-name {
+    font-size: 20px;
+    font-weight: 100;
+    color: #ffffff;
+    margin-top: 10px;
+    font-family: 'section2-name-font', Courier, monospace;
+    z-index: 1;
+}
+
+.section3-list {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 10vh;
+    background-color: #ffffff00;
+    margin-left: 10vh;
+    margin-right: 10vh;
+}
+
+.section3-list li {
+    list-style: none;
+    padding: 10px;
+    background-color: #af363600;
+    width: 90%;
+    margin-bottom: 40px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.section3-list li a {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    flex-shrink: 0;
+    width: fit-content;
+    background-color: #07166d00;
+    border-right: #fff 4px solid;
+    color: #fff;
+    padding-right: 20px;
+}
+
+.section3-items .name {
+    font-size: 50px;
+    font-weight: 200;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font-family: "Oswald", 'section2-name-font', Courier, monospace;
+    cursor: pointer;
+}
+
+.section3-items span p {
+    font-size: 25px;
+    font-weight: 300;
+    color: #696969;
+    font-family: "Oswald", 'section2-name-font', Courier, monospace;
+    cursor: pointer;
+
+}
+
+.section3-otherinfo {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+}
+
+.section3-otherinfo p {
+    font-size: 30px;
+    font-weight: 100;
+    color: #696969;
+    margin-left: 1vw;
+    margin-right: 1vw;
+    font-family: "Oswald-1", 'section2-name-font', Courier, monospace;
+    cursor: pointer;
+
+}
+
+.section3-list li .section3-button {
+    background-color: #af363600;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+    align-items: center;
+    height: 60%;
+    border: #fff 2px solid;
+    border-radius: 5px;
+    font-size: 25px;
+    font-weight: 100;
+    position: relative;
+    margin-right: 10px;
+    font-family: "Oswald-1", 'section2-name-font', Courier, monospace;
+    margin-left: auto;
+    flex-shrink: 0;
+    cursor: pointer;
+}
+
+
+/* 让内部所有文字元素在 hover 时变白 */
+.section3-list li:hover .section3-items .name,
+.section3-list li:hover .section3-items span p,
+.section3-list li:hover .section3-otherinfo p {
+    color: #ffffff;
+}
+
+/* 悬停时改变右边框颜色 */
+.section3-list li:hover .section3-items {
+    border-right-color: #622962;
+}
+
+/* 悬停时改变按钮的边框和文字颜色 */
+.section3-list li:hover .section3-button {
+    border-color: #622962;
+    background-color: #622962;
+}
+
+/* 动画部分，懒得一个一个去加入了，我直接在这里全部加入了 */
+.section3-items .name,
+.section3-items span p,
+.section3-otherinfo p,
+.section3-items,
+.section3-button {
+    transition: all 0.8s ease;
+}
+
+/* ---------------------------------- 全局响应式适配 ---------------------------------- */
+
+/* 中等屏幕（768px - 1199px） */
+@media screen and (max-width: 1199px) {
+
+    /* section1 文字适当缩小 */
+    .section1-content {
+        font-size: 28px;
+    }
+
+    /* section2 左右盒子间距调整 */
+    .section2-box {
+        gap: 20px;
+    }
+
+    /* section3 列表左右边距减小，防止内容太挤 */
+    .section3-list {
+        margin-left: 5vw;
+        margin-right: 5vw;
+    }
+
+    /* section3 中间信息文字大小减小 */
+    .section3-otherinfo p {
+        font-size: 24px;
+        margin-left: 0.8vw;
+        margin-right: 0.8vw;
+    }
+
+    /* 按钮文字稍小 */
+    .section3-list li .section3-button {
+        font-size: 20px;
+        padding: 8px 12px;
+    }
+}
+
+/* 小屏幕（≤767px）—— 手机布局 */
+@media screen and (max-width: 767px) {
+
+    /* 整体标题缩小 */
+    .section0-title {
+        font-size: 36px;
+    }
+
+    .section1-content {
+        font-size: 22px;
+        line-height: 1.4;
+    }
+
+    .section2-title {
+        font-size: 24px;
+        margin-top: 40px;
+    }
+
+    .section2-name {
+        font-size: 18px;
+        margin-bottom: 50px;
+    }
+
+    /* section2 左右盒子改为纵向排列 */
+    .section2-box {
+        flex-direction: column;
+    }
+
+    .section2-box .box-left,
+    .section2-box .box-right {
+        width: 100%;
+    }
+
+    .box-left .album-main {
+        transform: translateX(0);
+        /* 取消绝对定位偏移，避免溢出 */
+        left: auto;
+        right: auto;
+        position: relative;
+        margin: 20px auto;
+    }
+
+    .box-left .album-cover {
+        margin: 0 auto;
+    }
+
+    /* 调整右侧音频区域 */
+    .box-right .album-songs {
+        height: auto;
+        margin-bottom: 20px;
+    }
+
+    .album-songs audio {
+        width: 90%;
+        height: 40px;
+    }
+
+    /* section3 列表左右边距进一步缩小 */
+    .section3-list {
+        margin-left: 3vw;
+        margin-right: 3vw;
+    }
+
+    /* 重要：li 内部改为纵向排列 */
+    .section3-list li {
+        flex-direction: column;
+        align-items: stretch;
+        padding: 15px;
+    }
+
+    /* 日期链接块：取消右边框，宽度自适应，居中对齐 */
+    .section3-list li a.section3-items {
+        border-right: none;
+        justify-content: center;
+        padding-right: 0;
+        margin-bottom: 10px;
+        width: 100%;
+    }
+
+    /* 中间信息区：改为纵向，文字居中对齐 */
+    .section3-otherinfo {
+        flex-direction: column;
+        gap: 5px;
+        margin: 10px 0;
+    }
+
+    .section3-otherinfo p {
+        font-size: 20px;
+        margin: 0;
+    }
+
+    /* 按钮：宽度100%，取消 margin-left:auto，改为居中显示 */
+    .section3-list li .section3-button {
+        margin-left: 0;
+        width: 100%;
+        font-size: 20px;
+        padding: 12px;
+        height: auto;
+    }
+
+    /* 调整 li 底部的边距 */
+    .section3-list li {
+        margin-bottom: 20px;
+    }
+
+}
+
+/* 超小屏（≤480px）进一步缩小字号 */
+@media screen and (max-width: 480px) {
+    .section0-title {
+        font-size: 28px;
+    }
+
+    .section1-content {
+        font-size: 18px;
+    }
+
+    .section3-items .name {
+        font-size: 40px;
+    }
+
+    .section3-items span p {
+        font-size: 18px;
+    }
+
+    .section3-otherinfo p {
+        font-size: 16px;
+    }
+}
+
+/* ----------------------------------section3 bottom------------------------------------- */
+
+/* ----------------------------------section4 up------------------------------------- */
+.section4 {
+    position: relative;
+    /* 为边框层提供定位参考 */
+    width: 100%;
+    background-color: #000;
+    /* 黑色背景 */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 60px 20px 80px;
+    /* 保留原有内边距 */
+}
+
+.section4-container {
+    max-width: 1400px;
+    width: 100%;
+    text-align: center;
+    z-index: 1;
+    /* 确保内容在边框层上方（边框半透明不影响阅读） */
+}
+
+.section4-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.section4-name {
+    font-size: 20px;
+    font-weight: 100;
+    color: #ffffff;
+    font-family: 'section2-name-font', Courier, monospace;
+    margin-bottom: 40px;
+}
+
+/* 照片墙网格（错落布局） */
+.photo-wall {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 20px;
+    padding: 20px;
+    background-color: transparent;
+    cursor: url('./ghost-resources/index/photo/hxy.cur') 0 0, auto;
+}
+
+.photo-item {
+    background-color: #222;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    aspect-ratio: 1 / 1;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+}
+
+.photo-item:hover {
+    transform: scale(1.02);
+    box-shadow: 0 15px 30px rgba(98, 41, 98, 0.6);
+    border-color: rgba(255, 255, 255, 0.5);
+}
+
+.click-message {
+    position: fixed;
+    /* 相对于视口定位，跟随鼠标点击位置 */
+    color: #e05cf1;
+    padding: 8px 18px;
+    border-radius: 40px;
+    font-size: 20px;
+    font-weight: 600;
+    white-space: nowrap;
+    pointer-events: none;
+    z-index: 9999;
+    opacity: 0;
+    transform: translate(-50%, -100%) scale(0.8);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    font-family: 'section2-name-font', Courier, monospace;
+}
+
+.click-message.show {
+    opacity: 1;
+    transform: translate(-50%, -120%) scale(1);
+    /* 向上飘一点，同时放大 */
+}
+
+/* 2-1 */
+.photo-item--2-1 {
+    grid-column: span 2;
+    grid-row: span 1;
+    aspect-ratio: 2 / 1;
+}
+
+/* 1-2 */
+.photo-item--1-2 {
+    grid-row: span 2;
+    grid-column: span 1;
+    aspect-ratio: 1 / 2;
+}
+
+/* 2-2 */
+.photo-item--2-2 {
+    grid-column: span 2;
+    grid-row: span 2;
+    aspect-ratio: 1 / 1;
+}
+
+/* 3-2 */
+.photo-item--3-2 {
+    grid-column: span 3;
+    grid-row: span 2;
+    aspect-ratio: 3 / 2;
+}
+
+/* 2-3 */
+.photo-item--2-3 {
+    grid-column: span 2;
+    grid-row: span 3;
+    aspect-ratio: 2 / 3;
+}
+
+.photo-item--1-1 {
+    grid-column: span 1;
+    grid-row: span 1;
+    aspect-ratio: 1 / 1;
+}
+
+/* ---------- 边框动画层（四个角交叉） ---------- */
+.section4-border-frame {
+    position: absolute;
+    inset: 20px;
+    /* 与 section4 四边各保留 20px 间距 */
+    pointer-events: none;
+    /* 鼠标穿透，不影响内部交互 */
+    z-index: 2;
+    /* 位于内容上方，但因为是细线不遮挡操作 */
+}
+
+.section4-border-frame span {
+    position: absolute;
+    background-color: #ffffff;
+    /* 紫色边框，与主题色一致 */
+    transition: transform 0.8s ease;
+}
+
+/* 上边框：从左到右完全覆盖，角部与左边框/右边框交叉 */
+.border-top {
+    top: 10px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    transform-origin: center;
+    transform: scaleX(0);
+    /* 初始隐藏 */
+}
+
+/* 下边框：从左到右完全覆盖 */
+.border-bottom {
+    bottom: 10px;
+    left: 0;
+    right: 0;
+    height: 1px;
+    transform-origin: center;
+    transform: scaleX(0);
+}
+
+/* 左边框：从上到下完全覆盖 */
+.border-left {
+    left: 10px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    transform-origin: center;
+    transform: scaleY(0);
+}
+
+/* 右边框：从上到下完全覆盖 */
+.border-right {
+    right: 10px;
+    top: 0;
+    bottom: 0;
+    width: 1px;
+    transform-origin: center;
+    transform: scaleY(0);
+}
+
+.section4:hover .border-top,
+.section4:hover .border-bottom {
+    transform: scaleX(1);
+}
+
+.section4:hover .border-left,
+.section4:hover .border-right {
+    transform: scaleY(1);
+}
+
+/* ---------- 响应式适配（网格列数调整） ---------- */
+@media screen and (max-width: 1199px) {
+    .photo-wall {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+@media screen and (max-width: 900px) {
+    .photo-wall {
+        grid-template-columns: repeat(4, 1fr);
+    }
+
+    .photo-item--2-1,
+    .photo-item--1-2,
+    .photo-item--2-2,
+    .photo-item--3-2,
+    .photo-item--2-3,
+    .photo-item--1-1 {
+        grid-column: span 1;
+        grid-row: span 1;
+        aspect-ratio: 1 / 1;
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .photo-wall {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 15px;
+    }
+
+    .section4-title {
+        font-size: 24px;
+    }
+
+    .section4-name {
+        font-size: 18px;
+    }
+}
+
+@media screen and (max-width: 400px) {
+    .photo-wall {
+        grid-template-columns: 1fr;
+    }
+}
+
+/* ----------------------------------section4 bottom------------------------------------- */
+
+
+/* ----------------------------------section5 up------------------------------------- */
+.section5 {
+    background-color: #000000;
+    padding-top: 50px;
+    display: flex;
+    height: 140vh;
+    width: 100%;
+    text-align: center;
+    flex-direction: column;
+    color: #ffffff;
+    font-family: 'section2-name-font', Courier, monospace;
+    font-size: 20px;
+    font-weight: 100;
+}
+
+.section5-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+}
+
+.section5-name {
+    font-size: 20px;
+    font-weight: 100;
+    color: #ffffff;
+    font-family: 'section2-name-font', Courier, monospace;
+    margin-bottom: 80px;
+}
+
+.section5 .video {
+    position: relative;
+    width: 100%;
+    height: 140vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-image: none;
+    overflow: hidden;
+}
+
+/* 照片覆盖层 — 背景图片，从中心缩放 */
+.photo-cover {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-image: url('./ghost-resources/index/photo/section5-bg.jpg');
+    background-size: cover;
+    background-position: center;
+    transform: scale(0);
+    /* 初始完全不可见（从中心缩放到0） */
+    transition: transform 1.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+    /* 平滑展开 */
+    transform-origin: center;
+    /* 从中心向两端铺开 */
+    z-index: 1;
+    /* 位于视频下层，作为背景 */
+    will-change: transform;
+}
+
+.photo-cover.expanded {
+    transform: scale(1);
+    /* 进入视口后铺满 */
+}
+
+/* 视频播放器 — 绝对居中，位于照片上方 */
+.section5 .video video {
+    position: relative;
+    z-index: 100;
+    max-width: 85%;
+    max-height: 85%;
+    width: auto;
+    height: auto;
+    object-fit: contain;
+    background-color: #000;
+    border-radius: 12px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.7), 0 0 0 2px rgba(33, 84, 152, 0.3);
+    transition: box-shadow 0.3s, opacity 0.8s ease;
+    /* 增加透明度过渡 */
+    opacity: 0;
+    /* 初始隐藏 */
+}
+
+.section5 .video video.video-visible {
+    opacity: 1;
+    /* 显示视频 */
+}
+
+.section5 .video video:hover {
+    box-shadow: 0 25px 50px rgba(12, 103, 201, 0.5), 0 0 0 2px #69c5f0;
+}
+
+/* 小屏幕适配 */
+@media screen and (max-width: 767px) {
+    .section5 {
+        height: auto;
+        min-height: 120vh;
+    }
+
+    .section5 .video {
+        height: 80vh;
+    }
+
+    .section5 .video video {
+        max-width: 95%;
+        max-height: 95%;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .section5-name {
+        margin-bottom: 40px;
+    }
+
+    .section5 .video {
+        height: 70vh;
+    }
+}
+
+/* ----------------------------------section5 down------------------------------------- */
+/* ----------------------------------section6 up------------------------------------- */
+.section6-container {
+    text-align: center;
+    width: 100%;
+    height: 80vh;
+    display: flex;
+    flex-direction: column;
+    overflow-x: hidden;
+
+    background-image: url('./ghost-resources/index/photo/section6-bg.webp');
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    filter: brightness(0.8);
+
+}
+
+.section6-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+    margin-top: 6vh;
+}
+
+.section6-name {
+    font-size: 20px;
+    font-weight: 100;
+    color: #ffffff;
+    font-family: 'section2-name-font', Courier, monospace;
+    margin-bottom: 50px;
+}
+
+.section6-photo {
+    aspect-ratio: 1/1;
+    width: 13vh;
+    max-width: 100%;
+    text-align: center;
+    margin: 0 auto;
+    margin-bottom: 50px;
+}
+
+.section6-photo img {
+    filter: grayscale(100%);
+    border-radius: 50%;
+    width: 100%;
+    aspect-ratio: 1/1;
+}
+
+.section6-bigbox {
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+    gap: 40px;
+    width: 80%;
+    color: #ffffff;
+    text-align: center;
+    margin: 0 auto;
+}
+
+.left-yinhao,
+.right-yinhao {
+    font-size: 80px;
+    color: #ffffff;
+    font-family: 'section2-name-font', Courier, monospace;
+}
+
+.section6-evaluations {
+    font-size: 18px;
+    color: #ffffff;
+    font-family: 'section6-evaluation', Courier, monospace;
+    font-style: italic;
+}
+
+/* ---------- 左右滑动轮播样式 ---------- */
+/* ---------------------------------- 重构 section6 轮播（Z轴堆叠） ---------------------------------- */
+.section6-container {
+    position: relative;
+    overflow: hidden;           /* 隐藏溢出，保持干净 */
+    /* 原有其他样式（背景、高度等）保持不变 */
+}
+
+.carousel-track {
+    display: grid;
+    grid-template-columns: 1fr; /* 单列，所有项堆叠在同一单元格 */
+    grid-template-rows: auto;    /* 高度由内容撑开 */
+    transition: none;            /* 取消横向移动的过渡 */
+}
+
+.carousel-item {
+    grid-area: 1/1/1/1;          /* 所有项重叠 */
+    opacity: 0;
+    visibility: hidden;          /* 完全隐藏不可见元素（配合过渡） */
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+    pointer-events: none;        /* 防止隐藏项误触 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;                 /* 确保宽度占满容器 */
+}
+
+.carousel-item.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;        /* 当前项可交互 */
+}
+
+/* 指示器样式保持不变（可微调间距） */
+.carousel-dots {
+    position: absolute;
+    bottom: 30px;
+    left: 0;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+    z-index: 20;
+}
+
+.carousel-dot {
+    width: 10px;
+    height: 10px;
+    background-color: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+.carousel-dot.active {
+    background-color: #66d6ff;
+    transform: scale(1.2);
+}
+
+/* 小屏幕适配 */
+@media screen and (max-width: 1600px) {
+    .section6-container {
+        height: auto;
+        min-height: 70vh;
+        overflow-x:hidden;
+        padding-bottom: 50px;
+    }
+
+    .carousel-track {
+        height: auto;
+    }
+
+    .carousel-item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 300px;
+    }
+
+    .carousel-dots {
+        bottom: 30px;
+    }
+}
+
+@media screen and (max-width: 480px) {
+    .section6-container {
+        padding-bottom: 40px;
+        overflow-x: hidden;
+    }
+
+    .carousel-item {
+        min-height: 250px;
+    }
+}
+
+/* ----------------------------------section7 up------------------------------------- */
+.section7-container {
+    height: 100vh;
+    width: 100%;
+    background-color: #000000;
+    text-align: center;
+    min-height: 100vh;
+    /* 改为最小高度，让内容撑开 */
+    height: auto;
+    padding-bottom: 60px;
+    /* 底部留白 */
+}
+
+.section7-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+    margin-top: 15vh;
+}
+
+.section7-name {
+    font-size: 20px;
+    font-weight: 100;
+    color: #ffffff;
+    font-family: 'section2-name-font', Courier, monospace;
+    margin-bottom: 100px;
+}
+
+.section7-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
+.section7-wrapper div {
+    background-color: #ffffff;
+
+}
+
+.section7-container .row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
+.section7-container .col {
+    position: relative;
+    height: 400px;
+    /* 固定高度，可依设计调整 */
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #1a1a1a;
+    /* 兜底背景色 */
+}
+
+.section7-container .col:hover {
+    transform: translateY(-8px);
+}
+
+/* 背景图 */
+.bg_image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease;
+    z-index: 0;
+}
+
+.col:hover .bg_image {
+    transform: scale(1.1);
+}
+
+/* 遮罩层：渐变使底部文字更清晰 */
+.overly {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.1) 100%);
+    z-index: 1;
+}
+
+/* 文字内容区 */
+.news_content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    color: #fff;
+    z-index: 2;
+    text-align: left;
+}
+
+.news_content h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+/* 日期行：大数字 + 月/年 + 作者 */
+.day_num {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.day_num span {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    color: #ad69af;
+    /* 主题紫色 */
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.day_num>div {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    margin-right: 10px;
+}
+
+.day_num>div p {
+    margin: 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #ddd;
+}
+
+.day_num>p {
+    margin: 0;
+    font-size: 12px;
+    color: #aaa;
+}
+
+/* 摘要 */
+.n_c p {
+    font-size: 14px;
+    margin: 5px 0 12px;
+    line-height: 1.5;
+    color: #eee;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 阅读更多按钮 */
+.cta a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    background-color: transparent;
+    font-family: "Oswald-1", Courier, monospace;
+    color: #fff;
+    text-decoration: none;
+    border-radius: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    transition: background 0.3s, transform 0.2s;
+}
+
+.cta a:hover {
+    transform: translateX(3px);
+}
+
+.cta a i {
+    font-size: 12px;
+}
+
+/* 响应式适配 */
+@media screen and (max-width: 900px) {
+    .section7-container .row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .section7-container .row {
+        grid-template-columns: 1fr;
+    }
+
+    .section7-container .col {
+        height: 300px;
+    }
+
+    .day_num span {
+        font-size: 30px;
+    }
+}
+
+/* ----------------------------------section7 up------------------------------------- */
+.section7-container {
+    height: 100vh;
+    width: 100%;
+    background-color: #000000;
+    text-align: center;
+    min-height: 100vh;
+    /* 改为最小高度，让内容撑开 */
+    height: auto;
+    padding-bottom: 60px;
+    /* 底部留白 */
+}
+
+.section7-title {
+    font-size: 30px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 10px;
+    margin-top: 15vh;
+}
+
+.section7-name {
+    font-size: 20px;
+    font-weight: 100;
+    color: #ffffff;
+    font-family: 'section2-name-font', Courier, monospace;
+    margin-bottom: 100px;
+}
+
+.section7-wrapper {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
+.section7-wrapper div {
+    background-color: #ffffff;
+
+}
+
+.section7-container .row {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 0 20px 40px;
+}
+
+.section7-container .col {
+    position: relative;
+    height: 400px;
+    /* 固定高度，可依设计调整 */
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #1a1a1a;
+    /* 兜底背景色 */
+}
+
+.section7-container .col:hover {
+    transform: translateY(-8px);
+}
+
+/* 背景图 */
+.bg_image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    transition: transform 0.5s ease, filter 0.8s ease;
+    /* 增加 filter 过渡 */
+    z-index: 0;
+    filter: grayscale(1);
+    /* 默认灰度 */
+}
+
+.col:hover .bg_image {
+    filter: grayscale(0);
+    /* 悬停恢复原色 */
+    transform: scale(1.1);
+}
+
+/* 遮罩层：渐变使底部文字更清晰 */
+.overly {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.85) 0%, rgba(0, 0, 0, 0.4) 50%, rgba(0, 0, 0, 0.1) 100%);
+    z-index: 1;
+}
+
+/* 文字内容区 */
+.news_content {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding: 20px;
+    color: #fff;
+    z-index: 2;
+    text-align: left;
+}
+
+/* 默认状态下文字颜色变灰，并添加颜色过渡 */
+.news_content h2,
+.news_content .day_num span,
+.news_content .day_num>div p,
+.news_content .day_num>p,
+.news_content .n_c p,
+.news_content .cta a {
+    transition: color 0.3s ease;
+}
+
+.news_content h2 {
+    font-size: 20px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    line-height: 1.3;
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+    color: #ffffff;
+    /* 默认灰色 */
+}
+
+/* 日期行：大数字 + 月/年 + 作者 */
+.day_num {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+    font-size: 14px;
+}
+
+.day_num span {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    color: #aaa;
+    /* 默认灰色 */
+    text-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.day_num>div {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.2;
+    margin-right: 10px;
+}
+
+.day_num>div p {
+    margin: 0;
+    font-size: 12px;
+    text-transform: uppercase;
+    color: #aaa;
+    /* 默认灰色 */
+}
+
+.day_num>p {
+    margin: 0;
+    font-size: 12px;
+    color: #aaa;
+    /* 默认灰色 */
+}
+
+/* 摘要 */
+.n_c p {
+    font-size: 14px;
+    margin: 5px 0 12px;
+    line-height: 1.5;
+    color: #aaa;
+    /* 默认灰色 */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+/* 阅读更多按钮 */
+.cta a {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    background-color: transparent;
+    font-family: "Oswald-1", Courier, monospace;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 40px;
+    font-size: 15px;
+    font-weight: 500;
+    
+    /* 优化过渡 */
+    transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+
+}
+
+.cta a:hover {
+    transform: translateX(5px) scale(1.03);
+    color: #ad69af;
+}
+
+.cta a i {
+    transition: transform 1s ease;
+}
+
+.cta a:hover i {
+    transform: translateX(10px);
+}
+
+/* 悬停时文字恢复亮色 */
+.col:hover .news_content .day_num>div p,
+.col:hover .news_content .day_num>p,
+.col:hover .news_content .n_c p,
+.col:hover .news_content {
+    color: #fff;
+}
+
+.col:hover .news_content h2,
+.col:hover .news_content .day_num span {
+    color: #ffffff;
+    /* 日期数字恢复主题紫色 */
+}
+
+.col:hover .news_content h2,
+.col:hover .news_content .cta a {
+    color: #ad69af;
+}
+
+
+/* 响应式适配 */
+@media screen and (max-width: 900px) {
+    .section7-container .row {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media screen and (max-width: 600px) {
+    .section7-container .row {
+        grid-template-columns: 1fr;
+    }
+
+    .section7-container .col {
+        height: 300px;
+    }
+
+    .day_num span {
+        font-size: 30px;
+    }
+}
