@@ -878,8 +878,9 @@
     </script>
 
     <!-- 歌手朋友轮播效果 -->
-    (function() {
-    // ---------- 轮播数据 ----------
+<script>
+(function() {
+    // ---------- 轮播数据（保持原有内容） ----------
     const slides = [
         {
             img: './ghost-resources/index/photo/section6-photo1.jpeg',
@@ -910,34 +911,40 @@
     const container = document.querySelector('.section6-container');
     if (!container) return;
 
+    // 获取原始模板（用于克隆结构）
     const originalPhoto = container.querySelector('.section6-photo');
     const originalBigbox = container.querySelector('.section6-bigbox');
     if (!originalPhoto || !originalBigbox) return;
 
-    // 清空容器但保留标题等
+    // 移除原有内容（保留标题和名字）
     const originalChildren = Array.from(container.children).filter(
         el => !el.classList.contains('section6-title') && !el.classList.contains('section6-name')
     );
     originalChildren.forEach(el => el.remove());
 
-    // 创建轮播轨道
+    // ---------- 创建轮播轨道（Grid堆叠容器） ----------
     const track = document.createElement('div');
     track.className = 'carousel-track';
 
     slides.forEach((slide, index) => {
+        // 克隆照片和文字区域
         const photoClone = originalPhoto.cloneNode(true);
         const bigboxClone = originalBigbox.cloneNode(true);
 
+        // 更新照片
         const img = photoClone.querySelector('img');
         if (img) img.src = slide.img;
 
+        // 更新评论文本
         const evalDiv = bigboxClone.querySelector('.section6-evaluations');
         if (evalDiv) {
             evalDiv.innerHTML = slide.paragraphs.map(p => `<p>${p}</p>`).join('');
         }
 
+        // 创建轮播项容器
         const item = document.createElement('div');
         item.className = 'carousel-item';
+        if (index === 0) item.classList.add('active'); // 默认第一项显示
         item.appendChild(photoClone);
         item.appendChild(bigboxClone);
         track.appendChild(item);
@@ -945,7 +952,7 @@
 
     container.appendChild(track);
 
-    // 创建指示器
+    // ---------- 创建指示器 ----------
     const dotsContainer = document.createElement('div');
     dotsContainer.className = 'carousel-dots';
     slides.forEach((_, idx) => {
@@ -956,32 +963,23 @@
     });
     container.appendChild(dotsContainer);
 
+    // ---------- 轮播控制 ----------
     let currentIndex = 0;
-    let timer = null;
+    let autoTimer = null;
+    const items = track.querySelectorAll('.carousel-item');
+    const dots = dotsContainer.querySelectorAll('.carousel-dot');
 
-    // 根据屏幕宽度决定使用哪种模式
-    function isMobile() {
-        return window.innerWidth <= 767;
-    }
-
+    // 切换到指定索引
     function goToSlide(index) {
         if (index < 0) index = slides.length - 1;
         if (index >= slides.length) index = 0;
         if (index === currentIndex) return;
 
-        const items = track.querySelectorAll('.carousel-item');
-        if (isMobile()) {
-            // 移动端：显示当前项，隐藏其他
-            items.forEach((item, i) => {
-                item.style.display = i === index ? 'flex' : 'none';
-            });
-        } else {
-            // PC端：使用滑动轨道
-            track.style.transform = `translateX(-${index * 100}%)`;
-        }
-
+        // 更新项状态
+        items.forEach((item, i) => {
+            item.classList.toggle('active', i === index);
+        });
         // 更新指示点
-        const dots = dotsContainer.querySelectorAll('.carousel-dot');
         dots.forEach((dot, i) => {
             dot.classList.toggle('active', i === index);
         });
@@ -989,24 +987,26 @@
         currentIndex = index;
     }
 
+    // 下一项
     function nextSlide() {
         goToSlide(currentIndex + 1);
     }
 
+    // 上一项
     function prevSlide() {
         goToSlide(currentIndex - 1);
     }
 
     // 自动轮播
     function startAutoPlay() {
-        if (timer) clearInterval(timer);
-        timer = setInterval(nextSlide, 3000);
+        if (autoTimer) clearInterval(autoTimer);
+        autoTimer = setInterval(nextSlide, 3000); // 3秒
     }
 
     function stopAutoPlay() {
-        if (timer) {
-            clearInterval(timer);
-            timer = null;
+        if (autoTimer) {
+            clearInterval(autoTimer);
+            autoTimer = null;
         }
     }
 
@@ -1022,33 +1022,29 @@
         }
     });
 
-    // 触摸滑动（只在PC端有效，移动端用隐藏模式所以不处理触摸滑动）
+    // 触摸滑动（左右划切换索引，无动画）
     let touchStartX = 0;
-    track.addEventListener('touchstart', (e) => {
-        if (isMobile()) return; // 移动端不处理滑动
+    container.addEventListener('touchstart', (e) => {
         touchStartX = e.changedTouches[0].screenX;
         stopAutoPlay();
     }, { passive: true });
 
-    track.addEventListener('touchend', (e) => {
-        if (isMobile()) return;
+    container.addEventListener('touchend', (e) => {
         const touchEndX = e.changedTouches[0].screenX;
         const diff = touchEndX - touchStartX;
-        if (Math.abs(diff) > 50) {
+        if (Math.abs(diff) > 50) { // 滑动阈值
             if (diff > 0) {
-                prevSlide();
+                prevSlide(); // 右滑显示上一张
             } else {
-                nextSlide();
+                nextSlide(); // 左滑显示下一张
             }
         }
         startAutoPlay();
     });
 
-    // 窗口大小变化时重新适应模式
-    window.addEventListener('resize', () => {
-        // 重新应用当前索引的显示方式
-        goToSlide(currentIndex);
-    });
+    // 鼠标悬停暂停
+    container.addEventListener('mouseenter', stopAutoPlay);
+    container.addEventListener('mouseleave', startAutoPlay);
 
     // 预加载图片
     slides.forEach(slide => {
@@ -1056,14 +1052,10 @@
         img.src = slide.img;
     });
 
-    // 初始化显示
-    goToSlide(0);
+    // 启动自动轮播
     startAutoPlay();
-
-    // 鼠标悬停暂停（可选）
-    container.addEventListener('mouseenter', stopAutoPlay);
-    container.addEventListener('mouseleave', startAutoPlay);
 })();
+</script>
 
 <!-- 新闻数据部分 -->
 <script>

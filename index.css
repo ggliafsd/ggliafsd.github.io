@@ -1729,46 +1729,49 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* ---------- 左右滑动轮播样式 ---------- */
+/* ---------------------------------- 重构 section6 轮播（Z轴堆叠） ---------------------------------- */
 .section6-container {
     position: relative;
-    overflow: hidden;
-    overflow-x: hidden;
-    /* 隐藏超出部分 */
-    padding-bottom: 40px;
-    /* 为指示器留空间（根据您的布局微调） */
+    overflow: hidden;           /* 隐藏溢出，保持干净 */
+    /* 原有其他样式（背景、高度等）保持不变 */
 }
 
-/* 轮播轨道 */
 .carousel-track {
-    display: flex;
-    transition: transform 0.5s cubic-bezier(0.25, 0.1, 0.25, 1);
-    /* 平滑缓动 */
-    will-change: transform;
+    display: grid;
+    grid-template-columns: 1fr; /* 单列，所有项堆叠在同一单元格 */
+    grid-template-rows: auto;    /* 高度由内容撑开 */
+    transition: none;            /* 取消横向移动的过渡 */
 }
 
-/* 轮播项（完全复制原样式） */
 .carousel-item {
-    flex: 0 0 100%;
-    /* 每项占满整个容器宽度 */
+    grid-area: 1/1/1/1;          /* 所有项重叠 */
+    opacity: 0;
+    visibility: hidden;          /* 完全隐藏不可见元素（配合过渡） */
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+    pointer-events: none;        /* 防止隐藏项误触 */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    box-sizing: border-box;
+    width: 100%;                 /* 确保宽度占满容器 */
 }
 
-/* 指示器容器 */
+.carousel-item.active {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: auto;        /* 当前项可交互 */
+}
+
+/* 指示器样式保持不变（可微调间距） */
 .carousel-dots {
     position: absolute;
     bottom: 30px;
-    /* 根据需要调整 */
     left: 0;
     width: 100%;
     display: flex;
     justify-content: center;
     gap: 12px;
     z-index: 20;
-    pointer-events: auto;
 }
 
 .carousel-dot {
@@ -1778,12 +1781,6 @@ body::-webkit-scrollbar-thumb {
     border-radius: 50%;
     cursor: pointer;
     transition: background-color 0.3s, transform 0.2s;
-    box-shadow: 0 0 5px rgba(0, 0, 0, 0.3);
-}
-
-.carousel-dot:hover {
-    transform: scale(1.2);
-    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .carousel-dot.active {
@@ -1828,41 +1825,6 @@ body::-webkit-scrollbar-thumb {
     }
 }
 
-/* 移动端时，每个轮播项默认隐藏，但轨道仍为 flex 以便布局 */
-@media screen and (max-width: 767px) {
-    .carousel-item {
-        display: none; /* 默认隐藏，JS 会显示当前项 */
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    /* 确保轨道宽度正确 */
-    .carousel-track {
-        width: 100%;
-        display: flex;
-        flex-wrap: nowrap;
-    }
-
-    /* 调整内部内容，避免溢出 */
-    .section6-bigbox {
-        flex-direction: column;
-        width: 90%;
-        max-width: 100%;
-        box-sizing: border-box;
-    }
-
-    .left-yinhao,
-    .right-yinhao {
-        font-size: 50px;
-    }
-
-    .section6-evaluations {
-        font-size: 16px;
-        word-break: break-word;
-    }
-}
 /* ----------------------------------section7 up------------------------------------- */
 .section7-container {
     height: 100vh;
