@@ -837,16 +837,19 @@ body::-webkit-scrollbar-thumb {
 
 .section2-box .box-right {
     opacity: 0;
-    transform: translateX(20px);
-    transition: opacity 1s cubic-bezier(0.2, 0.9, 0.3, 1),
-        transform 1s cubic-bezier(0.2, 0.9, 0.3, 1);
+    transition: opacity 2s cubic-bezier(0.2, 0.9, 0.3, 1),
+        transform 2s cubic-bezier(0.2, 0.9, 0.3, 1);
 }
 
 /* 当元素进入视口时，通过 JS 添加的类 */
-.section2-box .box-left.box-visible,
-.section2-box .box-right.box-visible {
+.section2-box .box-left.box-visible
+{
     opacity: 1;
     transform: translateX(0);
+}
+
+.section2-box .box-right.box-visible {
+    opacity: 1;
 }
 
 
