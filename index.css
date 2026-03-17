@@ -1820,10 +1820,45 @@ body::-webkit-scrollbar-thumb {
 @media screen and (max-width: 480px) {
     .section6-container {
         padding-bottom: 40px;
+        overflow-x: hidden;
     }
 
     .carousel-item {
         min-height: 250px;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    /* 确保轮播容器隐藏溢出内容 */
+    .section6-container {
+        overflow: hidden !important;
+    }
+
+    /* 强制每个轮播项占满容器宽度 */
+    .carousel-item {
+        flex: 0 0 100% !important;
+        max-width: 100% !important;
+        width: 100% !important;
+        box-sizing: border-box;
+    }
+
+    /* 轨道不换行，宽度自适应 */
+    .carousel-track {
+        display: flex;
+        flex-wrap: nowrap;
+        width: 100%;
+    }
+
+    /* 防止内部内容撑开项目宽度 */
+    .section6-bigbox {
+        max-width: 100%;
+        box-sizing: border-box;
+        padding: 0 10px; /* 适当内边距，避免文字贴边 */
+    }
+
+    /* 长内容自动换行 */
+    .section6-evaluations {
+        word-break: break-word;
     }
 }
 
