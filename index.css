@@ -123,26 +123,24 @@ body::-webkit-scrollbar-thumb {
 
 
 /* 视频加载遮罩层 */
-/* .video-loading-overlay {
+ .video-loading-overlay {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
     background-color: #000;
-    /* 黑色背景 */
-z-index: 1001;
-/* 在视频层下方，但在其他内容上方 */
-display: flex;
-justify-content: center;
-align-items: center;
+    z-index: 1001;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 */
 /* 当视频加载完成时隐藏遮罩 */
-/* .video-loaded .video-loading-overlay {
+.video-loaded .video-loading-overlay {
     display: none;
-} */
+}
 
 /* ----------------------------------入场视频页面top------------------------------------- */
 
@@ -1733,6 +1731,7 @@ align-items: center;
 .section6-container {
     position: relative;
     overflow: hidden;
+    overflow-x: hidden;
     /* 隐藏超出部分 */
     padding-bottom: 40px;
     /* 为指示器留空间（根据您的布局微调） */
