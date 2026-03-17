@@ -1817,73 +1817,13 @@ body::-webkit-scrollbar-thumb {
     }
 }
 
-@media screen and (max-width: 767px) {
+@media screen and (max-width: 480px) {
     .section6-container {
-        height: auto;
-        min-height: 50vh;
-        overflow-x: hidden; /* 防止横向溢出 */
-        padding: 30px 15px;
+        padding-bottom: 40px;
     }
-    
-    .section6-title {
-        font-size: 24px; /* 减小标题 */
-        margin-top: 4vh;
-    }
-    
-    .section6-name {
-        font-size: 16px; /* 减小副标题 */
-        margin-bottom: 30px;
-    }
-    
-    .section6-photo {
-        width: 8vh; /* 进一步减小图片 */
-        margin: 0 auto 20px;
-    }
-    
-    .section6-photo img {
-        width: 100%;
-    }
-    
+
     .carousel-item {
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        min-height: 400px;
-        padding: 10px;
-    }
-    
-    .section6-bigbox {
-        flex-direction: column;
-        gap: 15px;
-        width: 95%;
-        padding: 0 10px;
-    }
-    
-    .left-yinhao, .right-yinhao {
-        font-size: 40px; /* 进一步减小引号 */
-        align-self: center; /* 居中对齐 */
-    }
-    
-    .section6-evaluations {
-        font-size: 14px; /* 进一步减小字体 */
-        line-height: 1.4;
-        width: 100%;
-        text-align: center; /* 文本居中 */
-    }
-    
-    .section6-evaluations p {
-        margin-bottom: 10px; /* 调整段落间距 */
-    }
-    
-    /* 轮播指示器调整 */
-    .carousel-dots {
-        bottom: 20px;
-    }
-    
-    /* 确保内容不会横向溢出 */
-    .section6-evaluations p {
-        word-wrap: break-word;
-        overflow-wrap: break-word;
+        min-height: 250px;
     }
 }
 
