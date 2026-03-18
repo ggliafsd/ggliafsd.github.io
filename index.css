@@ -123,7 +123,7 @@ body::-webkit-scrollbar-thumb {
 
 
 /* 视频加载遮罩层 */
- /* .video-loading-overlay {
+/* .video-loading-overlay {
     position: fixed;
     top: 0;
     left: 0;
@@ -842,8 +842,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 /* 当元素进入视口时，通过 JS 添加的类 */
-.section2-box .box-left.box-visible
-{
+.section2-box .box-left.box-visible {
     opacity: 1;
     transform: translateX(0);
 }
@@ -1735,34 +1734,43 @@ body::-webkit-scrollbar-thumb {
 /* ---------------------------------- 重构 section6 轮播（Z轴堆叠） ---------------------------------- */
 .section6-container {
     position: relative;
-    overflow: hidden;           /* 隐藏溢出，保持干净 */
+    overflow: hidden;
+    /* 隐藏溢出，保持干净 */
     /* 原有其他样式（背景、高度等）保持不变 */
 }
 
 .carousel-track {
     display: grid;
-    grid-template-columns: 1fr; /* 单列，所有项堆叠在同一单元格 */
-    grid-template-rows: auto;    /* 高度由内容撑开 */
-    transition: none;            /* 取消横向移动的过渡 */
+    grid-template-columns: 1fr;
+    /* 单列，所有项堆叠在同一单元格 */
+    grid-template-rows: auto;
+    /* 高度由内容撑开 */
+    transition: none;
+    /* 取消横向移动的过渡 */
 }
 
 .carousel-item {
-    grid-area: 1/1/1/1;          /* 所有项重叠 */
+    grid-area: 1/1/1/1;
+    /* 所有项重叠 */
     opacity: 0;
-    visibility: hidden;          /* 完全隐藏不可见元素（配合过渡） */
+    visibility: hidden;
+    /* 完全隐藏不可见元素（配合过渡） */
     transition: opacity 0.6s ease, visibility 0.6s ease;
-    pointer-events: none;        /* 防止隐藏项误触 */
+    pointer-events: none;
+    /* 防止隐藏项误触 */
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    width: 100%;                 /* 确保宽度占满容器 */
+    width: 100%;
+    /* 确保宽度占满容器 */
 }
 
 .carousel-item.active {
     opacity: 1;
     visibility: visible;
-    pointer-events: auto;        /* 当前项可交互 */
+    pointer-events: auto;
+    /* 当前项可交互 */
 }
 
 /* 指示器样式保持不变（可微调间距） */
@@ -1796,7 +1804,7 @@ body::-webkit-scrollbar-thumb {
     .section6-container {
         height: auto;
         min-height: 70vh;
-        overflow-x:hidden;
+        overflow-x: hidden;
         padding-bottom: 50px;
     }
 
@@ -2042,12 +2050,12 @@ body::-webkit-scrollbar-thumb {
 .section7-container {
     height: 100vh;
     width: 100%;
-    background-color: #000000;
+    background-color: #000;
     text-align: center;
     min-height: 100vh;
     /* 改为最小高度，让内容撑开 */
     height: auto;
-    padding-bottom: 60px;
+    padding-bottom: 100px;
     /* 底部留白 */
 }
 
@@ -2236,7 +2244,7 @@ body::-webkit-scrollbar-thumb {
     border-radius: 40px;
     font-size: 15px;
     font-weight: 500;
-    
+
     /* 优化过渡 */
     transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
 
@@ -2294,4 +2302,144 @@ body::-webkit-scrollbar-thumb {
     .day_num span {
         font-size: 30px;
     }
+}
+
+/* ----------------------------------section7 bottom------------------------------------- */
+/* ----------------------------------section8 up------------------------------------- */
+.section8-container {
+    width: 100%;
+    height: 100vh;
+    background-image: url("./ghost-resources/index/photo/section8-bg.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.section8-container {
+    position: relative;
+    isolation: isolate;
+    /* 创建新堆叠上下文，方便文字浮动 */
+}
+
+/* 通用动画文字卡片样式 — 毛玻璃质感，优雅浮现 */
+.animate-text {
+    padding: 1.2rem 2rem;
+    color: #fed5ba;
+    font-family: 'section2-name-font', 'PingFang SC', 'Microsoft YaHei';
+    font-size: 2rem;
+    font-weight: 500;
+    line-height: 1.7;
+    text-shadow: 0 2px 10px rgba(255, 223, 174, 0.6), 0 0 20px rgba(255, 255, 255, 0.3);
+    max-width: 550px;
+    transition: box-shadow 0.3s ease, border-color 0.3s ease;
+    letter-spacing: 0.02em;
+    word-break: break-word;
+    white-space: pre-wrap;
+}
+
+/* 左下角独白 — 靠近地平线 */
+.section8-quote-left {
+    position: absolute;
+    left: 5%;
+    bottom: 25%;
+    z-index: 25;
+    max-width: 460px;
+}
+
+/* 右上角两句 — 悬挂在星光里 */
+.section8-quote-right {
+    position: absolute;
+    right: 5%;
+    top: 15%;
+    z-index: 25;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+    max-width: 600px;
+    pointer-events: none;
+    /* 让点击穿透至背景，但内部文字区域仍可触发事件 (重置为auto) */
+}
+
+.section8-quote-right .animate-text {
+    pointer-events: auto;
+    /* 保证文字区域可以正常交互（如果有点击需求） */
+    margin: 0;
+}
+
+/* 每一个字符的小容器 — 逐字显现的灵魂 */
+.char {
+    opacity: 0;
+    transition: opacity 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+    display: inline-block;
+    /* 保证空格也能占据宽度，且transform不影响布局 */
+    white-space: pre-wrap;
+    /* 保留连续空格和换行符 (尽管这里没有换行) */
+    font-kerning: normal;
+    font-family: 'section2-name-font', 'PingFang SC', 'Microsoft YaHei';
+    will-change: opacity;
+    transform: translateZ(0);
+    /* 轻量硬件加速 */
+}
+
+.char.visible {
+    opacity: 1;
+}
+
+/* 给空格字符一点点视觉宽度保障 (有些浏览器对单独空格span渲染不稳定) */
+.char:empty {
+    min-width: 0.25em;
+}
+
+/* 但我们的char通过textContent赋值不会empty，故无需额外处理。 */
+
+/* 小屏时调整位置，避免溢出 (用户可自行微调) */
+@media screen and (max-width: 900px) {
+    .section8-quote-left {
+        left: 3%;
+        bottom: 8%;
+        max-width: 350px;
+    }
+
+    .section8-quote-right {
+        right: 3%;
+        top: 8%;
+        max-width: 380px;
+    }
+
+    .animate-text {
+        padding: 1rem 1.5rem;
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-width: 600px) {
+
+    .section8-quote-left,
+    .section8-quote-right {
+        position: absolute;
+        left: 5%;
+        right: 5%;
+        bottom: auto;
+        top: auto;
+        max-width: 90%;
+        margin: 0 auto;
+        text-align: center;
+    }
+
+    .section8-quote-left {
+        bottom: 18%;
+    }
+
+    .section8-quote-right {
+        top: 18%;
+    }
+
+    .animate-text {
+        font-size: 0.5rem;
+    }
+}
+
+/* 增强一下背景图片的亮度，让文字更跳脱（可选） */
+.section8-container {
+    background-blend-mode: overlay;
 }
