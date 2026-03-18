@@ -851,7 +851,6 @@ body::-webkit-scrollbar-thumb {
     opacity: 1;
 }
 
-
 /* ---------底部文字描述----------- */
 .album-intro {
     position: relative;
@@ -2304,6 +2303,7 @@ body::-webkit-scrollbar-thumb {
     }
 }
 
+
 /* ----------------------------------section7 bottom------------------------------------- */
 /* ----------------------------------section8 up------------------------------------- */
 .section8-container {
@@ -2560,3 +2560,4 @@ body::-webkit-scrollbar-thumb {
     z-index: 32;
     scale: 1.05;
 }
+
