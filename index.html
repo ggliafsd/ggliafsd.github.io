@@ -405,38 +405,6 @@
             <!-- 背景覆盖层 -->
             <div class="cover-layer" id="coverLayer"></div>
 
-            <div class="cd-player-wrapper hidden" id="cdPlayerWrapper">
-                <div class="content">
-                    <div class="music">
-                        <span></span><span></span><span></span><span></span><span></span><span></span>
-                    </div>
-                    <div class="legs">
-                        <span></span><span></span><span></span>
-                    </div>
-                    <div class="turntable"></div>
-                    <div class="disc"></div>
-                    <div class="vinyl"></div>
-                    <div class="name"></div>
-                    <div class="wheel"></div>
-                    <div class="buttons">
-                        <span></span><span></span><span></span><span></span><span></span>
-                    </div>
-                    <div class="group">
-                        <div class="circle"></div>
-                        <div class="arm"></div>
-                        <div class="arm"></div>
-                        <div class="head"></div>
-                    </div>
-                    <div class="towers">
-                        <span></span><span></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- 背景音乐：进入 section8 时自动播放，音量 50% -->
-<audio id="section8-bgm" src="./ghost-resources/index/video/xcdh.mp3" preload="auto" loop style="display: none;"></audio>
-        </section>
-
     </main>
 
     <footer>
@@ -1485,43 +1453,44 @@
         })();
     </script>
 
-<script>
-    // 获取背景音乐元素
-const bgm = document.getElementById('section8-bgm');
-const section8 = document.getElementById('philosophy-section') || document.querySelector('.section8-container');
+    <script>
+    (function() {
+        'use strict';
+        // section8 3D覆盖层效果：鼠标移动导致覆盖层反向偏移
+        const section8 = document.querySelector('.section8-container');
+        if (!section8) return;
+        const coverLayer = section8.querySelector('.cover-layer');
+        if (!coverLayer) return;
 
-// 进入 section8 时播放音乐，离开时暂停
-function playBGM() {
-    if (bgm) {
-        bgm.volume = 0.5;          // 一半音量
-        bgm.play().catch(e => {
-            // 浏览器自动播放被阻止时静默失败（可提示用户点击页面）
-            console.log('自动播放被阻止，用户需交互后播放');
-        });
-    }
-}
+        const MAX_OFFSET = 15; // 最大偏移量（像素），可按需调整
 
-function pauseBGM() {
-    if (bgm) {
-        bgm.pause();
-        bgm.currentTime = 0;        // 可选：重置播放进度
-    }
-}
+        function updateOffset(e) {
+            const rect = section8.getBoundingClientRect();
+            // 鼠标相对于容器坐标
+            const mouseX = e.clientX - rect.left;
+            const mouseY = e.clientY - rect.top;
+            // 计算比例（限制在0-1）
+            let ratioX = Math.max(0, Math.min(1, mouseX / rect.width));
+            let ratioY = Math.max(0, Math.min(1, mouseY / rect.height));
 
-// 修改观察者回调，整合原有动画与音乐控制
-const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-        if (entry.isIntersecting) {
-            startSequentialAnimation();   // 原有逐字动画
-            playBGM();                    // 播放音乐
-        } else {
-            resetToInitial();              // 原有重置动画
-            pauseBGM();                    // 暂停音乐
+            // 偏移方向：鼠标右侧时左移（负），左侧时右移（正）；鼠标上方时下移（正），下方时上移（负）
+            let offsetX = (0.5 - ratioX) * 2 * MAX_OFFSET;
+            let offsetY = (0.5 - ratioY) * 2 * MAX_OFFSET;
+
+            coverLayer.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
         }
-    });
-}, { threshold: 0.35, rootMargin: '0px' });
-observer.observe(section8);
+
+        function resetOffset() {
+            coverLayer.style.transform = 'translate(0, 0)';
+        }
+
+        // 监听鼠标移动
+        section8.addEventListener('mousemove', updateOffset);
+        section8.addEventListener('mouseleave', resetOffset);
+    })();
 </script>
+
+
 </body>
 
 </html>
