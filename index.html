@@ -398,12 +398,21 @@
 
             <!-- 右下角发送框 -->
             <div class="message-sender" id="messageSender">
-                <input type="text" id="danmakuInput" placeholder="写下你的感受..." maxlength="40">
+                <input type="text" id="danmakuInput" placeholder="Write down your feelings..." maxlength="40">
                 <button id="sendDanmakuBtn">send</button>
             </div>
 
             <!-- 背景覆盖层 -->
             <div class="cover-layer" id="coverLayer"></div>
+
+            <!-- 隐藏的音频元素 -->
+            <audio id="backgroundMusic" preload="auto">
+                <source src="./ghost-resources/index/video/xcdh.mp3" type="audio/mpeg">
+                <!-- 可以添加多种格式 -->
+                <source src="./ghost-resources/index/music/background-music.ogg" type="audio/ogg">
+                您的浏览器不支持音频播放。
+            </audio>
+        </section>
 
     </main>
 
@@ -1232,303 +1241,318 @@
         })();
     </script>
 
+    <!-- section8 弹幕 -->
     <script>
         (function () {
-    'use strict';
+            'use strict';
 
-    // ---------- 获取元素 ----------
-    const section8 = document.getElementById('philosophy-section') || document.querySelector('.section8-container');
-    if (!section8) return;
+            // ---------- 获取元素 ----------
+            const section8 = document.getElementById('philosophy-section') || document.querySelector('.section8-container');
+            if (!section8) return;
 
-    const quoteLeft = document.querySelector('.section8-quote-left');
-    const quoteRight = document.querySelector('.section8-quote-right');
-    const textBlocks = Array.from(document.querySelectorAll('.animate-text'));
+            const quoteLeft = document.querySelector('.section8-quote-left');
+            const quoteRight = document.querySelector('.section8-quote-right');
+            const textBlocks = Array.from(document.querySelectorAll('.animate-text'));
 
-    const danmakuStage = document.getElementById('danmakuStage');
-    const messageSender = document.getElementById('messageSender');
-    const danmakuInput = document.getElementById('danmakuInput');
-    const sendBtn = document.getElementById('sendDanmakuBtn');
+            const danmakuStage = document.getElementById('danmakuStage');
+            const messageSender = document.getElementById('messageSender');
+            const danmakuInput = document.getElementById('danmakuInput');
+            const sendBtn = document.getElementById('sendDanmakuBtn');
 
-    let activeTimeouts = [];
-    let danmakuInterval = null;
-    let switchToDanmakuTimer = null;
+            let activeTimeouts = [];
+            let danmakuInterval = null;
+            let switchToDanmakuTimer = null;
 
-    const CHAR_INTERVAL = 100;
+            const CHAR_INTERVAL = 100;
 
-    // ---------- 辅助函数 ----------
-    function resetAllTimersAndChars() {
-        activeTimeouts.forEach(id => clearTimeout(id));
-        activeTimeouts = [];
-        if (switchToDanmakuTimer) {
-            clearTimeout(switchToDanmakuTimer);
-            switchToDanmakuTimer = null;
-        }
-        document.querySelectorAll('.animate-text .char').forEach(char => {
-            char.classList.remove('visible');
-        });
-    }
+            // ---------- 辅助函数 ----------
+            function resetAllTimersAndChars() {
+                activeTimeouts.forEach(id => clearTimeout(id));
+                activeTimeouts = [];
+                if (switchToDanmakuTimer) {
+                    clearTimeout(switchToDanmakuTimer);
+                    switchToDanmakuTimer = null;
+                }
+                document.querySelectorAll('.animate-text .char').forEach(char => {
+                    char.classList.remove('visible');
+                });
+            }
 
-    // 拆字函数
-    function splitTextIntoSpans(block) {
-        if (block.dataset.split === 'true') return;
-        const rawText = block.innerText;
-        if (!rawText) return;
-        block.innerHTML = '';
-        Array.from(rawText).forEach(ch => {
-            const span = document.createElement('span');
-            span.className = 'char';
-            span.textContent = ch === ' ' ? ' ' : ch;
-            block.appendChild(span);
-        });
-        block.dataset.split = 'true';
-    }
+            // 拆字函数
+            function splitTextIntoSpans(block) {
+                if (block.dataset.split === 'true') return;
+                const rawText = block.innerText;
+                if (!rawText) return;
+                block.innerHTML = '';
+                Array.from(rawText).forEach(ch => {
+                    const span = document.createElement('span');
+                    span.className = 'char';
+                    span.textContent = ch === ' ' ? ' ' : ch;
+                    block.appendChild(span);
+                });
+                block.dataset.split = 'true';
+            }
 
-    textBlocks.forEach(block => splitTextIntoSpans(block));
+            textBlocks.forEach(block => splitTextIntoSpans(block));
 
-    function animateBlock(block, delay = 0) {
-        const blockTimer = setTimeout(() => {
-            const chars = block.querySelectorAll('.char');
-            if (!chars.length) return;
-            chars.forEach((char, index) => {
-                const charTimer = setTimeout(() => {
-                    char.classList.add('visible');
-                }, index * CHAR_INTERVAL);
-                activeTimeouts.push(charTimer);
-            });
-        }, delay);
-        activeTimeouts.push(blockTimer);
-    }
+            function animateBlock(block, delay = 0) {
+                const blockTimer = setTimeout(() => {
+                    const chars = block.querySelectorAll('.char');
+                    if (!chars.length) return;
+                    chars.forEach((char, index) => {
+                        const charTimer = setTimeout(() => {
+                            char.classList.add('visible');
+                        }, index * CHAR_INTERVAL);
+                        activeTimeouts.push(charTimer);
+                    });
+                }, delay);
+                activeTimeouts.push(blockTimer);
+            }
 
-    function calculateMaxAnimationEnd() {
-        let maxEnd = 0;
-        textBlocks.forEach((block, idx) => {
-            const blockDelay = idx * 3500;
-            const charCount = block.innerText.length;
-            const blockEnd = blockDelay + charCount * CHAR_INTERVAL;
-            if (blockEnd > maxEnd) maxEnd = blockEnd;
-        });
-        return maxEnd;
-    }
+            function calculateMaxAnimationEnd() {
+                let maxEnd = 0;
+                textBlocks.forEach((block, idx) => {
+                    const blockDelay = idx * 3500;
+                    const charCount = block.innerText.length;
+                    const blockEnd = blockDelay + charCount * CHAR_INTERVAL;
+                    if (blockEnd > maxEnd) maxEnd = blockEnd;
+                });
+                return maxEnd;
+            }
 
-    // ---------- 创建音符弹幕（带彩色音符图标，旋转与方向平行）----------
-function createDanmakuItem(text) {
-    if (!danmakuStage || !text.trim()) return;
-    const dan = document.createElement('div');
-    dan.className = 'danmaku-item';
+            // ---------- 创建音符弹幕（带彩色音符图标，旋转与方向平行）----------
+            function createDanmakuItem(text) {
+                if (!danmakuStage || !text.trim()) return;
+                const dan = document.createElement('div');
+                dan.className = 'danmaku-item';
 
-    // 音乐图标池：包含 Font Awesome 音乐图标 和 Unicode 音符符号（备用）
-    const musicIcons = [
-        '♩',  // 四分音符
-        '♪',  // 八分音符
-        '♫',  // 双八分音符
-        '♬',  // 双音符
-        '♭',  // 降调符号
-        '♮',  // 还原符号
-        '♯',  // 升调符号
-        '𝄞',  // 高音谱号
-        '𝄢',  // 低音谱号
-        '♪♪' 
-    ];
-    const iconClass = musicIcons[Math.floor(Math.random() * musicIcons.length)];
-    const noteColor = "#800080";
+                // 音乐图标池：包含 Font Awesome 音乐图标 和 Unicode 音符符号（备用）
+                const musicIcons = [
+                    '♩',  // 四分音符
+                    '♪',  // 八分音符
+                    '♫',  // 双八分音符
+                    '♬',  // 双音符
+                    '♭',  // 降调符号
+                    '♮',  // 还原符号
+                    '♯',  // 升调符号
+                    '𝄞',  // 高音谱号
+                    '𝄢',  // 低音谱号
+                    '♪♪', // 双八分音符
+                    '♫♫', // 双十六分音符
+                    '♬♬', // 双三十二分音符
+                    '♭♭', // 双降号
+                    '♯♯', // 双升号
+                    '𝄞𝄢', // 高低音谱号组合
+                    '𝅘𝅥',  // 全音符
+                    '𝅘𝅥𝅮', // 二分音符
+                    '𝅘𝅥𝅯', // 十六分音符
+                    '𝅘𝅥𝅰', // 三十二分音符
+                    '𝆃',   // 六十四分音符
+                    '𝅘𝅥𝅱', // 一百二十八分音符
+                ];
+                const iconClass = musicIcons[Math.floor(Math.random() * musicIcons.length)];
+                const noteColor = "#800080";
 
-    // 内嵌 HTML：音符图标 + 文字（图标颜色独立）
-    dan.innerHTML = `
+                // 内嵌 HTML：音符图标 + 文字（图标颜色独立）
+                dan.innerHTML = `
         <span class="note-icon">${iconClass}</span>
         ${escapeHtml(text)}
     `;
+                const randomColor = getRandomNoteColor();
+                dan.style.color = randomColor;
 
-    // 根据屏幕宽度动态设置字体大小
-    const screenWidth = window.innerWidth;
-    let fontSize = '16px'; // 默认大小
-    
-    if (screenWidth >= 1200) {
-        fontSize = '25px'; // 大屏幕
-    } else if (screenWidth >= 768) {
-        fontSize = '16px'; // 中等屏幕
-    } else if (screenWidth >= 480) {
-        fontSize = '14px'; // 小屏幕
-    } else if (screenWidth >= 320) {
-        fontSize = '12px'; // 超小屏幕
-    } else if(screenWidth >= 1600){
-        fontSize = "35px";
-    } 
-    
-    dan.style.fontSize = fontSize;
+                // 根据屏幕宽度动态设置字体大小
+                const screenWidth = window.innerWidth;
+                let fontSize = '16px'; // 默认大小
 
-    // 随机起始位置：右侧区域 (right: 0% ~ 35%) ，顶部区域 (top: 5% ~ 50%)
-    const startRight = Math.random() * 35;
-    const startTop = 5 + Math.random() * 45;
-    dan.style.right = startRight + '%';
-    dan.style.top = startTop + '%';
+                if (screenWidth >= 1200) {
+                    fontSize = '25px'; // 大屏幕
+                } else if (screenWidth >= 768) {
+                    fontSize = '16px'; // 中等屏幕
+                } else if (screenWidth >= 480) {
+                    fontSize = '14px'; // 小屏幕
+                } else if (screenWidth >= 320) {
+                    fontSize = '12px'; // 超小屏幕
+                } else if (screenWidth >= 1600) {
+                    fontSize = "35px";
+                }
 
-    // 随机动画时长 7s ~ 14s
-    const duration = 7 + Math.random() * 7;
-    dan.style.animationDuration = duration + 's';
+                dan.style.fontSize = fontSize;
 
-    danmakuStage.appendChild(dan);
+                // 随机起始位置：右侧区域 (right: 0% ~ 35%) ，顶部区域 (top: 5% ~ 50%)
+                const startRight = Math.random() * 35;
+                const startTop = 5 + Math.random() * 45;
+                dan.style.right = startRight + '%';
+                dan.style.top = startTop + '%';
 
-    // 动画结束后移除
-    const removeTimer = setTimeout(() => {
-        if (dan.parentNode) dan.remove();
-    }, duration * 1000);
-    activeTimeouts.push(removeTimer);
-}
+                // 随机动画时长 7s ~ 14s
+                const duration = 7 + Math.random() * 7;
+                dan.style.animationDuration = duration + 's';
 
-// 随机颜色生成（明亮色系）
-function getRandomNoteColor() {
-    const hues = [0, 30, 60, 120, 180, 240, 270, 300, 330]; // 红、橙、黄、绿、青、蓝、紫、品红
-    const hue = hues[Math.floor(Math.random() * hues.length)];
-    // 提高饱和度和亮度，确保颜色鲜明
-    return `hsl(${hue}, 95%, 70%)`; // 饱和度95%，亮度70%
-}
+                danmakuStage.appendChild(dan);
 
-    // 简单防XSS
-    function escapeHtml(str) {
-        return str.replace(/[&<>]/g, function(m) {
-            if (m === '&') return '&amp;';
-            if (m === '<') return '&lt;';
-            if (m === '>') return '&gt;';
-            return m;
-        });
-    }
+                // 动画结束后移除
+                const removeTimer = setTimeout(() => {
+                    if (dan.parentNode) dan.remove();
+                }, duration * 1000);
+                activeTimeouts.push(removeTimer);
+            }
 
-    // ---------- 显示弹幕模式 ----------
-    function showDanmakuMode() {
-        if (quoteLeft) quoteLeft.classList.add('hidden');
-        if (quoteRight) quoteRight.classList.add('hidden');
+            // 随机颜色生成（明亮色系）
+            function getRandomNoteColor() {
+                const hues = [0, 30, 60, 120, 180, 240, 270, 300, 330]; // 红、橙、黄、绿、青、蓝、紫、品红
+                const hue = hues[Math.floor(Math.random() * hues.length)];
+                // 提高饱和度和亮度，确保颜色鲜明
+                return `hsl(${hue}, 95%, 70%)`; // 饱和度95%，亮度70%
+            }
 
-        if (danmakuStage) danmakuStage.classList.add('active');
-        if (messageSender) messageSender.classList.add('active');
+            // 简单防XSS
+            function escapeHtml(str) {
+                return str.replace(/[&<>]/g, function (m) {
+                    if (m === '&') return '&amp;';
+                    if (m === '<') return '&lt;';
+                    if (m === '>') return '&gt;';
+                    return m;
+                });
+            }
 
-        // 清空旧弹幕，添加初始氛围弹幕
-        if (danmakuStage) {
-            danmakuStage.innerHTML = '';
-            const initMsgs = [
-                '星辰大海', '没语季节', '宇宙无敌', '面包勇敢飞',
-                '黄霄雲', '魔星永相随', '音乐永恒', '现场之王'
-            ];
-            initMsgs.forEach(msg => createDanmakuItem(msg));
-        }
+            // ---------- 显示弹幕模式 ----------
+            function showDanmakuMode() {
+                if (quoteLeft) quoteLeft.classList.add('hidden');
+                if (quoteRight) quoteRight.classList.add('hidden');
 
-        // 启动自动弹幕 (每 5 秒)
-        if (danmakuInterval) clearInterval(danmakuInterval);
-        danmakuInterval = setInterval(() => {
-            if (!danmakuStage || !danmakuStage.classList.contains('active')) return;
-            const autoMsgs = [
-                '热爱音乐', '声音如光', '一路生花', '星辰大海',
-                '天籁之音', '热血舞台', '钢琴诗人', '实力唱将',
-                '行走的CD', '没语季节', '宇宙无敌号'
-            ];
-            const randomMsg = autoMsgs[Math.floor(Math.random() * autoMsgs.length)];
-            createDanmakuItem(randomMsg);
-        }, 1000);
-    }
+                if (danmakuStage) danmakuStage.classList.add('active');
+                if (messageSender) messageSender.classList.add('active');
 
-    // 重置为初始状态
-    function resetToInitial() {
-        resetAllTimersAndChars();
-        if (danmakuInterval) {
-            clearInterval(danmakuInterval);
-            danmakuInterval = null;
-        }
-        if (quoteLeft) quoteLeft.classList.remove('hidden');
-        if (quoteRight) quoteRight.classList.remove('hidden');
-        if (danmakuStage) {
-            danmakuStage.classList.remove('active');
-            danmakuStage.innerHTML = '';
-        }
-        if (messageSender) messageSender.classList.remove('active');
-    }
+                // 清空旧弹幕，添加初始氛围弹幕
+                if (danmakuStage) {
+                    danmakuStage.innerHTML = '';
+                    const initMsgs = [
+                        '星辰大海', '没语季节', '宇宙无敌', '面包勇敢飞',
+                        '黄霄雲', '魔星永相随', '音乐永恒', '现场之王'
+                    ];
+                    initMsgs.forEach(msg => createDanmakuItem(msg));
+                }
 
-    // ---------- 顺序动画，结束后进入弹幕模式 ----------
-    function startSequentialAnimation() {
-        resetToInitial();
-        textBlocks.forEach(block => splitTextIntoSpans(block));
-        textBlocks.forEach((block, index) => {
-            const blockDelay = index * 3500;
-            animateBlock(block, blockDelay);
-        });
-        const maxAnimationEnd = calculateMaxAnimationEnd();
-        const switchDelay = maxAnimationEnd + 5000;
-        switchToDanmakuTimer = setTimeout(() => {
-            showDanmakuMode();
-            switchToDanmakuTimer = null;
-        }, switchDelay);
-        activeTimeouts.push(switchToDanmakuTimer);
-    }
+                // 启动自动弹幕 (每 5 秒)
+                if (danmakuInterval) clearInterval(danmakuInterval);
+                danmakuInterval = setInterval(() => {
+                    if (!danmakuStage || !danmakuStage.classList.contains('active')) return;
+                    const autoMsgs = [
+                        '热爱音乐', '声音如光', '一路生花', '星辰大海',
+                        '天籁之音', '热血舞台', '钢琴诗人', '实力唱将',
+                        '行走的CD', '没语季节', '宇宙无敌号'
+                    ];
+                    const randomMsg = autoMsgs[Math.floor(Math.random() * autoMsgs.length)];
+                    createDanmakuItem(randomMsg);
+                }, 1000);
+            }
 
-    // 监听可视区域
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                startSequentialAnimation();
-            } else {
+            // 重置为初始状态
+            function resetToInitial() {
+                resetAllTimersAndChars();
+                if (danmakuInterval) {
+                    clearInterval(danmakuInterval);
+                    danmakuInterval = null;
+                }
+                if (quoteLeft) quoteLeft.classList.remove('hidden');
+                if (quoteRight) quoteRight.classList.remove('hidden');
+                if (danmakuStage) {
+                    danmakuStage.classList.remove('active');
+                    danmakuStage.innerHTML = '';
+                }
+                if (messageSender) messageSender.classList.remove('active');
+            }
+
+            // ---------- 顺序动画，结束后进入弹幕模式 ----------
+            function startSequentialAnimation() {
                 resetToInitial();
+                textBlocks.forEach(block => splitTextIntoSpans(block));
+                textBlocks.forEach((block, index) => {
+                    const blockDelay = index * 3500;
+                    animateBlock(block, blockDelay);
+                });
+                const maxAnimationEnd = calculateMaxAnimationEnd();
+                const switchDelay = maxAnimationEnd + 5000;
+                switchToDanmakuTimer = setTimeout(() => {
+                    showDanmakuMode();
+                    switchToDanmakuTimer = null;
+                }, switchDelay);
+                activeTimeouts.push(switchToDanmakuTimer);
             }
-        });
-    }, { threshold: 0.35, rootMargin: '0px' });
-    observer.observe(section8);
 
-    // 发送弹幕事件
-    if (sendBtn && danmakuInput) {
-        sendBtn.addEventListener('click', () => {
-            if (!danmakuStage || !danmakuStage.classList.contains('active')) return;
-            const text = danmakuInput.value.trim();
-            if (text) {
-                createDanmakuItem(text);
-                danmakuInput.value = '';
+            // 监听可视区域
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        startSequentialAnimation();
+                    } else {
+                        resetToInitial();
+                    }
+                });
+            }, { threshold: 0.35, rootMargin: '0px' });
+            observer.observe(section8);
+
+            // 发送弹幕事件
+            if (sendBtn && danmakuInput) {
+                sendBtn.addEventListener('click', () => {
+                    if (!danmakuStage || !danmakuStage.classList.contains('active')) return;
+                    const text = danmakuInput.value.trim();
+                    if (text) {
+                        createDanmakuItem(text);
+                        danmakuInput.value = '';
+                    }
+                });
+                danmakuInput.addEventListener('keypress', (e) => {
+                    if (e.key === 'Enter') sendBtn.click();
+                });
             }
-        });
-        danmakuInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') sendBtn.click();
-        });
-    }
 
-    // 降级处理
-    if (!window.IntersectionObserver) {
-        document.querySelectorAll('.animate-text .char').forEach(char => char.classList.add('visible'));
-    }
-})();
+            // 降级处理
+            if (!window.IntersectionObserver) {
+                document.querySelectorAll('.animate-text .char').forEach(char => char.classList.add('visible'));
+            }
+        })();
     </script>
 
     <!-- section8中的角色3D动态偏移效果 -->
     <script>
-    (function() {
-        'use strict';
-        // section8 3D覆盖层效果：鼠标移动导致覆盖层反向偏移
-        const section8 = document.querySelector('.section8-container');
-        if (!section8) return;
-        const coverLayer = section8.querySelector('.cover-layer');
-        if (!coverLayer) return;
+        (function () {
+            'use strict';
+            // section8 3D覆盖层效果：鼠标移动导致覆盖层反向偏移
+            const section8 = document.querySelector('.section8-container');
+            if (!section8) return;
+            const coverLayer = section8.querySelector('.cover-layer');
+            if (!coverLayer) return;
 
-        const MAX_OFFSET = 15; // 最大偏移量（像素），可按需调整
+            const MAX_OFFSET = 15; // 最大偏移量（像素），可按需调整
 
-        function updateOffset(e) {
-            const rect = section8.getBoundingClientRect();
-            // 鼠标相对于容器坐标
-            const mouseX = e.clientX - rect.left;
-            const mouseY = e.clientY - rect.top;
-            // 计算比例（限制在0-1）
-            let ratioX = Math.max(0, Math.min(1, mouseX / rect.width));
-            let ratioY = Math.max(0, Math.min(1, mouseY / rect.height));
+            function updateOffset(e) {
+                const rect = section8.getBoundingClientRect();
+                // 鼠标相对于容器坐标
+                const mouseX = e.clientX - rect.left;
+                const mouseY = e.clientY - rect.top;
+                // 计算比例（限制在0-1）
+                let ratioX = Math.max(0, Math.min(1, mouseX / rect.width));
+                let ratioY = Math.max(0, Math.min(1, mouseY / rect.height));
 
-            // 偏移方向：鼠标右侧时左移（负），左侧时右移（正）；鼠标上方时下移（正），下方时上移（负）
-            let offsetX = (0.5 - ratioX) * 2 * MAX_OFFSET;
-            let offsetY = (0.5 - ratioY) * 2 * MAX_OFFSET;
+                // 偏移方向：鼠标右侧时左移（负），左侧时右移（正）；鼠标上方时下移（正），下方时上移（负）
+                let offsetX = (0.5 - ratioX) * 2 * MAX_OFFSET;
+                let offsetY = (0.5 - ratioY) * 2 * MAX_OFFSET;
 
-            coverLayer.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
-        }
+                coverLayer.style.transform = `translate(${offsetX}px, ${offsetY}px)`;
+            }
 
-        function resetOffset() {
-            coverLayer.style.transform = 'translate(0, 0)';
-        }
+            function resetOffset() {
+                coverLayer.style.transform = 'translate(0, 0)';
+            }
 
-        // 监听鼠标移动
-        section8.addEventListener('mousemove', updateOffset);
-        section8.addEventListener('mouseleave', resetOffset);
-    })();
-</script>
+            // 监听鼠标移动
+            section8.addEventListener('mousemove', updateOffset);
+            section8.addEventListener('mouseleave', resetOffset);
+        })();
+    </script>
+
 
 
 
