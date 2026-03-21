@@ -1553,6 +1553,42 @@
         })();
     </script>
 
+<script>
+    // 背景音乐控制（点击覆盖层切换播放/暂停，悬浮时显示提示）
+(function() {
+    const audio = document.getElementById('backgroundMusic');
+    const cover = document.querySelector('.cover-layer');
+    if (!audio || !cover) return;
+
+    // 更新悬浮提示文本
+    function updateTooltip() {
+        const isPlaying = !audio.paused && !audio.ended;
+    }
+
+    // 初始设置提示
+    updateTooltip();
+
+    // 监听音频播放/暂停事件，动态改变提示
+    audio.addEventListener('play', updateTooltip);
+    audio.addEventListener('pause', updateTooltip);
+    audio.addEventListener('ended', updateTooltip);
+
+    // 点击覆盖层：切换播放/暂停
+    cover.addEventListener('click', function(e) {
+        e.stopPropagation();   // 避免冒泡干扰
+        if (audio.paused) {
+            audio.play().catch(err => {
+                // 浏览器可能因自动播放策略拒绝，静默处理
+                console.warn('音频播放失败:', err);
+                cover.title = '点击播放（需用户交互）';
+            });
+        } else {
+            audio.pause();
+        }
+        updateTooltip(); 
+    });
+})();
+</script>
 
 
 

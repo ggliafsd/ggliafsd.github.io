@@ -2726,3 +2726,15 @@ body::-webkit-scrollbar-thumb {
     z-index: 32;
     scale: 1.05;
 }
+
+/* 确保覆盖层可点击，并显示手型光标 */
+.cover-layer {
+    pointer-events: auto !important;   /* 覆盖原样式中的 pointer-events: none */
+    cursor: pointer;
+    transition: filter 0.2s ease;
+}
+
+/* 悬浮时轻微提亮，提升交互感（可选） */
+.cover-layer:hover {
+    filter: brightness(1.2);
+}
