@@ -265,12 +265,11 @@ body::-webkit-scrollbar-thumb {
 
 }
 
-
 .navbar-whole {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 5px auto;
+    margin: 0px auto;
     text-align: center;
     background-color: #000000;
 }
@@ -510,6 +509,10 @@ body::-webkit-scrollbar-thumb {
 /* 小屏响应式（≤1100px） */
 @media screen and (max-width: 1100px) {
 
+    .navbar{
+        position:static;
+        margin:0;
+    }
     /* 隐藏所有菜单项（.nav-item），但保留 .nav-center（logo） */
     .navbar-whole .nav-item {
         display: none;
@@ -2341,8 +2344,8 @@ body::-webkit-scrollbar-thumb {
 /* 左下角独白 — 靠近地平线 */
 .section8-quote-left {
     position: absolute;
-    left: 5%;
-    bottom: 25%;
+    left: 2%;
+    bottom: 10%;
     z-index: 25;
     max-width: 460px;
 }
@@ -2350,22 +2353,16 @@ body::-webkit-scrollbar-thumb {
 /* 右上角两句 — 悬挂在星光里 */
 .section8-quote-right {
     position: absolute;
-    right: 5%;
-    top: 15%;
+    right: 2%;
+    top: 10%;
     z-index: 25;
     display: flex;
     flex-direction: column;
-    gap: 3rem;
+    font-size: 15px;
     max-width: 600px;
     pointer-events: none;
-    /* 让点击穿透至背景，但内部文字区域仍可触发事件 (重置为auto) */
 }
 
-.section8-quote-right .animate-text {
-    pointer-events: auto;
-    /* 保证文字区域可以正常交互（如果有点击需求） */
-    margin: 0;
-}
 
 /* 每一个字符的小容器 — 逐字显现的灵魂 */
 .char {
@@ -2394,99 +2391,194 @@ body::-webkit-scrollbar-thumb {
 /* 但我们的char通过textContent赋值不会empty，故无需额外处理。 */
 
 /* 小屏时调整位置，避免溢出 (用户可自行微调) */
-@media screen and (max-width: 900px) {
+/* 确保小屏时位置不重叠 */
+@media screen and (max-width: 1000px) {
+    .section8-quote-right .animate-text {
+        font-size: 10px !important;  /* 强制应用小字体 */
+    }
     .section8-quote-left {
-        left: 3%;
-        bottom: 8%;
-        max-width: 350px;
+        bottom: 12%;
+        max-width: 40%;
+        font-size: 20px;
     }
-
     .section8-quote-right {
-        right: 3%;
         top: 8%;
-        max-width: 380px;
-    }
-
-    .animate-text {
-        padding: 1rem 1.5rem;
-        font-size: 1rem;
+        max-width: 40%;
+        font-size: 20px;
     }
 }
 
 @media screen and (max-width: 600px) {
-
+    .section8-quote-right .animate-text {
+        font-size: 10px !important;  /* 强制应用小字体 */
+    }
     .section8-quote-left,
     .section8-quote-right {
-        position: absolute;
-        left: 5%;
-        right: 5%;
-        bottom: auto;
-        top: auto;
-        max-width: 90%;
-        margin: 0 auto;
-        text-align: center;
+        max-width: 40%;
+        margin: 1rem auto;
+        font-size: 10px;
     }
-
     .section8-quote-left {
-        bottom: 18%;
+        order: 2;
     }
-
     .section8-quote-right {
-        top: 18%;
+        order: 1;
     }
-
-    .animate-text {
-        font-size: 0.5rem;
+    .section8-container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding: 2rem 0;
+    }
+    .section8-quote-right{
+        right: 3%;
+        top: 8%;
+    }
+    .section8-quote-left{
+        left: 2%;
+        bottom: 10%;
     }
 }
 
+@media screen and (max-width: 400px) {
+    .section8-quote-right .animate-text {
+        font-size: 5px !important;  /* 强制应用小字体 */
+    }
+    .section8-quote-right{
+        right: 1%;
+        font-size: 5px;
+        top: 8%;
+    }
+    .section8-quote-left{
+        left: 1%;
+        font-size: 5px;
+        bottom: 10%;
+    }
+}
+ 
 /* 增强一下背景图片的亮度，让文字更跳脱（可选） */
 .section8-container {
     background-blend-mode: overlay;
 }
 
-/* ===== section8 弹幕与输入框样式 ===== */
+/* 弹幕舞台容器（保持不变） */
 .danmaku-stage {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
-    height: 40%;
-    overflow: hidden;
+    height: 100%;
+    overflow: visible;
     pointer-events: none;
     z-index: 30;
     display: none;
-    /* 默认隐藏 */
 }
-
 .danmaku-stage.active {
     display: block;
 }
 
+/* 弹幕项：旋转 -15deg 使长轴与运动方向平行 */
 .danmaku-item {
     position: absolute;
-    left: 100%;
-    color: #fed5ba;
-    font-size: 1.4rem;
-    font-family: 'section2-name-font', 'PingFang SC', sans-serif;
     white-space: nowrap;
-    padding: 4px 12px;
-    background: transparent;
-    animation: danmakuScroll 9s linear forwards;
+    font-family: 'section2-name-font', 'PingFang SC', 'Font Awesome 6 Free', sans-serif;
+    font-size: 16px;
+    font-style: italic;
+    font-weight: 400;
+    /* text-shadow: 
+        0 0 5px rgba(255, 255, 255, 0.8),   
+        0 0 10px rgba(175, 146, 105, 0.9),   
+        0 0 15px rgba(173, 105, 175, 0.6); */
+    /* background: transparent; */
+    padding: 6px 14px;
+    letter-spacing: 1px;
     pointer-events: none;
     z-index: 32;
+    transform: rotate(-15deg);
+    animation: diagonalFloat linear forwards;
+    will-change: transform;
 }
 
-@keyframes danmakuScroll {
+/* 音符图标样式 */
+.danmaku-item .note-icon {
+    margin-right: 8px;
+    font-size: 1.4rem;
+    display: inline-block;
+    color: #fed5ba; /* 或使用currentColor，但确保父元素颜色足够鲜明 */
+    text-shadow: 
+        0 0 3px rgba(255, 255, 255, 0.8),
+        0 0 6px currentColor;
+}
+
+/* 斜向飘移关键帧：只改变位移，保持旋转角度不变 */
+@keyframes diagonalFloat {
     0% {
-        transform: translateX(0);
+        transform: translate(0, 0) rotate(-15deg);
+        opacity: 1;
     }
-
     100% {
-        transform: translateX(-110vw);
+        transform: translate(-110vw, 80vh) rotate(-15deg);
+        opacity: 0;
     }
+}
 
-    /* 完全移出左边界 */
+.animate-text {
+    transition: font-size 0.2s ease;
+    /* 平滑变化 */
+}
+
+@media screen and (min-width: 1600px) {
+    .danmaku-item {
+        font-size: 35px; /* 桌面端稍大一些 */
+    }
+    .danmaku-item .note-icon {
+        font-size: 1.8rem; /* 图标也相应增大 */
+    }
+}
+
+/* 大屏幕（桌面端） */
+@media screen and (min-width: 1200px) {
+    .danmaku-item {
+        font-size: 25px; /* 桌面端稍大一些 */
+    }
+    .danmaku-item .note-icon {
+        font-size: 1.6rem; /* 图标也相应增大 */
+    }
+}
+
+/* 中等屏幕 */
+@media screen and (min-width: 768px) and (max-width: 1199px) {
+    .danmaku-item {
+        font-size: 16px; /* 中等屏幕适中大小 */
+    }
+    .danmaku-item .note-icon {
+        font-size: 1.4rem;
+    }
+}
+
+/* 小屏幕（手机端） */
+@media screen and (max-width: 767px) {
+    .danmaku-item {
+        font-size: 14px; /* 手机端较小 */
+        padding: 4px 10px; /* 内边距也相应减小 */
+    }
+    .danmaku-item .note-icon {
+        font-size: 1.2rem;
+        margin-right: 6px;
+    }
+}
+
+/* 超小屏幕 */
+@media screen and (max-width: 480px) {
+    .danmaku-item {
+        font-size: 12px; /* 超小屏幕最小 */
+        padding: 3px 8px;
+    }
+    .danmaku-item .note-icon {
+        font-size: 1rem;
+        margin-right: 4px;
+    }
 }
 
 .message-sender {
@@ -2506,13 +2598,14 @@ body::-webkit-scrollbar-thumb {
 }
 
 .message-sender input {
+    border: none;
     background: transparent;
     padding: 8px 12px;
     color: #fed5ba;
     font-size: 1.1rem;
     min-width: 200px;
     outline: none;
-    font-family: 'section2-name-font', sans-serif;
+    font-family: 'Oswald-1', sans-serif;
 }
 
 .message-sender input::placeholder {
@@ -2521,6 +2614,7 @@ body::-webkit-scrollbar-thumb {
 }
 
 .message-sender button {
+    border: none;
     background: transparent;
     color: white;
     padding: 8px 22px;
@@ -2531,7 +2625,60 @@ body::-webkit-scrollbar-thumb {
 }
 
 .message-sender button:hover {
-    transform: scale(1.03);
+    transform: scale(1.4);
+}
+
+@media screen and (max-width: 768px) {
+    .message-sender {
+        bottom: 5%;
+        right: 1%;
+        padding: 5px 12px;
+        gap: 5px;
+    }
+    
+    .message-sender input {
+        font-size: 0.6rem;
+        min-width: 120px;
+        padding: 6px 10px;
+    }
+    
+    .message-sender input::placeholder {
+        font-size: 0.6rem;
+    }
+    
+    .message-sender button {
+        font-size: 0.6rem;
+        padding: 6px 16px;
+    }
+}
+
+/* 小屏幕（手机） */
+@media screen and (max-width: 480px) {
+    .message-sender {
+        bottom: 3%;
+        right: 1%;
+        padding: 4px 10px;
+        gap: 3px;
+        flex-wrap: wrap; /* 允许换行以适应小屏幕 */
+        max-width: 60%;
+    }
+    
+    .message-sender input {
+        font-size: 0.4rem;
+        min-width: 90px;
+        padding: 5px 8px;
+        margin-bottom: 5px; /* 如果换行，给输入框下方留点空间 */
+    }
+    
+    .message-sender input::placeholder {
+        font-size: 0.4rem;
+    }
+    
+    .message-sender button {
+        font-size: 0.4rem;
+        padding: 5px 12px;
+        white-space: nowrap; /* 防止按钮文字换行 */
+    }
 }
 
 /* 隐藏文字块的辅助类 */
@@ -2540,7 +2687,26 @@ body::-webkit-scrollbar-thumb {
     display: none !important;
 }
 
+/* 音乐播放状态指示器 */
+.music-playing .cover-layer::after {
+    content: '🎵';
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    font-size: 20px;
+    z-index: 33;
+    animation: pulse 1s infinite alternate;
+}
 
+@keyframes pulse {
+    from { transform: scale(1); opacity: 0.7; }
+    to { transform: scale(1.2); opacity: 1; }
+}
+
+/* 播放时遮罩层的轻微亮度变化 */
+.music-playing .cover-layer {
+    filter: brightness(1.05);
+}
 
 /* ===== 背景覆盖层 ===== */
 .cover-layer {
@@ -2561,3 +2727,15 @@ body::-webkit-scrollbar-thumb {
     scale: 1.05;
 }
 
+
+/* 确保覆盖层可点击，并显示手型光标 */
+.cover-layer {
+    pointer-events: auto !important;   /* 覆盖原样式中的 pointer-events: none */
+    cursor: pointer;
+    transition: filter 0.2s ease;
+}
+
+/* 悬浮时轻微提亮，提升交互感（可选） */
+.cover-layer:hover {
+    filter: brightness(1.2);
+}
